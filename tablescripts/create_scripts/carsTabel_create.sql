@@ -1,7 +1,7 @@
 USE [UnblockMe]
 GO
 
-/****** Object:  Table [dbo].[Cars]    Script Date: 6/30/2021 11:08:42 AM ******/
+/****** Object:  Table [dbo].[Cars]    Script Date: 6/30/2021 2:36:04 PM ******/
 SET ANSI_NULLS ON
 GO
 
@@ -29,7 +29,7 @@ GO
 ALTER TABLE [dbo].[Cars] CHECK CONSTRAINT [FK_Cars_ref_to_Users]
 GO
 
-ALTER TABLE [dbo].[Cars]  WITH CHECK ADD  CONSTRAINT [CK_Colision_Cars_Constraint] CHECK  (([license_plate]<>[blocks_car] AND [blocks_car]<>[is_blocked_by_car]))
+ALTER TABLE [dbo].[Cars]  WITH CHECK ADD  CONSTRAINT [CK_Colision_Cars_Constraint] CHECK  (([license_plate]<>[blocks_car] AND [blocks_car]<>[is_blocked_by_car] AND [license_plate]<>[is_blocked_by_car]))
 GO
 
 ALTER TABLE [dbo].[Cars] CHECK CONSTRAINT [CK_Colision_Cars_Constraint]
