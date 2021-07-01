@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kvoHw9+woyWzmgdimCQoW7+Y38JwSW+W1z5C/rWTsFYSbp5L0OweQFNYtHn5B2JPCY+QpcxKiuD11cPrk/9STw==",
+  "dgSpecHash": "2sGVUGy8MXaiJyJtBqBmImC7NGnkEJUokwoHpBTuRvaBsVpT+7uz9XH9o5t2jx/JwebpIDDEcgGoU/FjyUScqA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Robert\\Desktop\\UnblockMe\\UnblockMe\\UnblockMe\\UnblockMe.csproj",
+  "projectFilePath": "C:\\Users\\Robert\\Desktop\\UnblockMe_SummerCamp\\UnblockMe\\UnblockMe\\UnblockMe.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Robert\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.15\\microsoft.aspnetcore.cryptography.internal.3.1.15.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.15\\microsoft.aspnetcore.cryptography.keyderivation.3.1.15.nupkg.sha512",
