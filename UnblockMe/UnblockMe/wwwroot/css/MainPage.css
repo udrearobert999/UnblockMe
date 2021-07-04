@@ -1,0 +1,18 @@
+﻿table {
+    margin: auto;
+    border: 1px solid #333;
+}
+td {
+    border: 1px solid #333;
+}
+
+thead,
+tfoot {
+    background-color: #333;
+    color: #fff;
+}
+form{
+    text-align:center;
+    margin-bottom: 50px;
+    margin-top:100px;
+}

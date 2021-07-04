@@ -1,0 +1,65 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using UnblockMe.Models;
+@model List<Cars>
+@{
+    ViewData["Title"] = "Main Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width= , initial-scale=1.0">
+    <title>UnblockMe - @ViewData["Title"]</title>
+    <link href="~/css/MainPage.css" rel="stylesheet" />
+</head>
+<body>
+    <form method="get" asp-controller="MainPage" asp-action="Index" id="form1">
+            <label for="licensePlate">Enter license plate:</label>
+            <input type="text" placeholder="License Plate" name="licensePlate" id="licensePlate" />
+            <button type="submit">
+                Search
+            </button>
+        
+    </form>
+
+    @if (Model.Count() == 0)
+    {
+        <div class="car-notfound" style="text-align: center;">
+            <p>
+                <b>Car not found!</b>
+            </p>
+        </div>
+    }
+    else
+    {
+        <table class="car_tabel">
+            <thead>
+                <tr>
+                    <th>License Plate</th>
+                    <th>Brand</th>
+                    <th>Color</th>
+                    <th>OwnerId</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.LicensePlate</td>
+                        <td>@item.Brand</td>
+                        <td>@item.Color</td>
+                        <td>@item.OwnerId</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+        </table>
+
+    }
+</body>
+</html>
+

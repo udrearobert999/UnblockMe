@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnblockMe.Data;
+using UnblockMe.Models;
 
 namespace UnblockMe
 {
@@ -38,7 +39,11 @@ namespace UnblockMe
             {
                 options.Password.RequireNonAlphanumeric = false;
             });
-            
+           services.AddDbContext<UnblockMeContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+           
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
