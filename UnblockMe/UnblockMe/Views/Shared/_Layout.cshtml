@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,12 +32,17 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TestPage">TestPage</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="TestPage">Test Page</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="MainPage" asp-action="Index">MainPage</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="MainPage" asp-action="Index">Main Page</a>
                         </li>
-
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="AddCar" asp-action="Index">Add Car</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
@@ -53,7 +63,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
-    
+
 </body>
 </html>
 

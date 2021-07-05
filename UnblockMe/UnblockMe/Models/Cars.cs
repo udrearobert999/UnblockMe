@@ -16,6 +16,7 @@ namespace UnblockMe.Models
         public string IsBlockedByCar { get; set; }
         public Guid OwnerId { get; set; }
 
+
         public virtual Users Owner { get; set; }
     }
 }

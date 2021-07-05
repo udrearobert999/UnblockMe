@@ -40,7 +40,10 @@
                     <th>License Plate</th>
                     <th>Brand</th>
                     <th>Color</th>
-                    <th>OwnerId</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,7 +53,10 @@
                         <td>@item.LicensePlate</td>
                         <td>@item.Brand</td>
                         <td>@item.Color</td>
-                        <td>@item.OwnerId</td>
+                        <td>@item.Owner.FirstName</td>
+                        <td>@item.Owner.LastName</td>
+                        <td>@item.Owner.Email</td>
+                        <td>@item.Owner.PhoneNumber</td>
                     </tr>
                 }
             </tbody>

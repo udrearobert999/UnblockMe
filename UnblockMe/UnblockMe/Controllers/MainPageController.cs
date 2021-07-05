@@ -19,17 +19,22 @@ namespace UnblockMe.Controllers
         {
             _logger = logger;
             _dbContext = appData;
+       
         }
 
         public IActionResult Index()
         {
+
             return View();
         }      
+
         [HttpGet]
         public IActionResult Index(string licensePlate)
         {
 
             var findPartialLPlates = _dbContext.Cars.Where(lp => lp.LicensePlate.Contains(licensePlate)||licensePlate==null).ToList();
+            foreach (var item in findPartialLPlates)
+                item.Owner = _dbContext.Users.Find(item.OwnerId);
             return View(findPartialLPlates);
         }
     }

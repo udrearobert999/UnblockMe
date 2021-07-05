@@ -1,0 +1,6 @@
+﻿@model Cars
+
+@using (Html.BeginForm("Index", "AddCar", FormMethod.Post))
+{
+    @Html.TextBoxFor(c => c.LicensePlate)
+}
