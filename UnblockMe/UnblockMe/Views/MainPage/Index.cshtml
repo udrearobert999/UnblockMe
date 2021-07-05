@@ -15,15 +15,16 @@
     <link href="~/css/MainPage.css" rel="stylesheet" />
 </head>
 <body>
-    <form method="get" asp-controller="MainPage" asp-action="Index" id="form1">
+    <div class="form-container">
+        <form method="get" asp-controller="MainPage" asp-action="Index" id="form1">
             <label for="licensePlate">Enter license plate:</label>
             <input type="text" placeholder="License Plate" name="licensePlate" id="licensePlate" />
             <button type="submit">
                 Search
             </button>
-        
-    </form>
 
+        </form>
+    </div>
     @if (Model.Count() == 0)
     {
         <div class="car-notfound" style="text-align: center;">
@@ -34,36 +35,38 @@
     }
     else
     {
-        <table class="car_tabel">
-            <thead>
-                <tr>
-                    <th>License Plate</th>
-                    <th>Brand</th>
-                    <th>Color</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+        <div class="tabel-contaier">
+            <table class="car_tabel">
+                <thead>
                     <tr>
-                        <td>@item.LicensePlate</td>
-                        <td>@item.Brand</td>
-                        <td>@item.Color</td>
-                        <td>@item.Owner?.FirstName</td>
-                        <td>@item.Owner?.LastName</td>
-                        <td>@item.Owner?.Email</td>
-                        <td>@item.Owner?.PhoneNumber</td>
+                        <th>License Plate</th>
+                        <th>Brand</th>
+                        <th>Color</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
                     </tr>
-                }
-            </tbody>
-            <tfoot>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.LicensePlate</td>
+                            <td>@item.Brand</td>
+                            <td>@item.Color</td>
+                            <td>@item.Owner?.FirstName</td>
+                            <td>@item.Owner?.LastName</td>
+                            <td>@item.Owner?.Email</td>
+                            <td>@item.Owner?.PhoneNumber</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
 
-            </tfoot>
-        </table>
+                </tfoot>
+            </table>
+        </div>
 
     }
 </body>
