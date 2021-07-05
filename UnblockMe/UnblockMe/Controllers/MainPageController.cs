@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace UnblockMe.Controllers
             _dbContext = appData;
        
         }
-
+        
         public IActionResult Index()
         {
 
@@ -32,9 +33,13 @@ namespace UnblockMe.Controllers
         public IActionResult Index(string licensePlate)
         {
 
-            var findPartialLPlates = _dbContext.Cars.Where(lp => lp.LicensePlate.Contains(licensePlate)||licensePlate==null).ToList();
-            foreach (var item in findPartialLPlates)
-                item.Owner = _dbContext.Users.Find(item.OwnerId);
+            var findPartialLPlates = _dbContext
+                .Cars
+                .Include(car => car.Owner)
+                .Where(car => car.LicensePlate.Contains(licensePlate)||licensePlate==null)
+                .ToList();
+
+
             return View(findPartialLPlates);
         }
     }
