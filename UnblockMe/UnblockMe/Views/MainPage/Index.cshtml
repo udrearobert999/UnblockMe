@@ -53,10 +53,10 @@
                         <td>@item.LicensePlate</td>
                         <td>@item.Brand</td>
                         <td>@item.Color</td>
-                        <td>@item.Owner.FirstName</td>
-                        <td>@item.Owner.LastName</td>
-                        <td>@item.Owner.Email</td>
-                        <td>@item.Owner.PhoneNumber</td>
+                        <td>@item.Owner?.FirstName</td>
+                        <td>@item.Owner?.LastName</td>
+                        <td>@item.Owner?.Email</td>
+                        <td>@item.Owner?.PhoneNumber</td>
                     </tr>
                 }
             </tbody>
