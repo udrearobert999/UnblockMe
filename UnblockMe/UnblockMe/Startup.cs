@@ -37,6 +37,7 @@ namespace UnblockMe
             services.AddRazorPages();
             services.Configure<IdentityOptions>(options =>
             {
+                
                 options.Password.RequireNonAlphanumeric = false;
             });
            services.AddDbContext<UnblockMeContext>(options =>

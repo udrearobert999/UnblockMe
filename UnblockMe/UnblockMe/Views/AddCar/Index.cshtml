@@ -1,24 +1,28 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<Users> SignInManager
 @inject UserManager<Users> UserManager
+@using System.Web;
 @model Cars
+
+
+
 
 @using (Html.BeginForm("Index", "AddCar", FormMethod.Post))
 {
-<p>
-    @Html.LabelFor(c => c.LicensePlate)
-    @Html.TextBoxFor(c => c.LicensePlate, new { @placeholder = "License Plate" })
-</p>
+    <p>
+        @Html.LabelFor(c => c.LicensePlate)
+        @Html.TextBoxFor(c => c.LicensePlate, new { @placeholder = "License Plate" })
+    </p>
 
-<p>
-    @Html.LabelFor(c => c.Brand)
-    @Html.TextBoxFor(c => c.Brand, new { @placeholder = "Brand" })
+    <p>
+        @Html.LabelFor(c => c.Brand)
+        @Html.TextBoxFor(c => c.Brand, new { @placeholder = "Brand" })
 
-</p>
-<p>
-    @Html.LabelFor(c => c.Color)   
-    @Html.TextBoxFor(c => c.Color, new { @placeholder = "Color" })
-</p>    
+    </p>
+    <p>
+        @Html.LabelFor(c => c.Color)
+        @Html.TextBoxFor(c => c.Color, new { @placeholder = "Color" })
+    </p>
     <button type="submit">Add Car</button>
 
 }

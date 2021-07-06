@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnblockMe.Models;
+using System.Security.Principal;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace UnblockMe.Controllers
 {
@@ -29,8 +32,9 @@ namespace UnblockMe.Controllers
         
         public IActionResult Index(Cars car)
         {
-            _dbContext.Cars.Add(car);
-            return View();
+            var userName = User.FindFirstValue(ClaimTypes.Name);
+            var CurentUser = _dbContext.Users.Where(u => u.UserName == userName).First();
+            return Content(CurentUser.Email);
         }
     }
 }

@@ -36,9 +36,8 @@ namespace UnblockMe.Controllers
             var findPartialLPlates = _dbContext
                 .Cars
                 .Include(car => car.Owner)
-                .Where(car => car.LicensePlate.Contains(licensePlate)||licensePlate==null)
+                .Where(car => car.LicensePlate.Contains(licensePlate) || licensePlate == null)
                 .ToList();
-
 
             return View(findPartialLPlates);
         }
