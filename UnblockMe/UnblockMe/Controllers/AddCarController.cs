@@ -16,6 +16,7 @@ namespace UnblockMe.Controllers
 
         private readonly ILogger<AddCarController> _logger;
         private readonly UnblockMeContext _dbContext;
+        private readonly UserManager<Users> userManager;
         public AddCarController(ILogger<AddCarController> logger, UnblockMeContext appData)
         {
             _logger = logger;
