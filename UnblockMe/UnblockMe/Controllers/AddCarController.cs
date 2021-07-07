@@ -8,6 +8,7 @@ using UnblockMe.Models;
 using System.Security.Principal;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace UnblockMe.Controllers
 {
@@ -16,11 +17,12 @@ namespace UnblockMe.Controllers
 
         private readonly ILogger<AddCarController> _logger;
         private readonly UnblockMeContext _dbContext;
-        private readonly UserManager<Users> userManager;
-        public AddCarController(ILogger<AddCarController> logger, UnblockMeContext appData)
+        private readonly INotyfService _notyf;
+        public AddCarController(ILogger<AddCarController> logger, UnblockMeContext appData, INotyfService notyf)
         {
             _logger = logger;
             _dbContext = appData;
+            _notyf = notyf;
         }
 
         [HttpGet]
@@ -32,12 +34,23 @@ namespace UnblockMe.Controllers
         [HttpPost]
         public IActionResult Index(Cars car)
         {
-            var userName = User.FindFirstValue(ClaimTypes.Name);
-            var CurentUser = _dbContext.Users.Where(u => u.UserName == userName).First();
-            car.OwnerId = CurentUser.Id;
-            car.Owner = CurentUser;
-            _dbContext.Cars.Add(car);
-            _dbContext.SaveChanges();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var userName = User.FindFirstValue(ClaimTypes.Name);
+                    var CurentUser = _dbContext.Users.Where(u => u.UserName == userName).First();
+                    car.OwnerId = CurentUser.Id;
+                    car.Owner = CurentUser;
+                    _dbContext.Cars.Add(car);
+                    _dbContext.SaveChanges();
+                    _notyf.Success("Car succesfully added!");
+                }
+            }
+            catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("PRIMARY KEY")))
+            {
+                _notyf.Warning("Car already exists ! Try another!");
+            }
             return View();
         }
     }
