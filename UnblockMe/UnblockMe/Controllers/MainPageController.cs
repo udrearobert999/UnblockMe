@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 using UnblockMe.Models;
 
 namespace UnblockMe.Controllers
@@ -25,18 +24,19 @@ namespace UnblockMe.Controllers
             _notyf = notyf;
        
         }
-   
+        
+        [HttpGet]
         public IActionResult Index()
         {
 
             return View(null);
         }
         
-        [HttpGet]
+        [HttpGet("licensePlate")]
         public IActionResult Index(string licensePlate)
         {
             if (licensePlate == null)
-                _notyf.Warning("Please enter a valid plate!");
+                return View(null);
 
 
 
