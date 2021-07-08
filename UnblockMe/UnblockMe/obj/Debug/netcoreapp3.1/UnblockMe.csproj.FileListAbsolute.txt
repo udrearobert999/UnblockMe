@@ -773,7 +773,6 @@ C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netco
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\UnblockMe.dll
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\UnblockMe.pdb
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\UnblockMe.genruntimeconfig.cache
-C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\MainPage\Index.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\AddCar\Index.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.Workspaces.dll
@@ -857,3 +856,14 @@ C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netco
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\libman.json
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\AspNetCoreHero.ToastNotification.Views.dll
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\AspNetCoreHero.ToastNotification.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Profile\Index.cshtml.g.cs
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\Microsoft.Extensions.PlatformAbstractions.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\Twilio.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\Twilio.AspNet.Common.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\Twilio.AspNet.Core.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\SendGrid.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\StarkbankEcdsa.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\MailKit.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\MimeKit.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll

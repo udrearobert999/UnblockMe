@@ -49,7 +49,7 @@ namespace UnblockMe.Controllers
             }
             catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("PRIMARY KEY")))
             {
-                _notyf.Warning("Car already exists ! Try another!");
+                _notyf.Warning("Car already exists ! Try another or edit!");
             }
             return View();
         }

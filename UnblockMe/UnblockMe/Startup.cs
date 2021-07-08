@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification;
+using MailKit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -50,7 +51,6 @@ namespace UnblockMe
                 config.IsDismissable = true;
                 config.Position = NotyfPosition.BottomRight;
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -72,7 +72,6 @@ namespace UnblockMe
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -80,7 +79,7 @@ namespace UnblockMe
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=MainPage}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

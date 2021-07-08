@@ -1,0 +1,22 @@
+﻿table {
+    margin: auto;
+    border: 1px solid #333;
+    margin-top:50px;
+}
+td {
+    border: 1px solid #333;
+}
+
+thead,
+tfoot {
+    background-color: #333;
+    color: #fff;
+}
+
+.formcontainer form {
+    text-align: center;
+    margin-top:100px;
+}
+input{
+    text-transform:uppercase
+}
