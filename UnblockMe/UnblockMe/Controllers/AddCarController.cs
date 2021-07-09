@@ -24,7 +24,7 @@ namespace UnblockMe.Controllers
             _dbContext = appData;
             _notyf = notyf;
         }
-
+       
         [HttpGet]
         public IActionResult Index()
         {

@@ -29,7 +29,7 @@ namespace UnblockMe.Controllers
             var message = MessageResource.Create(
                 body: "Ai fost blocat!",
                 from: new Twilio.Types.PhoneNumber("+19096396207"),
-                to: new Twilio.Types.PhoneNumber("+40771717737")
+                to: new Twilio.Types.PhoneNumber("+40772227129")
             );
             return Content(message.Sid);
         }

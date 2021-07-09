@@ -1,21 +1,28 @@
 ﻿@model Users
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<Users> SignInManager
+@inject UserManager<Users> UserManager
 
 <p>@Model.FirstName - @Model.LastName</p>
 <p>@Model.PhoneNumber</p>
 <p>@Model.Email</p>
 <div class="container">
-    <form>
-        <p>choose contact mode: </p>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form>
+            <p>choose contact mode: </p>
 
-        <div class="contactradio">
-            <label for="Email">Email</label>
-            <input type="radio" name="Contact" id="Contact" value="Email" />
-       
-            <label for="SMS">SMS</label>
-            <input type="radio" name="Contact" id="Contact" value="SMS" />
-        </div>
+            <div class="contactradio">
+                <label for="Email">Email</label>
+                <input type="radio" name="Contact" id="Contact" value="Email" checked />
 
-        <button type="submit" asp-controller="SMS" asp-action="SendSMS">I have blocked you!</button>
-        <button type="submit" asp-controller="Email" asp-action="SendEmail">Unblock Me!</button>
-    </form>
+                <label for="SMS">SMS</label>
+                <input type="radio" name="Contact" id="Contact" value="SMS" />
+            </div>
+
+            <button type="submit" asp-controller="Email" asp-action="SendEmail">I have blocked you!</button>
+            <button type="submit" asp-controller="Profile" asp-action="BlockedMe">Unblock Me!</button>
+
+        </form>
+    }
 </div>

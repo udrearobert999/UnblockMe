@@ -9,18 +9,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnblockMe.Models;
+using UnblockMe.Services;
 
 namespace UnblockMe.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly UnblockMeContext _dbContext;
+        private readonly ICarsService _carsService;
         private readonly INotyfService _notyf;
-        public HomeController(ILogger<HomeController> logger,UnblockMeContext appData, INotyfService notyf)
+        public HomeController(ICarsService carsService, INotyfService notyf)
         {
-            _logger = logger;
-            _dbContext = appData;
+            _carsService = carsService;
             _notyf = notyf;
        
         }
@@ -32,13 +31,7 @@ namespace UnblockMe.Controllers
             if (licensePlate == null)
                 return View(null);
 
-
-
-            var findPartialLPlates = _dbContext
-                .Cars
-                .Include(car => car.Owner)
-                .Where(car => car.LicensePlate.Contains(licensePlate))
-                .ToList();
+            var findPartialLPlates = _carsService.GetCarsByLicensePlate(licensePlate); 
 
             return View(findPartialLPlates);
         }

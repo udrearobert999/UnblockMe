@@ -15,6 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using UnblockMe.Models;
+using UnblockMe.Services;
 
 namespace UnblockMe
 {
@@ -51,6 +52,7 @@ namespace UnblockMe
                 config.IsDismissable = true;
                 config.Position = NotyfPosition.BottomRight;
             });
+            services.AddTransient<ICarsService, CarsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

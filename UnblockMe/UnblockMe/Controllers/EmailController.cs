@@ -11,9 +11,9 @@ namespace UnblockMe.Controllers
     public class EmailController : Controller
     {
      
-            public async Task<IActionResult> SendEmail()
+            public IActionResult SendEmail()
             {
-                var apikey = Environment.GetEnvironmentVariable("emailKey");
+                var apikey = "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";
                 var client = new SendGridClient(apikey);
                 var from = new EmailAddress("udrearobert999@gmail.com","Robert");
                 var to = new EmailAddress("udrearobert999@gmail.com","Robert");
@@ -28,7 +28,7 @@ namespace UnblockMe.Controllers
                         PlainTextContent,
                         htmlcontent
                     );
-                var response = await client.SendEmailAsync(msg);
+                var response = client.SendEmailAsync(msg).Result;
                 return Content(msg.ToString());
             }
         
