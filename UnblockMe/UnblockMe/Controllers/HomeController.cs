@@ -17,10 +17,12 @@ namespace UnblockMe.Controllers
     {
         private readonly ICarsService _carsService;
         private readonly INotyfService _notyf;
-        public HomeController(ICarsService carsService, INotyfService notyf)
+        private readonly ILogger<HomeController> _logger;
+        public HomeController(ICarsService carsService, INotyfService notyf,ILogger<HomeController> logger)
         {
             _carsService = carsService;
             _notyf = notyf;
+            _logger = logger;
        
         }
 

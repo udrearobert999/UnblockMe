@@ -9,6 +9,7 @@ using System.Security.Principal;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using UnblockMe.Services;
 
 namespace UnblockMe.Controllers
 {
@@ -16,12 +17,17 @@ namespace UnblockMe.Controllers
     {
 
         private readonly ILogger<AddCarController> _logger;
-        private readonly UnblockMeContext _dbContext;
+        private readonly IUserService _userService;
+        private readonly ICarsService _carsService;
         private readonly INotyfService _notyf;
-        public AddCarController(ILogger<AddCarController> logger, UnblockMeContext appData, INotyfService notyf)
+        public AddCarController(ILogger<AddCarController> logger,
+                                IUserService userService,
+                                ICarsService carsService,
+                                INotyfService notyf)
         {
             _logger = logger;
-            _dbContext = appData;
+            _carsService = carsService;
+            _userService = userService;
             _notyf = notyf;
         }
        
@@ -38,12 +44,10 @@ namespace UnblockMe.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var userName = User.FindFirstValue(ClaimTypes.Name);
-                    var CurentUser = _dbContext.Users.Where(u => u.UserName == userName).First();
-                    car.OwnerId = CurentUser.Id;
-                    car.Owner = CurentUser;
-                    _dbContext.Cars.Add(car);
-                    _dbContext.SaveChanges();
+
+                    var user = _userService.GetLoggedInUser();
+                    car.OwnerId = user.Id;
+                    _carsService.AddCar(car);
                     _notyf.Success("Car succesfully added!");
                 }
             }

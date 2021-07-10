@@ -53,6 +53,8 @@ namespace UnblockMe
                 config.Position = NotyfPosition.BottomRight;
             });
             services.AddTransient<ICarsService, CarsService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
