@@ -16,13 +16,20 @@ namespace UnblockMe.Services
     public class CarsService : ICarsService
     {
         private readonly UnblockMeContext _dbContext;
-        public CarsService(UnblockMeContext dbContext)
+        private readonly IUserService _userService;
+        public CarsService(UnblockMeContext dbContext, IUserService userService)
         {
             _dbContext = dbContext;
         }
-        public List<Cars> GetCarsList()
+        public List<Cars> GetCarsList(Users curentUser=null)
         {
-            return _dbContext.Cars.ToList();
+            if(curentUser==null)
+                return _dbContext.Cars.ToList();
+            else
+            {
+                var user= _dbContext.Users.Include(user=> user.Cars).Where(user=> user.Id==curentUser.Id).First();
+                return user.Cars.ToList();
+            }
         }
         public List<Cars> GetCarsByLicensePlate(string licensePlate)
         {
@@ -41,7 +48,7 @@ namespace UnblockMe.Services
     public interface ICarsService
     {
         public void AddCar(Cars car);
-        public List<Cars> GetCarsList();
+        public List<Cars> GetCarsList(Users curentUser);
         public List<Cars> GetCarsByLicensePlate(string licensePlate);
     }
 }

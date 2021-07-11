@@ -16,6 +16,7 @@ namespace UnblockMe.Controllers
         private readonly ILogger<ProfileController> _logger;
         private readonly IUserService _userService;
         private readonly INotyfService _notyf;
+        private Users _curentUser;
         public ProfileController(ILogger<ProfileController> logger, INotyfService notyf,IUserService userService)
         {
             _logger = logger;
@@ -26,17 +27,23 @@ namespace UnblockMe.Controllers
 
         [Route("Profile/{id}")]
         public IActionResult Index(string id)
-        {
-          
+        {  
+
             return View(_userService.GetUserById(id));
+        
         }
-        public IActionResult BlockedYou(string Contact)
+
+   
+        public void BlockedYouAction(string Contact, string MyPlate,string YourPlate)
         {
-            return null;
+       
         }
-        public IActionResult BlockedMe(string Contact)
+    
+        public void BlockedMeAction(string Contact, string MyPlate,string YourPlate)
         {
-            return null;
+
+         
         }
+       
     }
 }

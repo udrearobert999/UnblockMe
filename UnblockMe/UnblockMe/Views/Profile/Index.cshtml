@@ -1,28 +1,116 @@
 ﻿@model Users
 @using Microsoft.AspNetCore.Identity
+@using UnblockMe.Services
 @inject SignInManager<Users> SignInManager
 @inject UserManager<Users> UserManager
-
+@inject IUserService _userService
+@inject ICarsService _carsService
 <p>@Model.FirstName - @Model.LastName</p>
 <p>@Model.PhoneNumber</p>
 <p>@Model.Email</p>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <div class="container">
     @if (SignInManager.IsSignedIn(User))
     {
-        <form>
-            <p>choose contact mode: </p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#UnblockMe">
+            Unblock me!
+        </button>
+        <div class="modal fade" id="UnblockMe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Unblock Me!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
-            <div class="contactradio">
-                <label for="Email">Email</label>
-                <input type="radio" name="Contact" id="Contact" value="Email" checked />
-
-                <label for="SMS">SMS</label>
-                <input type="radio" name="Contact" id="Contact" value="SMS" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Send</button>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <button type="submit" asp-controller="Email" asp-action="SendEmail">I have blocked you!</button>
-            <button type="submit" asp-controller="Profile" asp-action="BlockedMe">Unblock Me!</button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BlockedYou">
+            I have blocked you!
+        </button>
+        <div class="modal fade" id="BlockedYou" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">I have blocked you!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
 
-        </form>
+                        <form method="post" id="form">
+                            <p>Contact Method:</p>
+                            <label for="ContactSMS">SMS</label>
+                            <input type="radio" name="Contact" value="SMS" id="Contact" checked />
+                            <label for="ContactEmail">Email</label>
+                            <input type="radio" name="Contact" value="Email" id="Contact" />
+                            <br />
+                            <label for="myplates">My Cars:</label>
+                            <select name="myplates" id="myplates" required>
+                                @foreach (var element in _carsService.GetCarsList(_userService.GetLoggedInUser()))
+                                {
+                                    <option value="@element.LicensePlate">@element.LicensePlate</option>
+                                }
+
+
+                            </select>
+                            <label for="yourplates">@(Model.FirstName)'s Cars</label>
+                            <select name="yourplates" id="yourplates" required>
+                                @foreach (var element in _carsService.GetCarsList(Model))
+                                {
+                                    <option value="@element.LicensePlate">@element.LicensePlate</option>
+                                }
+                            </select>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="button">Send</button>
+
+                                <script>
+                                    $("#form").submit(function func(event) {
+                                        event.preventDefault();
+                                        $.ajax({
+                                            url: "BlockedYouAction",
+                                            data: {
+                                                Contact: $("#Contact").val(),
+                                                MyPlate: $("#myplates").val(),
+                                                YourPlate: $("#yourplates").val()
+                                            },
+                                            success: function () {
+                                                $("#BlockedYou").modal('hide');
+                                            }
+                                        });
+
+
+                                    });
+                                </script>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     }
 </div>
+<script>
+    onclick
+    $("#form").submit(function (e) {
+        e.preventDefault();
+    });
+</script>
