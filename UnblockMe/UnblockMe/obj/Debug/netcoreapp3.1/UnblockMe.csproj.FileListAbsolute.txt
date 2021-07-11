@@ -867,6 +867,4 @@ C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netco
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\MailKit.dll
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
-C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Profile\BlockedMe_partial.cshtml.g.cs
-C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Profile\BlockedYou_parital.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\AjaxControlToolkit.dll

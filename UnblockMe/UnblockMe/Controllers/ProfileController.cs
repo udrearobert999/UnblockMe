@@ -16,12 +16,13 @@ namespace UnblockMe.Controllers
         private readonly ILogger<ProfileController> _logger;
         private readonly IUserService _userService;
         private readonly INotyfService _notyf;
-        private Users _curentUser;
-        public ProfileController(ILogger<ProfileController> logger, INotyfService notyf,IUserService userService)
+        private readonly ICarsService _carsService;
+        public ProfileController(ILogger<ProfileController> logger, INotyfService notyf,IUserService userService,ICarsService carsService)
         {
             _logger = logger;
             _userService = userService;
             _notyf = notyf;
+            _carsService = carsService;
 
         }
 
@@ -36,7 +37,12 @@ namespace UnblockMe.Controllers
    
         public void BlockedYouAction(string Contact, string MyPlate,string YourPlate)
         {
-       
+            var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
+            var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
+            MyCar.BlocksCar = YourCar.LicensePlate;
+            YourCar.IsBlockedByCar = MyCar.LicensePlate;
+            _carsService.Save();
+            
         }
     
         public void BlockedMeAction(string Contact, string MyPlate,string YourPlate)

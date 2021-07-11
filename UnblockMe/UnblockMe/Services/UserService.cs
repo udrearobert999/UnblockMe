@@ -9,6 +9,8 @@ using System.Security.Principal;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
 namespace UnblockMe.Services
 {
     public class UserService : IUserService
@@ -33,6 +35,16 @@ namespace UnblockMe.Services
            
            
         }
+        public List<Cars> GetCarsListOfUser(Users curentUser = null)
+        {
+            if (curentUser == null)
+                return _dbContext.Cars.ToList();
+            else
+            {
+                var user = _dbContext.Users.Include(user => user.Cars).Where(user => user.Id == curentUser.Id).First();
+                return user.Cars.ToList();
+            }
+        }
         public Users GetUserById(string id)
         {
             return _dbContext.Users.Find(id);
@@ -41,6 +53,7 @@ namespace UnblockMe.Services
 
     public interface IUserService
     {
+        public List<Cars> GetCarsListOfUser(Users curentUser = null);
         public List<Users> GetActiveUsers();
         public Users GetLoggedInUser();
         public Users GetUserById(string id);

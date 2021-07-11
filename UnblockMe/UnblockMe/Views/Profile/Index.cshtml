@@ -61,7 +61,7 @@
                             <br />
                             <label for="myplates">My Cars:</label>
                             <select name="myplates" id="myplates" required>
-                                @foreach (var element in _carsService.GetCarsList(_userService.GetLoggedInUser()))
+                                @foreach (var element in _userService.GetCarsListOfUser(_userService.GetLoggedInUser()))
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
                                 }
@@ -70,7 +70,7 @@
                             </select>
                             <label for="yourplates">@(Model.FirstName)'s Cars</label>
                             <select name="yourplates" id="yourplates" required>
-                                @foreach (var element in _carsService.GetCarsList(Model))
+                                @foreach (var element in _userService.GetCarsListOfUser(Model))
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
                                 }

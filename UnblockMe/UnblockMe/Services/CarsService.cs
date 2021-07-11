@@ -20,35 +20,40 @@ namespace UnblockMe.Services
         public CarsService(UnblockMeContext dbContext, IUserService userService)
         {
             _dbContext = dbContext;
+            _userService = userService;
         }
-        public List<Cars> GetCarsList(Users curentUser=null)
-        {
-            if(curentUser==null)
-                return _dbContext.Cars.ToList();
-            else
-            {
-                var user= _dbContext.Users.Include(user=> user.Cars).Where(user=> user.Id==curentUser.Id).First();
-                return user.Cars.ToList();
-            }
-        }
+     
         public List<Cars> GetCarsByLicensePlate(string licensePlate)
         {
-            return _dbContext.Cars
+            var cars = _dbContext.Cars
                 .Include(car => car.Owner)
                 .Where(car => car.LicensePlate.Contains(licensePlate))
                 .ToList();
+           
+            cars.RemoveAll( car => car.Owner.Id ==_userService.GetLoggedInUser().Id);
+            return cars;
+
+        }
+        public Cars GetCarByLicensePlate(string licensePlate)
+        {
+            return _dbContext.Cars.Find(licensePlate);
         }
         public void AddCar(Cars car)
         {
             _dbContext.Cars.Add(car);
             _dbContext.SaveChanges();
         }
+        public void Save()
+        {
+            _dbContext.SaveChanges();
+        }
     }
 
     public interface ICarsService
     {
+        public void Save();
+        public Cars GetCarByLicensePlate(string licensePlate);
         public void AddCar(Cars car);
-        public List<Cars> GetCarsList(Users curentUser);
         public List<Cars> GetCarsByLicensePlate(string licensePlate);
     }
 }
