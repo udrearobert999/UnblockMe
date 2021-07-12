@@ -30,8 +30,11 @@ namespace UnblockMe.Services
         }
         public Users GetLoggedInUser()
         {
-            return _userManager
-                .GetUserAsync(_accesor.HttpContext.User).Result;
+            if (_accesor.HttpContext.User.Identity.IsAuthenticated)
+                return _userManager
+                     .GetUserAsync(_accesor.HttpContext.User).Result;
+            else
+                return null;
            
            
         }

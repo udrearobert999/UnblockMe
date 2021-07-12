@@ -22,15 +22,16 @@ namespace UnblockMe.Services
             _dbContext = dbContext;
             _userService = userService;
         }
-     
+
         public List<Cars> GetCarsByLicensePlate(string licensePlate)
         {
             var cars = _dbContext.Cars
                 .Include(car => car.Owner)
                 .Where(car => car.LicensePlate.Contains(licensePlate))
                 .ToList();
-           
-            cars.RemoveAll( car => car.Owner.Id ==_userService.GetLoggedInUser().Id);
+
+            if (_userService.GetLoggedInUser() != null)
+                cars.RemoveAll(car => car.Owner.Id == _userService.GetLoggedInUser().Id);
             return cars;
 
         }
@@ -43,15 +44,21 @@ namespace UnblockMe.Services
             _dbContext.Cars.Add(car);
             _dbContext.SaveChanges();
         }
-        public void Save()
+
+        public void CarBlocksCar(Cars car1, Cars car2)
         {
+            car1.BlocksCar = car2.LicensePlate;
+            car2.IsBlockedByCar = car1.LicensePlate;
             _dbContext.SaveChanges();
+
         }
+
+
     }
 
     public interface ICarsService
     {
-        public void Save();
+        public void CarBlocksCar(Cars car1, Cars car2);
         public Cars GetCarByLicensePlate(string licensePlate);
         public void AddCar(Cars car);
         public List<Cars> GetCarsByLicensePlate(string licensePlate);

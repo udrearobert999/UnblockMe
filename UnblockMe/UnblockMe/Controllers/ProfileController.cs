@@ -39,16 +39,18 @@ namespace UnblockMe.Controllers
         {
             var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
             var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
-            MyCar.BlocksCar = YourCar.LicensePlate;
-            YourCar.IsBlockedByCar = MyCar.LicensePlate;
-            _carsService.Save();
-            
+            _carsService.CarBlocksCar(MyCar, YourCar);
+          
+
+
         }
     
         public void BlockedMeAction(string Contact, string MyPlate,string YourPlate)
         {
+            var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
+            var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
+            _carsService.CarBlocksCar(YourCar, MyCar);
 
-         
         }
        
     }
