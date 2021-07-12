@@ -30,12 +30,39 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <form method="post" id="form2">
+                            <p>Contact Method:</p>
+                            <label for="ContactSMS">SMS</label>
+                            <input type="radio" name="Contact" value="SMS" id="Contact" checked />
+                            <label for="ContactEmail">Email</label>
+                            <input type="radio" name="Contact" value="Email" id="Contact" />
+                            <br />
+                            <label for="myplates">My Cars:</label>
+                            <select name="myplates" id="myplates" required>
+                                @foreach (var element in _userService.GetCarsListOfUser(_userService.GetLoggedInUser()))
+                                {
+                                    <option value="@element.LicensePlate">@element.LicensePlate</option>
+                                }
 
+
+                            </select>
+                            <label for="yourplates">@(Model.FirstName)'s Cars</label>
+                            <select name="yourplates" id="yourplates" required>
+                                @foreach (var element in _userService.GetCarsListOfUser(Model))
+                                {
+                                    <option value="@element.LicensePlate">@element.LicensePlate</option>
+                                }
+                            </select>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" id="button">Send</button>
+
+
+                            </div>
+                        </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Send</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -82,7 +109,7 @@
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary" id="button">Send</button>
 
-                                
+
                             </div>
                         </form>
                     </div>
@@ -94,7 +121,7 @@
     }
 </div>
 <script>
-    $("#form1").submit(function func(event) {
+    $("#form1").submit(function blockedyou(event) {
         event.preventDefault();
         $.ajax({
             url: "BlockedYouAction",
@@ -105,10 +132,32 @@
             },
             success: function () {
                 $("#BlockedYou").modal('hide');
+                alert("Done");
             }
         });
 
 
+    });
+</script>
+<script>
+    $("#form2").submit(function unblockme(event) {
+        event.preventDefault();
+        $.ajax({
+            url: "BlockedMeAction",
+            data: {
+                Contact: $("#Contact").val(),
+                MyPlate: $("#myplates").val(),
+                YourPlate: $("#yourplates").val()
+            },
+            success: function () {
+                $("#UnblockMe").modal('hide');
+
+
+
+            }
+        });
+        
+   
     });
 
 </script>
