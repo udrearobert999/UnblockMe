@@ -57,5 +57,9 @@ namespace UnblockMe.Controllers
             }
             return View();
         }
+        public Cars GetCarByLicensePlate(string licenseplate)
+        {
+            return _carsService.GetCarByLicensePlate(licenseplate);
+        }
     }
 }

@@ -35,22 +35,35 @@ namespace UnblockMe.Controllers
         }
 
    
-        public void BlockedYouAction(string Contact, string MyPlate,string YourPlate)
+        public IActionResult BlockedYouAction(string Contact, string MyPlate,string YourPlate)
         {
-            var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
-            var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
-            _carsService.CarBlocksCar(MyCar, YourCar);
-          
-
+            try
+            {
+                var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
+                 var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
+                _carsService.CarBlocksCar(MyCar, YourCar);
+                return Ok("The user will be Notified");
+            }
+            catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("CK_Colision_Cars_Constraint")))
+            {
+                return BadRequest("Invalid action!");
+            }
 
         }
     
-        public void BlockedMeAction(string Contact, string MyPlate,string YourPlate)
+        public IActionResult BlockedMeAction(string Contact, string MyPlate,string YourPlate)
         {
-            var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
-            var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
-            _carsService.CarBlocksCar(YourCar, MyCar);
-
+            try
+            {
+                var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
+                var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
+                _carsService.CarBlocksCar(YourCar, MyCar);
+                return Ok("The user will be Notified");
+            }
+            catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("CK_Colision_Cars_Constraint")))
+            {
+                return BadRequest("Invalid action!");
+            }
         }
        
     }
