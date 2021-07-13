@@ -12,17 +12,17 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-
+<link href="~/css/modal.css" rel="stylesheet" />
 
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCar">
     Add Car
 </button>
 
-<div class="modal fade" id="AddCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal custom fade" id="AddCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add a car</h5>
+                <h5 class="modal-title" id="exampleModalLabel" style="text-aligned: center;">Add a car</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -61,7 +61,7 @@
 </button>
 
 
-<div class="modal fade" id="EditCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal custom fade" id="EditCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -114,7 +114,7 @@
     Park Car
 </button>
 
-<div class="modal fade" id="ParkCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal custom fade" id="ParkCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

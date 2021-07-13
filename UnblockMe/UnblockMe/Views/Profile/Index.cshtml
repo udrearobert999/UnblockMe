@@ -14,6 +14,7 @@
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+
 <div class="container">
     @if (SignInManager.IsSignedIn(User))
     {
@@ -21,7 +22,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#UnblockMe">
             Unblock me!
         </button>
-        <div class="modal fade" id="UnblockMe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal custom fade" id="UnblockMe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -71,7 +72,7 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BlockedYou">
             I have blocked you!
         </button>
-        <div class="modal fade" id="BlockedYou" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal custom fade" id="BlockedYou" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
