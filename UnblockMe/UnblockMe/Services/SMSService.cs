@@ -13,11 +13,11 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 
 
-namespace UnblockMe.Controllers
+namespace UnblockMe.Services
 {
-    public class SMSController : TwilioController
+    public class SMSService : ISMSService
     {
-        public IActionResult SendSMS()
+        public void SendSMS()
         {
             string accountSid = "ACac99927ddd42460cf677fb66fc753028";
             string authToken = "d5e8e2350f6aeacacd1af832932d2137";
@@ -31,8 +31,13 @@ namespace UnblockMe.Controllers
                 from: new Twilio.Types.PhoneNumber("+19096396207"),
                 to: new Twilio.Types.PhoneNumber("+40772227129")
             );
-            return Content(message.Sid);
+            
         }
       
+    }
+
+    public interface ISMSService
+    {
+        public void SendSMS();
     }
 }

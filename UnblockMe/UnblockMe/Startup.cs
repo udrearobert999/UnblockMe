@@ -55,6 +55,8 @@ namespace UnblockMe
             services.AddTransient<ICarsService, CarsService>();
             services.AddTransient<IUserService, UserService>();
             services.AddHttpContextAccessor();
+            services.AddTransient<ISMSService, SMSService>();
+            services.AddTransient<IEmailService, EmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

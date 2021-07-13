@@ -39,10 +39,21 @@ namespace UnblockMe.Services
         {
             return _dbContext.Cars.Find(licensePlate);
         }
-        public void AddCar(Cars car)
+        public bool AddCar(Cars car)
         {
-            _dbContext.Cars.Add(car);
-            _dbContext.SaveChanges();
+            try
+            {
+
+                _dbContext.Cars.Add(car);
+                _dbContext.SaveChanges();
+                return true;
+
+            }
+            catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("PRIMARY KEY")))
+            {
+                return false;
+            }
+
         }
 
         public void CarBlocksCar(Cars car1, Cars car2)
@@ -52,15 +63,34 @@ namespace UnblockMe.Services
             _dbContext.SaveChanges();
 
         }
+        public void EditCar(Cars car,string color,string brand)
+        {
+   
+            if (car.Color != color)
+                car.Color = color;
+            if (car.Brand != brand)
+                car.Brand = brand;
+            _dbContext.SaveChanges();
+        }
 
+        public void RemoveCar(string licensePlate)
+        {
+            if (licensePlate != null)
+            {
+                _dbContext.Cars.Remove(GetCarByLicensePlate(licensePlate));
+                _dbContext.SaveChanges();
+            }
+        }
 
     }
 
     public interface ICarsService
     {
+        public void RemoveCar(string licensePlate);
+        public void EditCar(Cars car, string color, string brand);
         public void CarBlocksCar(Cars car1, Cars car2);
         public Cars GetCarByLicensePlate(string licensePlate);
-        public void AddCar(Cars car);
+        public bool AddCar(Cars car);
         public List<Cars> GetCarsByLicensePlate(string licensePlate);
     }
 }

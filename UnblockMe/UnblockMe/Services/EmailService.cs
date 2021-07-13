@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UnblockMe.Controllers
+namespace UnblockMe.Services
 {
-    public class EmailController : Controller
+    public class EmailService :IEmailService
     {
      
-            public IActionResult SendEmail()
+            public void SendEmail()
             {
                 var apikey = "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";
                 var client = new SendGridClient(apikey);
@@ -29,8 +29,13 @@ namespace UnblockMe.Controllers
                         htmlcontent
                     );
                 var response = client.SendEmailAsync(msg).Result;
-                return Content(msg.ToString());
+               
             }
         
+    }
+
+    public interface IEmailService
+    {
+        public void SendEmail();
     }
 }

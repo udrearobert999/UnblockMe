@@ -30,36 +30,48 @@ namespace UnblockMe.Controllers
             _userService = userService;
             _notyf = notyf;
         }
-       
-        [HttpGet]
+
         public IActionResult Index()
         {
-            return View();
+            var logged_user = _userService.GetLoggedInUser();
+            var logged_user_cars =_userService.GetCarsListOfUser();
+            return View(logged_user_cars);
         }
-
         [HttpPost]
-        public IActionResult Index(Cars car)
+        public IActionResult AddCar(string LicensePlate,string Brand,string Color)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
+            var car = new Cars();
+            car.LicensePlate = LicensePlate;
+            car.Brand = Brand;
+            car.Color = Color;
 
-                    var user = _userService.GetLoggedInUser();
-                    car.OwnerId = user.Id;
-                    _carsService.AddCar(car);
-                    _notyf.Success("Car succesfully added!");
-                }
-            }
-            catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("PRIMARY KEY")))
-            {
-                _notyf.Warning("Car already exists ! Try another or edit!");
-            }
-            return View();
+            var user = _userService.GetLoggedInUser();
+            car.OwnerId = user.Id;
+            car.Owner = user;
+            if (_carsService.AddCar(car))
+                return Ok("The car was added succesfully!");
+            else
+                return BadRequest("Error!");
+            
+            
+
+
         }
-        public Cars GetCarByLicensePlate(string licenseplate)
+        public IActionResult GetCarByLicensePlate(string licenseplate)
         {
-            return _carsService.GetCarByLicensePlate(licenseplate);
+            return Json(_carsService.GetCarByLicensePlate(licenseplate));
+        }
+        public IActionResult EditCar(string licensePlate,string color,string brand)
+        {
+               var car = _carsService.GetCarByLicensePlate(licensePlate);
+                _carsService.EditCar(car, color, brand);
+            
+            return Ok("Car edited succesfully!");
+        }
+        public IActionResult RemoveCar(string licensePlate)
+        {
+            _carsService.RemoveCar(licensePlate);
+            return Ok(licensePlate + " removed succesfully");
         }
     }
 }
