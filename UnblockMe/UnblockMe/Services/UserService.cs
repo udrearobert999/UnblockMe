@@ -52,10 +52,15 @@ namespace UnblockMe.Services
         {
             return _dbContext.Users.Find(id);
         }
+        public void save()
+        {
+            _dbContext.SaveChanges();
+        }
     }
 
     public interface IUserService
     {
+        public void save();
         public List<Cars> GetCarsListOfUser(Users curentUser = null);
         public List<Users> GetActiveUsers();
         public Users GetLoggedInUser();

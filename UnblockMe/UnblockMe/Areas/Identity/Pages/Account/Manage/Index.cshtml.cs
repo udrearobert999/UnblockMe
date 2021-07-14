@@ -42,6 +42,9 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
 
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
+
+            [Display(Name = "Profile Picture")]
+            public string ProfilePicture { get; set; }
         }
 
         private async Task LoadAsync(Users user)
@@ -50,13 +53,15 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var firstName = user.FirstName;
             var lastName = user.LastName;
+            var photo = user.ProfilePicture;
             Username = userName;
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                FirstName =firstName ,
-                LastName = lastName
+                FirstName = firstName,
+                LastName = lastName,
+                ProfilePicture = photo
             };
         }
 
@@ -89,6 +94,7 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var firstName = user.FirstName;
             var lastName = user.LastName;
+            var photo = user.ProfilePicture;
             if (Input.FirstName != firstName)
             {
                 user.FirstName = Input.FirstName;
@@ -97,6 +103,11 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
             if (Input.LastName != lastName)
             {
                 user.LastName = Input.LastName;
+                await _userManager.UpdateAsync(user);
+            }
+            if (Input.ProfilePicture != photo)
+            {
+                user.ProfilePicture = Input.ProfilePicture;
                 await _userManager.UpdateAsync(user);
             }
 

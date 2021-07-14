@@ -76,6 +76,7 @@ namespace UnblockMe.Models
             {
                 entity.Property(e => e.FirstName);
                 entity.Property(e => e.LastName);
+                entity.Property(e => e.ProfilePicture);
             });
             OnModelCreatingPartial(modelBuilder);
         }
