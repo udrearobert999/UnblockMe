@@ -1,15 +1,5 @@
 ﻿
-
-/* change the background color */
 .bg-custom {
     background-color: rgb(77,70,200);
  
-}
-html * {
-    color: #000 !important;
-    font-family: Arial !important;
-    font-family: "Andale Mono";
-}
-.navbar-brand {
-    color: aqua;
 }

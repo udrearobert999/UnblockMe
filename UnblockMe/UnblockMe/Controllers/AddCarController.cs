@@ -34,7 +34,7 @@ namespace UnblockMe.Controllers
         public IActionResult Index()
         {
             var logged_user = _userService.GetLoggedInUser();
-            var logged_user_cars =_userService.GetCarsListOfUser();
+            var logged_user_cars =_userService.GetCarsListOfUser(logged_user);
             return View(logged_user_cars);
         }
         [HttpPost]
