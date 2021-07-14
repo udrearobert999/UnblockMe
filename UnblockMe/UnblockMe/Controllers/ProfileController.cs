@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using UnblockMe.Models;
@@ -17,6 +18,7 @@ namespace UnblockMe.Controllers
         private readonly IUserService _userService;
         private readonly INotyfService _notyf;
         private readonly ICarsService _carsService;
+
         public ProfileController(ILogger<ProfileController> logger, INotyfService notyf,IUserService userService,ICarsService carsService)
         {
             _logger = logger;
@@ -34,7 +36,6 @@ namespace UnblockMe.Controllers
         
         }
 
-   
         public IActionResult BlockedYouAction(string Contact, string MyPlate,string YourPlate)
         {
             try
@@ -65,6 +66,13 @@ namespace UnblockMe.Controllers
                 return BadRequest("Invalid action!");
             }
         }
-       
+         
+        [Route("Profile/{id}/photo")]
+        public IActionResult GetPhoto(string id)
+        {
+            var user = _userService.GetUserById(id);
+            return File(user.ProfilePicture, MediaTypeNames.Image.Jpeg);
+            
+        }
     }
 }

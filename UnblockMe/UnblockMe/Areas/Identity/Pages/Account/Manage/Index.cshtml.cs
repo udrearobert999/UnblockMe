@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -44,7 +46,8 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
             public string LastName { get; set; }
 
             [Display(Name = "Profile Picture")]
-            public string ProfilePicture { get; set; }
+            public IFormFile ProfilePicture { get; set; }
+            public string Id { get; set; }
         }
 
         private async Task LoadAsync(Users user)
@@ -54,6 +57,7 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
             var firstName = user.FirstName;
             var lastName = user.LastName;
             var photo = user.ProfilePicture;
+            var id = user.Id;
             Username = userName;
 
             Input = new InputModel
@@ -61,7 +65,7 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
                 PhoneNumber = phoneNumber,
                 FirstName = firstName,
                 LastName = lastName,
-                ProfilePicture = photo
+                Id = id
             };
         }
 
@@ -105,11 +109,21 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
                 user.LastName = Input.LastName;
                 await _userManager.UpdateAsync(user);
             }
-            if (Input.ProfilePicture != photo)
+
+            using(var ms = new MemoryStream())
             {
-                user.ProfilePicture = Input.ProfilePicture;
-                await _userManager.UpdateAsync(user);
+                if (Input.ProfilePicture != null)
+                {
+                    Input.ProfilePicture.CopyTo(ms);
+                    var filebites = ms.ToArray();
+
+                    user.ProfilePicture = filebites;
+                    await _userManager.UpdateAsync(user);
+                }
+
+
             }
+
 
 
             if (Input.PhoneNumber != phoneNumber)

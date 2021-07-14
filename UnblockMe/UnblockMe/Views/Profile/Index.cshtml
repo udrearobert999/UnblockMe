@@ -7,9 +7,13 @@
 @inject IUserService _userService
 @inject ICarsService _carsService
 @inject INotyfService _notyf
+
+
 <p>@Model.FirstName - @Model.LastName</p>
 <p>@Model.PhoneNumber</p>
 <p>@Model.Email</p>
+<img src="/Profile/@Model.Id/Photo" />
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
 <script src="~/lib/jquery-validation/dist/additional-methods.js"></script>

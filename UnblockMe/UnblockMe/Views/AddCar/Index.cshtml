@@ -1,11 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@using UnblockMe.Services
-@inject SignInManager<Users> SignInManager
-@inject UserManager<Users> UserManager
-@inject IUserService _userService
-@inject ICarsService _carsService
-@using System.Web;
-@model List<Cars>
+﻿@model List<Cars>
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -22,7 +15,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" style="text-aligned: center;">Add a car</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add a car</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -49,7 +42,7 @@
                     </div>
 
                 </form>
-                   
+
             </div>
 
         </div>
@@ -71,7 +64,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                @if(Model.Count()>0)
+                @if (Model.Count() > 0)
                 {
                     <form id="editCarForm" method="post">
                         <select id="selectEditCar">
@@ -104,7 +97,7 @@
                 }
 
             </div>
-            
+
         </div>
     </div>
 </div>
@@ -145,26 +138,25 @@
 
             },
             success: function (status) {
-                
-              
+
+
 
             },
             error: function (error) {
-            
-                
+
+
             }
 
         });
     });
     $("#selectEditCar").change(function EditCar(event) {
-        
+
         $.ajax({
             url: "AddCar/GetCarByLicensePlate",
             data: {
                 licensePlate: $(this).val()
             },
-            success: function (data)
-            {     
+            success: function (data) {
                 $("#brand").val(data.brand);
                 $("#licenseplate").val(data.licensePlate);
                 $("#color").val(data.color);
@@ -201,20 +193,20 @@
 
                 window.location.reload();
                 toastNotifySuccess(status, 1000);
-               
+
             }
         })
     });
     $("#addCarForm").submit(function func(event) {
         event.preventDefault();
         var model = {
-            LicensePlate : $("#addlicensePlate").val(),
-            Brand : $("#addBrand").val(),
-            Color : $("#addColor").val()
+            LicensePlate: $("#addlicensePlate").val(),
+            Brand: $("#addBrand").val(),
+            Color: $("#addColor").val()
         };
-   
-        
-        
+
+
+
         $.ajax({
             type: "POST",
             url: "AddCar/AddCar",
