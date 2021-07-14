@@ -12,7 +12,8 @@
 <p>@Model.FirstName - @Model.LastName</p>
 <p>@Model.PhoneNumber</p>
 <p>@Model.Email</p>
-<img src="/Profile/@Model.Id/Photo" />
+<img id="profilePicture" style="width:350px;height:350px; object-fit:cover"  src="/Profile/@Model.Id/Photo" />
+
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
