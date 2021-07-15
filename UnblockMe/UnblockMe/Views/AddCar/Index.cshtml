@@ -7,9 +7,22 @@
 <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
 <link href="~/css/modal.css" rel="stylesheet" />
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCar">
-    Add Car
-</button>
+<link href="~/css/addcar.css" rel="stylesheet" />
+
+<div class="buttons">
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCar">
+        Add Car
+    </button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditCar" id="editButton">
+        Edit Car
+    </button>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ParkCar">
+        Park Car
+    </button>
+</div>
+
 
 <div class="modal custom fade" id="AddCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -49,9 +62,6 @@
     </div>
 </div>
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#EditCar" id="editButton">
-    Edit Car
-</button>
 
 
 <div class="modal custom fade" id="EditCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,10 +112,6 @@
     </div>
 </div>
 
-
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ParkCar">
-    Park Car
-</button>
 
 <div class="modal custom fade" id="ParkCar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
