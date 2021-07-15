@@ -1,4 +1,4 @@
-﻿@model Users
+﻿@model (Users,List<Cars>,Users,List<Cars>)
 @using Microsoft.AspNetCore.Identity
 @using UnblockMe.Services
 @using AspNetCoreHero.ToastNotification.Abstractions;
@@ -9,16 +9,59 @@
 @inject INotyfService _notyf
 
 
-<p>@Model.FirstName - @Model.LastName</p>
-<p>@Model.PhoneNumber</p>
-<p>@Model.Email</p>
-<img id="profilePicture" style="width:350px;height:350px; object-fit:cover"  src="/Profile/@Model.Id/Photo" />
-
-
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-<script src="~/lib/jquery-validation/dist/additional-methods.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+<link href="~/css/rating.css" rel="stylesheet" />
+
+
+<p>@Model.Item3.FirstName - @Model.Item3.LastName</p>
+<p>@Model.Item3.PhoneNumber</p>
+<p>@Model.Item3.Email</p>
+<img id="profilePicture" style="width:350px;height:350px; object-fit:cover"  src="/Profile/@Model.Item3.Id/Photo" />
+<style>
+    .rating:not(:hover) label input:checked ~ .icon,
+    .rating:hover label:hover input ~ .icon {
+        color: rgb(241,183,0) !important;
+    }
+
+    .rating label input:focus:not(:checked) ~ .icon:last-child {
+        color: #000;
+        text-shadow: 0 0 5px rgb(241,183,0);
+    }
+</style>
+<form class="rating">
+    <label>
+        <input type="radio" name="stars" value="1" />
+        <span class="icon">★</span>
+    </label>
+    <label>
+        <input type="radio" name="stars" value="2" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+    </label>
+    <label>
+        <input type="radio" name="stars" value="3" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+    </label>
+    <label>
+        <input type="radio" name="stars" value="4" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+    </label>
+    <label>
+        <input type="radio" name="stars" value="5" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+    </label>
+</form>
+
+
 
 <div class="container">
     @if (SignInManager.IsSignedIn(User))
@@ -46,16 +89,16 @@
                             <br />
                             <label for="myplates">My Cars:</label>
                             <select name="myplates" id="myplates" required>
-                                @foreach (var element in _userService.GetCarsListOfUser(_userService.GetLoggedInUser()))
+                                @foreach (var element in Model.Item2)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
                                 }
 
 
                             </select>
-                            <label for="yourplates">@(Model.FirstName)'s Cars</label>
+                            <label for="yourplates">@(Model.Item3.FirstName)'s Cars</label>
                             <select name="yourplates" id="yourplates" required>
-                                @foreach (var element in _userService.GetCarsListOfUser(Model))
+                                @foreach (var element in Model.Item4)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
                                 }
@@ -97,16 +140,16 @@
                             <br />
                             <label for="myplates">My Cars:</label>
                             <select name="myplates" id="myplates" required>
-                                @foreach (var element in _userService.GetCarsListOfUser(_userService.GetLoggedInUser()))
+                                @foreach (var element in Model.Item2)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
                                 }
 
 
                             </select>
-                            <label for="yourplates">@(Model.FirstName)'s Cars</label>
+                            <label for="yourplates">@(Model.Item3.FirstName)'s Cars</label>
                             <select name="yourplates" id="yourplates" required>
-                                @foreach (var element in _userService.GetCarsListOfUser(Model))
+                                @foreach (var element in Model.Item4)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
                                 }

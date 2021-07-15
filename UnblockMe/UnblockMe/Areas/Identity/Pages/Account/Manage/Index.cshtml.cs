@@ -48,6 +48,7 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Profile Picture")]
             public IFormFile ProfilePicture { get; set; }
             public string Id { get; set; }
+            public bool hasPhoto { get; set; }
         }
 
         private async Task LoadAsync(Users user)
@@ -60,13 +61,17 @@ namespace UnblockMe.Areas.Identity.Pages.Account.Manage
             var id = user.Id;
             Username = userName;
 
+
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
                 FirstName = firstName,
                 LastName = lastName,
-                Id = id
+                Id = id,
+                hasPhoto = (photo != null)
+                 
             };
+           
         }
 
         public async Task<IActionResult> OnGetAsync()

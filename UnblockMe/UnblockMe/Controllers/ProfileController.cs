@@ -30,9 +30,13 @@ namespace UnblockMe.Controllers
 
         [Route("Profile/{id}")]
         public IActionResult Index(string id)
-        {  
-
-            return View(_userService.GetUserById(id));
+        {
+            var logged_user = _userService.GetLoggedInUser();
+            var logged_user_cars = _userService.GetCarsListOfUser(logged_user);
+            var other_user = _userService.GetUserById(id);
+            var other_user_cars = _userService.GetCarsListOfUser(other_user);
+            var model = (logged_user, logged_user_cars, other_user, other_user_cars);
+            return View(model);
         
         }
 
