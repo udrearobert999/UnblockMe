@@ -23,6 +23,7 @@ namespace UnblockMe.Models
 
         public virtual DbSet<Users> AspNetUsers { get; set; }
         public virtual DbSet<Cars> Cars { get; set; }
+        public virtual DbSet<Ratings> Ratings { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -39,7 +40,7 @@ namespace UnblockMe.Models
             modelBuilder.Entity<Cars>(entity =>
             {
                 entity.HasKey(e => e.LicensePlate)
-                    .HasName("PK__Cars__F72CD56F0D7E960E");
+                     .HasName("PK__Cars__F72CD56F0D7E960E");
 
                 entity.Property(e => e.LicensePlate)
                     .HasColumnName("license_plate")
@@ -78,7 +79,51 @@ namespace UnblockMe.Models
                 entity.Property(e => e.LastName);
                 entity.Property(e => e.ProfilePicture);
             });
+            modelBuilder.Entity<Ratings>(entity =>
+            {
+                entity.HasKey(e => new
+                {
+                    e.rated_id,
+                    e.rater_id
+                }).HasName("PK__Ratings__C73B45F5134054E5");
+
+                entity.Property(e => e.rater_id)
+                        .HasColumnName("rater_id")
+                        .IsRequired()
+                        .HasMaxLength(450);
+
+                entity.Property(e => e.rated_id)        
+                .HasColumnName("rated_id")
+                        .IsRequired()
+                        .HasMaxLength(450);
+
+                entity.Property(e => e.rating_message)
+                        .HasColumnName("rating_message");
+
+
+                entity.Property(e => e.rating_value)
+                        .HasColumnName("rating_value");
+
+                entity.HasOne(d => d.Rater)
+                      .WithMany(u => u.RatesGiven)
+                      .HasForeignKey(d => d.rater_id)
+                      .OnDelete(DeleteBehavior.ClientSetNull)
+                      .HasConstraintName("FK_rater_users");
+
+                entity.HasOne(d => d.Rated)
+                      .WithMany(u => u.RatesGot)
+                      .HasForeignKey(d => d.rated_id)
+                      .OnDelete(DeleteBehavior.ClientSetNull)
+                      .HasConstraintName("FK_rated_users");
+
+
+
+
+
+            });
+
             OnModelCreatingPartial(modelBuilder);
+
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

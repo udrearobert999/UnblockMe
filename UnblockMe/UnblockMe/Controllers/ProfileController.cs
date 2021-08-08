@@ -16,14 +16,14 @@ namespace UnblockMe.Controllers
     {
         private readonly ILogger<ProfileController> _logger;
         private readonly IUserService _userService;
-        private readonly INotyfService _notyf;
+        private readonly IRatingService _ratingService;
         private readonly ICarsService _carsService;
 
-        public ProfileController(ILogger<ProfileController> logger, INotyfService notyf,IUserService userService,ICarsService carsService)
+        public ProfileController(ILogger<ProfileController> logger, IRatingService ratingService,IUserService userService,ICarsService carsService)
         {
             _logger = logger;
             _userService = userService;
-            _notyf = notyf;
+            _ratingService = ratingService;
             _carsService = carsService;
 
         }
@@ -35,8 +35,20 @@ namespace UnblockMe.Controllers
             var logged_user_cars = _userService.GetCarsListOfUser(logged_user);
             var other_user = _userService.GetUserById(id);
             var other_user_cars = _userService.GetCarsListOfUser(other_user);
-            var model = (logged_user, logged_user_cars, other_user, other_user_cars);
-            return View(model);
+
+            var rating_list = other_user.RatesGot?.ToList();
+            int rating=0;
+            if (rating_list != null)
+            {
+                double k = 2 * (rating_list.Sum(item => item.rating_value) * 1.0 / rating_list.Count());
+                rating = (int)k;
+            }
+           
+
+            var model = (logged_user, logged_user_cars, other_user, other_user_cars,rating);
+
+         
+           return View(model);
         
         }
 

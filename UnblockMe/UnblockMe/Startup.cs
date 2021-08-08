@@ -57,6 +57,7 @@ namespace UnblockMe
             services.AddHttpContextAccessor();
             services.AddTransient<ISMSService, SMSService>();
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IRatingService, RatingService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
