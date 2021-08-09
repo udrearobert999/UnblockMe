@@ -1,10 +1,9 @@
 ﻿.rating
 {
     height:60px;
+    width:250px;
 }
-
-
-    .rating .inputsContainer > [id^="star"] {
+    .rating .inputsContainer> [id^="star"] {
         display: none
     }
 
@@ -39,10 +38,19 @@
             color: #FFED85
         }
 
-form.rating.noHover {
+
+.noHover {
     pointer-events: none;
 }
 .rating .inputsContainer
 {
     display:inline-block;
+   
+}
+.expandable {
+    transition: transform .2s;
+}
+.expandable:hover
+{
+    transform:scale(1.1);
 }
