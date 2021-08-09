@@ -21,5 +21,7 @@ namespace UnblockMe.Models
         public byte[] ProfilePicture { get; set; }
 
         public virtual ICollection<Cars> Cars { get; set; }
+        public virtual ICollection<Ratings> RatesGot { get; set; }
+        public virtual ICollection<Ratings> RatesGiven { get; set; }
     }
 }

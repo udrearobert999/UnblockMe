@@ -1,66 +1,56 @@
-﻿.rating {
-    display: inline-block;
-    position: relative;
-    height: 50px;
-    line-height: 50px;
-    font-size: 50px;
+﻿.rating
+{
+    height:60px;
+    width:250px;
 }
-
-    .rating label {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        cursor: pointer;
-        
+    .rating .inputsContainer> [id^="star"] {
+        display: none
     }
 
-        .rating label:last-child {
-            position: static;
-        }
-
-        .rating label:nth-child(1) {
-            z-index: 5;
-        }
-
-        .rating label:nth-child(2) {
-            z-index: 4;
-        }
-
-        .rating label:nth-child(3) {
-            z-index: 3;
-        }
-
-        .rating label:nth-child(4) {
-            z-index: 2;
-        }
-
-        .rating label:nth-child(5) {
-            z-index: 1;
-        }
-
-        .rating label input {
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-        }
-
-        .rating label .icon {
-            float: left;
-            color: transparent;
-        }
-
-        .rating label:last-child .icon {
-            color: #000;
-        }
-
-    .rating:not(:hover) label input:checked ~ .icon,
-    .rating:hover label:hover input ~ .icon {
-        color: rgb(241,183,0) !important;
+    .rating .inputsContainer > label:before {
+        margin: 5px;
+        font-size: 2.25em;
+        font-family: FontAwesome;
+        display: inline-block;
+        content: "\f005"
     }
 
-    .rating label input:focus:not(:checked) ~ .icon:last-child {
-        color: #000;
-        text-shadow: 0 0 5px rgb(241,183,0);
+    .rating .inputsContainer > .half:before {
+        content: "\f089";
+        position: absolute
     }
+
+    .rating .inputsContainer > label {
+        color: #ddd;
+        float: right
+    }
+
+    .rating .inputsContainer > [id^="star"]:checked ~ label,
+    .rating:not(:checked) .inputsContainer > label:hover,
+    .rating:not(:checked) .inputsContainer > label:hover ~ label {
+        color: #FFD700
+    }
+
+        .rating .inputsContainer > [id^="star"]:checked + label:hover,
+        .rating .inputsContainer > [id^="star"]:checked ~ label:hover,
+        .rating .inputsContainer > label:hover ~ [id^="star"]:checked ~ label,
+        .rating .inputsContainer > [id^="star"]:checked ~ label:hover ~ label {
+            color: #FFED85
+        }
+
+
+.noHover {
+    pointer-events: none;
+}
+.rating .inputsContainer
+{
+    display:inline-block;
+   
+}
+.expandable {
+    transition: transform .2s;
+}
+.expandable:hover
+{
+    transform:scale(1.1);
+}

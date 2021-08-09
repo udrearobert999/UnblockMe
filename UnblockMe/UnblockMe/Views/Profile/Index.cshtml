@@ -1,69 +1,53 @@
-﻿@model (Users, List<Cars>, Users, List<Cars>)
+﻿@model (Users, List<Cars>, Users, List<Cars>, int)
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<Users> SignInManager
 
 
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<link href="~/css/rating.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 <link href="~/css/Profile.css" rel="stylesheet" />
+<link href="~/css/rating.css" rel="stylesheet" />
 <div class="profilecontainer" align="center">
     <p><img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="/Profile/@Model.Item3.Id/Photo" /></p>
-    <p>
-        <form class="rating">
-            <label>
-                <input type="radio" name="stars" value="1" />
-                <span class="icon">★</span>
-            </label>
-            <label>
-                <input type="radio" name="stars" value="2" />
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-            </label>
-            <label>
-                <input type="radio" name="stars" value="3" />
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-            </label>
-            <label>
-                <input type="radio" name="stars" value="4" />
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-            </label>
-            <label>
-                <input type="radio" name="stars" value="5" />
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-                <span class="icon">★</span>
-            </label>
-        </form>
-    </p>
     <p>@Model.Item3.FirstName  @Model.Item3.LastName</p>
     <p>@Model.Item3.PhoneNumber <img class="phone" src="https://img.icons8.com/office/16/000000/phone.png" /></p>
     <p>@Model.Item3.Email <img class="email" src="https://img.icons8.com/ultraviolet/40/000000/new-post.png" /></p>
 
+    <p>
+        <form class="rating expandable" data-toggle="modal" data-target="#RateUser">
+            <div class="inputsContainer noHover">
+                @for (int i = 9; i >= 1; i--)
+                {
+
+                    if (i == Model.Item5 - 1)
+                    {
+                        <input class="radio" type="radio" id=@("star"+i) name="rating" value=@i.ToString() disabled checked />
+
+                    }
+                    else
+                    {
+
+                        <input class="radio" type="radio" id=@("star"+i) name="rating" value=@i.ToString() disabled />
+                    }
+                    if (i % 2 == 1)
+                    {
+                        <label class="full" for=@("star"+i)></label>
+                    }
+                    else
+                    {
+                        <label class="half" for=@("star"+i)></label>
+                    }
+
+                }
+            </div>
+        </form>
+
+    </p>
+
+
 </div>
-
-<style>
-    .rating:not(:hover) label input:checked ~ .icon,
-    .rating:hover label:hover input ~ .icon {
-        color: rgb(241,183,0) !important;
-    }
-
-    .rating label input:focus:not(:checked) ~ .icon:last-child {
-        color: #000;
-        text-shadow: 0 0 5px rgb(241,183,0);
-    }
-</style>
-
-
-
-
 <div class="container">
     @if (SignInManager.IsSignedIn(User))
     {
@@ -76,6 +60,9 @@
 
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BlockedYou">
                 I have blocked you!
+            </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Rate">
+                Rate
             </button>
         </div>
 
@@ -176,7 +163,38 @@
 
     }
 </div>
+<div class="modal custom fade" id="RateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Rate This User!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="rating" id="rating">
+                    <div class="inputsContainer">
+                       
+                    </div>
+                    
+                </form>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" form="rating"class="btn btn-primary" id="button">Send</button>
+                </div>
+
+            </div>
+    </div>
+</div>
+
+
+
+
 <script>
+
     $("#form1").submit(function blockedyou(event) {
         event.preventDefault();
         $.ajax({

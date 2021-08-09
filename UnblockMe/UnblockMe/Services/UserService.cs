@@ -44,23 +44,23 @@ namespace UnblockMe.Services
                 return _dbContext.Cars.ToList();
             else
             {
-                var user = _dbContext.Users.Include(user => user.Cars).Where(user => user.Id == curentUser.Id).First();
+                var user = GetUserById(curentUser.Id);
                 return user.Cars.ToList();
             }
         }
         public Users GetUserById(string id)
         {
-            return _dbContext.Users.Find(id);
+            return _dbContext.Users
+                        .Include(user=>user.Cars)
+                        .Include(user=> user.RatesGot)
+                        .Where(user=>user.Id==id)
+                        .First();
         }
-        public void save()
-        {
-            _dbContext.SaveChanges();
-        }
+        
     }
 
     public interface IUserService
     {
-        public void save();
         public List<Cars> GetCarsListOfUser(Users curentUser = null);
         public List<Users> GetActiveUsers();
         public Users GetLoggedInUser();
