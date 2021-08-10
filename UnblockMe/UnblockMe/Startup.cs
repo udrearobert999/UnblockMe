@@ -35,6 +35,7 @@ namespace UnblockMe
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<Users>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UnblockMeContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();

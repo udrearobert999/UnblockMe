@@ -16,3 +16,7 @@
     color:white;
     background-color:rgb(77,70,200);
 }
+.modal.custom .modal-dialog
+{
+    background-color:black;
+}

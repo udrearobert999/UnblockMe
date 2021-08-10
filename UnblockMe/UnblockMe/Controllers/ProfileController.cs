@@ -40,7 +40,7 @@ namespace UnblockMe.Controllers
             int rating=0;
             if (rating_list != null)
             {
-                double k = 2 * (rating_list.Sum(item => item.rating_value) * 1.0 / rating_list.Count());
+                double k = 2 * (rating_list.Sum(item => item.rating_value) * (double)1.0 / rating_list.Count());
                 rating = (int)k;
             }
            
@@ -51,6 +51,7 @@ namespace UnblockMe.Controllers
            return View(model);
         
         }
+
 
         public IActionResult BlockedYouAction(string Contact, string MyPlate,string YourPlate)
         {
@@ -88,6 +89,23 @@ namespace UnblockMe.Controllers
         {
             var user = _userService.GetUserById(id);
             return File(user.ProfilePicture, MediaTypeNames.Image.Jpeg);
+            
+        }
+        [Route("Profile/RateAction/{id}")]
+        public IActionResult RateAction(int rating,string ratingMessage,string id)
+        {
+            
+                double parsedRating = (double)rating * (double)1.0 / 2;
+
+                var logged_user = _userService.GetLoggedInUser();
+                var curentRate = new Ratings();
+                curentRate.rater_id = logged_user.Id;
+                curentRate.rated_id = id;
+                curentRate.rating_value = parsedRating;
+                curentRate.rating_message = ratingMessage;
+                _ratingService.AddOrUpdateRate(curentRate);
+
+                return Ok("Rate posted!");
             
         }
     }

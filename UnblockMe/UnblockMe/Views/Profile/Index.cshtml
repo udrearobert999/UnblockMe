@@ -18,10 +18,10 @@
     <p>
         <form class="rating expandable" data-toggle="modal" data-target="#RateUser">
             <div class="inputsContainer noHover">
-                @for (int i = 9; i >= 1; i--)
+                @for (int i = 1; i <= 10; i++)
                 {
 
-                    if (i == Model.Item5 - 1)
+                    if (i == 10-Model.Item5+1)
                     {
                         <input class="radio" type="radio" id=@("star"+i) name="rating" value=@i.ToString() disabled checked />
 
@@ -172,29 +172,83 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form class="rating" id="rating">
-                    <div class="inputsContainer">
-                       ss
-                    </div>
-                    
-                </form>
+            <div class="modal-body" style="height:200px">
+
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <form class="rating" id="rating">
+                        <div class="inputsContainer">
+                            @for (int i = 1; i <= 10; i++)
+                            {
+
+                                <input type="radio" id=@("star"+i+i) name="Rating" value=@i.ToString() />
+                                if (i % 2 == 1)
+                                {
+                                    <label class="full" for=@("star"+i+i)></label>
+                                }
+                                else
+                                {
+
+                                    <label class="half" for=@("star"+i+i)></label>
+                                }
+                            }
 
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" form="rating"class="btn btn-primary" id="button">Send</button>
-                </div>
+
+                        </div>
+                        
+                        <input type="text" placeholder="Enter a message..." id="ratemessage" />
+                        
+                    </form>
+                   
+
+
+
+
+                }
+                else
+                {
+                    <p>You must sign it first!!!!</p>
+                }
 
             </div>
-    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="rating" class="btn btn-primary" id="button">Send</button>
+            </div>
+        </div>
 </div>
 
 
 
 
-<script>
+    <script>
+    $("#rating").submit(function rate(event) {
+        event.preventDefault();
+        var radioValue = 10 - parseInt($("input[name='Rating']:checked").val()) + 1;
+        var rateMessage = $("#ratemessage").val();
+      
+        $.ajax({
+            url: "RateAction/@Model.Item3.Id",
+            data: {
+                rating: radioValue,
+                ratingMessage: rateMessage,
+               
+            },
+            success: function (status) {
+                $("#BlockedYou").modal('hide');
+                location.reload();
+                toastNotifySuccess(status, 1000);
 
+            },
+            error: function (error) {
+
+                $("#BlockedYou").modal('hide');
+                toastNotifyError(error.responseText, 1000);
+            }
+
+        });
+    });
     $("#form1").submit(function blockedyou(event) {
         event.preventDefault();
         $.ajax({
@@ -245,4 +299,4 @@
 
     });
 
-</script>
+    </script>

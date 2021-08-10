@@ -868,3 +868,4 @@ C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netco
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\MimeKit.dll
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netcoreapp3.1\AjaxControlToolkit.dll
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditDatabase.cshtml.g.cs

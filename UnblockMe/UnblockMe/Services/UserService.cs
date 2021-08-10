@@ -56,11 +56,19 @@ namespace UnblockMe.Services
                         .Where(user=>user.Id==id)
                         .First();
         }
-        
+
+        public void AddUserToRole(Users user, string role)
+        {
+            _userManager.AddToRoleAsync(user, role);
+            _dbContext.SaveChanges();
+        }
+
+
     }
 
     public interface IUserService
     {
+        public void AddUserToRole(Users user, string role);
         public List<Cars> GetCarsListOfUser(Users curentUser = null);
         public List<Users> GetActiveUsers();
         public Users GetLoggedInUser();

@@ -16,15 +16,21 @@ namespace UnblockMe.Services
             _dbContext = dbContext;
             _userService = userService;
         }
-        public void AddRate(Ratings rate)
+        public void AddOrUpdateRate(Ratings rate)
         {
-            _dbContext.Ratings.Add(rate);
+            if (_dbContext.Ratings.
+                Any(curentRate => curentRate.rater_id == rate.rater_id && curentRate.rated_id == rate.rated_id))
+            {
+                _dbContext.Update(rate);
+            }
+            else
+                _dbContext.Add(rate);
             _dbContext.SaveChanges();
         }
     }
 
     public interface IRatingService
     {
-        public void AddRate(Ratings rate);
+        public void AddOrUpdateRate(Ratings rate);
     }
 }

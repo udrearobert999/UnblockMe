@@ -2,7 +2,7 @@
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<Users> SignInManager
 @inject UserManager<Users> UserManager
-
+@inject RoleManager<IdentityRole> RoleManager
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,8 +35,15 @@
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
+                          
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="AddCar" asp-action="Index">Add Car</a>
+                            </li>
+                        }
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="EditDatabase">EditDatabase</a>
                             </li>
                         }
                     </ul>
