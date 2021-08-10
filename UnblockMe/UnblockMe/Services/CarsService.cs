@@ -27,8 +27,9 @@ namespace UnblockMe.Services
         {
             var cars = _dbContext.Cars
                 .Include(car => car.Owner)
-                .Where(car => car.LicensePlate.Contains(licensePlate))
-                .ToList();
+                .Where(car => car.LicensePlate.Contains(licensePlate)).ToList();
+            cars = cars.GetRange(0, Math.Min(3, cars.Count()));
+           
 
             if (_userService.GetLoggedInUser() != null)
                 cars.RemoveAll(car => car.Owner.Id == _userService.GetLoggedInUser().Id);

@@ -63,11 +63,20 @@ namespace UnblockMe.Services
             _dbContext.SaveChanges();
         }
 
+        public void AddOrUpdateUser(Users user)
+        {
+            if (_dbContext.Users.Any(u => u.Id == user.Id))
+                _dbContext.Update(user);
+            else
+                _dbContext.Add(user);
+            _dbContext.SaveChanges();
+        }
 
     }
 
     public interface IUserService
     {
+        public void AddOrUpdateUser(Users user);
         public void AddUserToRole(Users user, string role);
         public List<Cars> GetCarsListOfUser(Users curentUser = null);
         public List<Users> GetActiveUsers();
