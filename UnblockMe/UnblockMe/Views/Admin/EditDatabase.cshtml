@@ -111,6 +111,9 @@
     $("tr").click(function () {
         var row = $(this).find("td");
         var uid = $(row[0]).text();
+
+        console.log(row);
+
         $.ajax({
             url: "GetUser",
             data: {
