@@ -36,7 +36,7 @@ namespace UnblockMe.Controllers
             var other_user = _userService.GetUserById(id);
             var other_user_cars = _userService.GetCarsListOfUser(other_user);
 
-            var rating_list = other_user.RatesGot?.ToList();
+            var rating_list = _userService.GetRatingsOfUser(other_user);
             int rating=0;
             if (rating_list != null)
             {
@@ -103,6 +103,7 @@ namespace UnblockMe.Controllers
                 curentRate.rated_id = id;
                 curentRate.rating_value = parsedRating;
                 curentRate.rating_message = ratingMessage;
+                
                 _ratingService.AddOrUpdateRate(curentRate);
 
                 return Ok("Rate posted!");

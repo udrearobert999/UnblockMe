@@ -1,7 +1,5 @@
 ﻿.profilecontainer #profilePicture {
     border-radius: 50%;
-    border-style: solid;
-    border-color: rgb(77,70,200);
 }
 .profilecontainer .email{
     width:16px;

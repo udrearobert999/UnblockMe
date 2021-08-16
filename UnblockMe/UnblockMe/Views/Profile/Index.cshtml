@@ -9,19 +9,22 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 <link href="~/css/Profile.css" rel="stylesheet" />
 <link href="~/css/rating.css" rel="stylesheet" />
-<div class="profilecontainer" align="center">
-    <p><img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="/Profile/@Model.Item3.Id/Photo" /></p>
-    <p>@Model.Item3.FirstName  @Model.Item3.LastName</p>
-    <p>@Model.Item3.PhoneNumber <img class="phone" src="https://img.icons8.com/office/16/000000/phone.png" /></p>
-    <p>@Model.Item3.Email <img class="email" src="https://img.icons8.com/ultraviolet/40/000000/new-post.png" /></p>
+<div class="profilecontainer">
+    <div align="center" class="mainInfo">
+        <p><img id="profilePicture" style="width:350px;height:350px; object-fit:cover" src="/Profile/@Model.Item3.Id/Photo" /></p>
+        <p>@Model.Item3.FirstName  @Model.Item3.LastName</p>
+        <p>@Model.Item3.PhoneNumber <img class="phone" src="https://img.icons8.com/office/16/000000/phone.png" /></p>
+        <p>@Model.Item3.Email <img class="email" src="https://img.icons8.com/ultraviolet/40/000000/new-post.png" /></p>
 
-    <p>
+    </div>
+
+    <div class="ratingFormContainer">
         <form class="rating expandable" data-toggle="modal" data-target="#RateUser">
             <div class="inputsContainer noHover">
                 @for (int i = 1; i <= 10; i++)
                 {
 
-                    if (i == 10-Model.Item5+1)
+                    if (i == 10 - Model.Item5 + 1)
                     {
                         <input class="radio" type="radio" id=@("star"+i) name="rating" value=@i.ToString() disabled checked />
 
@@ -42,10 +45,16 @@
 
                 }
             </div>
+
         </form>
+        <div class="showRating">
+            <div class="showRatingContainer">
+                <a data-toggle="modal" data-target="#ratings">(@Model.Item3.RatesGot.Count())</a>
+            </div>
 
-    </p>
-
+        </div>
+    </div>
+    
 
 </div>
 <div class="container">
@@ -160,7 +169,7 @@
 
     }
 </div>
-<div class="modal custom fade" id="RateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal custom1 fade" id="RateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -169,12 +178,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" style="height:200px">
+            <div class="modal-body">
 
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <form class="rating" id="rating">
                         <div class="inputsContainer">
+
                             @for (int i = 1; i <= 10; i++)
                             {
 
@@ -193,12 +203,11 @@
 
 
                         </div>
-                        
-                        <input type="text" placeholder="Enter a message..." id="ratemessage" />
-                        
-                    </form>
-                   
 
+
+                    </form>
+
+                    <textarea class="form-control" placeholder="Enter a message..." id="ratemessage" form="rating" maxlength="200"></textarea>
 
 
 
@@ -208,17 +217,80 @@
                     <p>You must sign it first!!!!</p>
                 }
 
+
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" form="rating" class="btn btn-primary" id="button">Send</button>
             </div>
         </div>
+    </div>
 </div>
+<div class="modal fade" id="ratings" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ratings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+             
+                @foreach (var element in Model.Item3.RatesGot)
+                {
+                    <div class="ratingBlock">
+                        <div class="ratingBlock-imgContainer">
+                            <img id="profilePicture" style="width:60px;height:60px; object-fit:cover; border-radius:30px" src="/Profile/@element.rater_id/Photo">
+                        </div>
+                        <div class="rightOfImage">
+                            <div class="profileInfo">
+                                <p>@element.Rater.FirstName @element.Rater.LastName</p>
+                                <form class="rating shrinked">
+                                    <div class="inputsContainer noHover">
+                                        @for (int i = 1; i <= 10; i++)
+                                        {
 
+                                            if (i == 10 - (element.rating_value * 2) + 1)
+                                            {
+                                                <input class="radio" type="radio" id=@("star"+i) name="rating" value=@i.ToString() disabled checked />
 
+                                            }
+                                            else
+                                            {
 
+                                                <input class="radio" type="radio" id=@("star"+i) name="rating" value=@i.ToString() disabled />
+                                            }
+                                            if (i % 2 == 1)
+                                            {
+                                                <label class="full" for=@("star"+i)></label>
+                                            }
+                                            else
+                                            {
+                                                <label class="half" for=@("star"+i)></label>
+                                            }
 
+                                        }
+                                    </div>
+
+                                </form>
+                            </div>
+                            <span class="comm">@element.rating_message</span>
+
+                        </div>
+                    </div>
+                    <hr />
+                }
+               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
     <script>
     $("#rating").submit(function rate(event) {
         event.preventDefault();

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using UnblockMe.Services;
+using System.Text;
 
 namespace UnblockMe.Controllers
 {
@@ -75,6 +76,24 @@ namespace UnblockMe.Controllers
         {
             _carsService.RemoveCar(licensePlate);
             return Ok(licensePlate + " removed succesfully");
+        }
+        public IActionResult DownloadCarInfo()
+        {
+            var logged_user = _userService.GetLoggedInUser();
+            var car_list = _userService.GetCarsListOfUser(logged_user);
+            var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("LicensePlate,Brand,Color,BlocksCar,BlockedBy");
+            foreach(var element in car_list)
+            {
+                stringBuilder.AppendLine($"{element.LicensePlate},{element.Brand}" +
+                    $",{element.Color},{element.BlocksCar},{element.IsBlockedByCar}");
+            }
+            return File(Encoding.UTF8.GetBytes(stringBuilder.ToString()), "text/csv", "cars.csv");
+
+        }
+        public IActionResult DownloadExcel()
+        {
+            return Content("EXCEL");
         }
     }
 }

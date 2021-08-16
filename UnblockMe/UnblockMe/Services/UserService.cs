@@ -71,11 +71,19 @@ namespace UnblockMe.Services
                 _dbContext.Add(user);
             _dbContext.SaveChanges();
         }
-
+        public List<Ratings> GetRatingsOfUser(Users user)
+        {
+            return _dbContext.Ratings
+                .Include(u => u.Rater)
+                .Include(uc => uc.Rated)
+                .Where(r => r.rated_id == user.Id)
+                .ToList();
+        }
     }
 
     public interface IUserService
     {
+        public List<Ratings> GetRatingsOfUser(Users user);
         public void AddOrUpdateUser(Users user);
         public void AddUserToRole(Users user, string role);
         public List<Cars> GetCarsListOfUser(Users curentUser = null);

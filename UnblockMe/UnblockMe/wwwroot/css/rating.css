@@ -1,7 +1,9 @@
 ﻿.rating
 {
     height:60px;
-    width:250px;
+    display:flex;
+    justify-content:center;
+
 }
     .rating .inputsContainer> [id^="star"] {
         display: none
@@ -50,10 +52,73 @@
 .expandable {
     transition: transform .2s;
 }
+.shrinked {
+    -webkit-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    -ms-transform: scale(0.5);
+    transform: scale(0.5);
+    transform-origin: top left;
+    height:40px;
+}
 .expandable:hover
 {
     transform:scale(1.1);
 }
-#rating.rating {
-    margin: auto;
+.ratingFormContainer{
+    display:flex;
+    justify-content:center;
+}
+.showRating{
+    display:inline-block;
+    margin-left: 10px;
+
+}
+.showRatingContainer {
+    display: flex;
+    height: 60px;
+    justify-content: center;
+    flex-direction: column;
+}
+.showRating .showRatingContainer a:hover
+{
+    cursor:pointer;
+}
+#RateUser .modal-body {
+    height:200px;
+    display:flex;
+    flex-direction:column;
+
+}
+.ratingBlock {
+    height: 100px;
+    display: flex;
+    overflow: auto;
+}
+
+
+.ratingBlock-imgContainer
+{
+    height:100%;
+    width:60px;  
+    display:inline-block;
+}
+.rightOfImage
+{
+    height:100%;
+    display:inline-block;
+    margin-left:10px;
+}
+
+.profileInfo {
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+}
+.profileInfo p:nth-child(1) {
+    font-weight:bold;
+    margin:0;
+}
+.comm {
+    word-break: break-all;
+    width: fit-content;
 }

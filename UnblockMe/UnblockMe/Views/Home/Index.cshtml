@@ -13,69 +13,11 @@
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" />
 <link href="~/css/search_button.css" rel="stylesheet" />
-
-
-
+<link href="~/css/Profile.css" rel="stylesheet" />
+<link href="~/css/licensePlate.css" rel="stylesheet" />
 
 
 <style>
-    .lpContainer {
-        justify-content: center;
-        display: flex;
-        margin-top:15px;
-        margin-bottom:15px;
-    }
-
-    .licensePlateDiv {
-        width: 350px;
-        height: 120px;
-        border-radius: 40px;
-        border-style: solid;
-        border-color: rgb(77,70,200);
-        border-width: 7px;
-        transition: transform .2s;
-    }
-
-        .licensePlateDiv .Hr {
-            margin-top: 0px;
-            margin-bottom: 3px;
-        }
-
-        .licensePlateDiv .Text {
-            margin-top: 20px;
-        }
-
-            .licensePlateDiv .Text p {
-                text-align: center;
-                padding-bottom: 5px;
-                padding-top: 5px;
-                margin-top: 0px;
-                margin-bottom: 0px;
-                font-size: 25px;
-            }
-
-        .licensePlateDiv:hover {
-            transform: scale(1.1);
-        }
-
-    #profileImg, #blockImg {
-        display: inline-block;
-        height: 25px;
-        width: 25px;
-        transition: transform .2s;
-    }
-
-    .imgDiv {
-        text-align: center;
-    }
-
-    #profileImg:hover {
-        transform: scale(1.1);
-    }
-
-    #blockImg:hover {
-        transform: scale(1.1);
-    }
 </style>
 
 
@@ -99,29 +41,51 @@
     }
     else
     {
+        <div class="lpContainer">
+            @foreach (var element in Model)
+            {
+                <div class="miniProfile">
 
-        foreach (var element in Model)
-        {
-            <div class="lpContainer">
-                <div class="licensePlateDiv">
-                    <div class="Text">
-                        <hr class="Hr">
-                        <p>@element.LicensePlate</p>
-                        <hr class="Hr">
-                        <div class="imgDiv">
-                            <a href="~/Profile/@element.Owner.Id"><img id="profileImg" src="https://img.icons8.com/ios-filled/50/000000/gender-neutral-user.png" /></a>
-                            <a><img id="blockImg" src="https://img.icons8.com/ios-filled/50/000000/cancel-2.png" /></a>
-                            
+                    <div class="profilecontainer">
+
+                        <div class="imgContainer">
+                            <img id="profilePicture" src="/Profile/@element.Owner.Id/Photo" />
+
+                            <div class="imgCover">
+                                <a href="~/Profile/@element.Owner.Id">
+                                    <p>SEE PROFILE</p>
+                                </a>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <p>@element.Owner.FirstName  @element.Owner.LastName</p>
+                    </div>
+                    <div class="lpContainer2">
+                        <div class="licensePlate">
+                            <div class="left">
+                            </div>
+                            <div class="right">
+                                <h1>@element.LicensePlate</h1>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-        }
+
+                </div>
+
+
+            }
+
+        </div>
 
 
     }
 }
+
 
 
 

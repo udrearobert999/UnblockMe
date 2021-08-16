@@ -1,0 +1,119 @@
+﻿.lpContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.miniProfile {
+    display: flex;
+    flex-direction: column;
+   
+    height: 350px;
+    width: 260px;
+    background: white;
+    border: 1px solid gray;
+    border-radius: 20px;
+    margin: 10px;
+    box-shadow: 0px 0px 10px 2px gray;
+    transition: transform .2s;
+}
+
+    .miniProfile:hover {
+        transform: scale(1.1);
+    }
+
+.profilecontainer .imgContainer
+{
+    display:flex;
+    justify-content:center;
+
+}
+    .profilecontainer .imgContainer #profilePicture {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        display: inline-block;
+        margin-top: 25px;
+        position: relative;
+        box-shadow: 0px 0px 10px 2px gray;
+    }
+    .profilecontainer .imgContainer .imgCover {
+       
+        width: 180px;
+        height: 180px;
+        position: absolute;
+        margin-top: 25px;
+        border-radius: 50%;
+        background:rgba(0,0,0,0.6);
+        opacity:0;
+      
+        transition: opacity 0.25s;
+    }
+        .profilecontainer .imgContainer .imgCover a {
+            height: 100%;
+            width: 100%;
+            position: inherit;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .profilecontainer .imgContainer .imgCover p
+        {
+            display:inline;
+            width:100%;
+            height:20px;
+            color:white;
+            text-align:center;
+            margin:0;
+        }
+        .profilecontainer .imgContainer .imgCover:hover {
+            opacity: 1;
+            cursor:pointer;
+        }
+.profilecontainer p
+{
+    text-align:center;
+    margin-top:15px;
+    font-size:20px;
+}
+.licensePlate {
+    display:flex;
+    width: 250px;
+    height: 50px;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+    border-radius: 13px;
+}
+
+    .licensePlate .left {
+        display: inline-block;
+        width: 13%;
+        height: 100%;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        background-color: rgb(37,104,160);
+    }
+
+    .licensePlate .right {
+        display: flex;
+        justify-content:center;
+        flex-direction:column;
+        height: 100%;
+        width: 85%;
+    
+        
+    }
+    .licensePlate .right h1
+    {
+        text-align:center;
+        font-size:25px;
+        margin:0;
+        
+    }
+.lpContainer2
+{
+    display:flex;
+    justify-content:center;
+}
