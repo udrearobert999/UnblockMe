@@ -18,11 +18,13 @@ namespace UnblockMe.Services
         private readonly UserManager<Users> _userManager;
         private readonly UnblockMeContext _dbContext;
         private readonly IHttpContextAccessor _accesor;
-        public UserService (UnblockMeContext dbContext, UserManager<Users> userManager, IHttpContextAccessor accesor)
+        private readonly SignInManager<Users> _signInManager;
+        public UserService(UnblockMeContext dbContext, UserManager<Users> userManager, IHttpContextAccessor accesor, SignInManager<Users> signInManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _accesor = accesor;
+            _signInManager = signInManager;
         }
         public List<Users> GetActiveUsers()
         {
@@ -79,10 +81,40 @@ namespace UnblockMe.Services
                 .Where(r => r.rated_id == user.Id)
                 .ToList();
         }
+        public void BanUser(Users user,string reason,int days)
+        {
+            if(user!=null)
+            {
+                var banned_user = new banned_users(user.Id, reason, DateTime.UtcNow.AddMinutes(days),user);
+                user.Banned = banned_user;
+     
+                _dbContext.banned_users.Add(banned_user);
+                _userManager.UpdateSecurityStampAsync(user);
+                _dbContext.SaveChanges();
+            }
+           
+        }
+        public void UnbanUser(Users user)
+        {
+            if (user.Banned != null)
+                _dbContext.banned_users.Remove(user.Banned);
+            _dbContext.SaveChanges();
+        }
+
+        public Users GetUserByEmail(string email)
+        {
+            return _dbContext.Users.Include(u => u.Banned)
+                .Where(u => u.Email == email)
+                .ToList()
+                .First();
+        }
     }
 
     public interface IUserService
     {
+        public Users GetUserByEmail(string email);
+        public void UnbanUser(Users user);
+        public void BanUser(Users user, string reason, int days);
         public List<Ratings> GetRatingsOfUser(Users user);
         public void AddOrUpdateUser(Users user);
         public void AddUserToRole(Users user, string role);

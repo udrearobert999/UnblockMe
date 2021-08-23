@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using UnblockMe.Models;
+using Microsoft.EntityFrameworkCore;
+using UnblockMe.Controllers;
+using UnblockMe.Services;
 
 namespace UnblockMe.Areas.Identity.Pages.Account
 {
@@ -21,14 +24,16 @@ namespace UnblockMe.Areas.Identity.Pages.Account
         private readonly UserManager<Users> _userManager;
         private readonly SignInManager<Users> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IUserService _userService;
 
-        public LoginModel(SignInManager<Users> signInManager, 
+        public LoginModel(SignInManager<Users> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<Users> userManager)
+            UserManager<Users> userManager, IUserService userService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _userService = userService;
         }
 
         [BindProperty]
@@ -80,6 +85,17 @@ namespace UnblockMe.Areas.Identity.Pages.Account
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+                var user = _userService.GetUserByEmail(Input.Email);
+                if (user.Banned != null)
+                {
+                    var ok = (DateTime.UtcNow > user.Banned.unban);
+                    if (!ok)
+                        return RedirectToAction(nameof(ErrorController.Banned), "Error",user.Banned);
+                    else
+                        _userService.UnbanUser(user);
+
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
@@ -100,6 +116,8 @@ namespace UnblockMe.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
+
+
             }
 
             // If we got this far, something failed, redisplay form

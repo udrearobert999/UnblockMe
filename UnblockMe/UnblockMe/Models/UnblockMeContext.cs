@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
+using System.Linq;
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
@@ -24,6 +24,7 @@ namespace UnblockMe.Models
         public virtual DbSet<Users> AspNetUsers { get; set; }
         public virtual DbSet<Cars> Cars { get; set; }
         public virtual DbSet<Ratings> Ratings { get; set; }
+        public virtual DbSet<banned_users> banned_users { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -37,6 +38,34 @@ namespace UnblockMe.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<banned_users>(e =>
+            {
+
+                e.Property(e => e.Id)
+                 .HasColumnName("Id")
+                 .HasMaxLength(450)
+                 .IsRequired();
+
+                e.Property(e => e.reason)
+                .HasColumnName("reason")
+                .IsRequired()
+                .HasMaxLength(450);
+
+                e.Property(e => e.unban)
+                .HasColumnName("unban")
+                .IsRequired();
+
+                e.HasKey(e => e.Id)
+                .HasName("PK__banned_u__3213E83FC6AB863C");
+
+
+                e.HasOne(b => b.User)
+                 .WithOne(u => u.Banned)
+                 .HasForeignKey<banned_users>(b => b.Id)
+                 .HasConstraintName("FK_ban_users");
+
+
+            });
             modelBuilder.Entity<Cars>(entity =>
             {
                 entity.HasKey(e => e.LicensePlate)

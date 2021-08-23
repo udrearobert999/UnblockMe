@@ -9,14 +9,14 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item" style="align-self: center;">
-            @if (curent_user.ProfilePicture != null)
+            @if (curent_user?.ProfilePicture != null)
             {
                 <img id="profilePicture" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="/Profile/@curent_user.Id/Photo">
             }
             else
-                {
-        <img id="profilePicture" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">
-                }
+            {
+                <img id="profilePicture" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png">
+            }
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @curent_user.FirstName!</a>

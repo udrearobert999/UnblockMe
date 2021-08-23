@@ -59,6 +59,11 @@ namespace UnblockMe
             services.AddTransient<ISMSService, SMSService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IRatingService, RatingService>();
+
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.FromSeconds(10);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,6 +11,7 @@ using System.Security.Claims;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using UnblockMe.Services;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UnblockMe.Controllers
 {
@@ -32,16 +33,19 @@ namespace UnblockMe.Controllers
             _notyf = notyf;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
 
             var logged_user = _userService.GetLoggedInUser();
             var logged_user_cars =_userService.GetCarsListOfUser(logged_user);
 
-           
+          
+
             return View(logged_user_cars);
         }
         [HttpPost]
+        [Authorize]
         public IActionResult AddCar(string LicensePlate,string Brand,string Color)
         {
             var car = new Cars();
@@ -61,10 +65,12 @@ namespace UnblockMe.Controllers
 
 
         }
+        [Authorize]
         public IActionResult GetCarByLicensePlate(string licenseplate)
         {
             return Json(_carsService.GetCarByLicensePlate(licenseplate));
         }
+        [Authorize]
         public IActionResult EditCar(string licensePlate,string color,string brand)
         {
                var car = _carsService.GetCarByLicensePlate(licensePlate);
@@ -72,11 +78,13 @@ namespace UnblockMe.Controllers
             
             return Ok("Car edited succesfully!");
         }
+        [Authorize]
         public IActionResult RemoveCar(string licensePlate)
         {
             _carsService.RemoveCar(licensePlate);
             return Ok(licensePlate + " removed succesfully");
         }
+        [Authorize]
         public IActionResult DownloadCarInfo()
         {
             var logged_user = _userService.GetLoggedInUser();
@@ -91,6 +99,7 @@ namespace UnblockMe.Controllers
             return File(Encoding.UTF8.GetBytes(stringBuilder.ToString()), "text/csv", "cars.csv");
 
         }
+        [Authorize]
         public IActionResult DownloadExcel()
         {
             return Content("EXCEL");

@@ -1,0 +1,8 @@
+﻿@model banned_users;
+<link href="~/css/banned.css" rel="stylesheet" />
+
+<div class="bannedContainer">
+    <h1 class="banMessage"> This user got banned! </h1>
+    <h2 class="banMessage"> Reason: @Model.reason </h2>
+    <h3 class="banMessage"> Your ban will be removed on @Model.unban.ToLocalTime() </h3>
+</div>
