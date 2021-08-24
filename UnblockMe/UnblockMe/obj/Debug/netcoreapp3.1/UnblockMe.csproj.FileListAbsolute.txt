@@ -871,3 +871,5 @@ C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\bin\Debug\netco
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditDatabase.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Banned.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Error\Banned.cshtml.g.cs
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Admin\PartialUsers.cshtml.g.cs
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Admin\PartialCars.cshtml.g.cs

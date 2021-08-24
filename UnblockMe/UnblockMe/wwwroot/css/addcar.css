@@ -1,14 +1,1 @@
-﻿.buttons{
-    margin-top:200px   ;
-    display:flex;
-    flex-direction:column; 
-    justify-content:center;
-    align-content:center;
-    align-items:center;
-}
-.btn.btn-primary{
-   width:200px;
-   margin-bottom:20px; 
-   background-color:rgb(77,70,200);
-   color:white;  
-}
+﻿

@@ -37,8 +37,8 @@ namespace UnblockMe.Services
                      .GetUserAsync(_accesor.HttpContext.User).Result;
             else
                 return null;
-           
-           
+
+
         }
         public List<Cars> GetCarsListOfUser(Users curentUser = null)
         {
@@ -53,9 +53,10 @@ namespace UnblockMe.Services
         public Users GetUserById(string id)
         {
             return _dbContext.Users
-                        .Include(user=>user.Cars)
-                        .Include(user=> user.RatesGot)
-                        .Where(user=>user.Id==id)
+                        .Include(user => user.Cars)
+                        .Include(user => user.RatesGot)
+                        .Include(user=>user.Banned)
+                        .Where(user => user.Id == id)
                         .First();
         }
 
@@ -81,18 +82,18 @@ namespace UnblockMe.Services
                 .Where(r => r.rated_id == user.Id)
                 .ToList();
         }
-        public void BanUser(Users user,string reason,int days)
+        public void BanUser(Users user, string reason, int days)
         {
-            if(user!=null)
+            if (user != null)
             {
-                var banned_user = new banned_users(user.Id, reason, DateTime.UtcNow.AddMinutes(days),user);
+                var banned_user = new banned_users(user.Id, reason, DateTime.UtcNow.AddDays(days), user);
                 user.Banned = banned_user;
-     
+
                 _dbContext.banned_users.Add(banned_user);
                 _userManager.UpdateSecurityStampAsync(user);
                 _dbContext.SaveChanges();
             }
-           
+
         }
         public void UnbanUser(Users user)
         {
@@ -108,10 +109,21 @@ namespace UnblockMe.Services
                 .ToList()
                 .First();
         }
+        public List<Users> GetUsersByUserName(string userName)
+        {
+            var users= _dbContext.Users.Include(u => u.Cars)
+                .Where(u => u.UserName.Contains(userName))
+                .ToList();
+            return users.GetRange(0, Math.Min(5, users.Count()));
+
+        }
     }
+
+   
 
     public interface IUserService
     {
+        public List<Users> GetUsersByUserName(string userName);
         public Users GetUserByEmail(string email);
         public void UnbanUser(Users user);
         public void BanUser(Users user, string reason, int days);

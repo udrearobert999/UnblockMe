@@ -82,11 +82,15 @@ namespace UnblockMe.Services
                 _dbContext.SaveChanges();
             }
         }
-
+        public List<Cars> GetActiveCars()
+        {
+            return _dbContext.Cars.ToList();
+        }
     }
 
     public interface ICarsService
     {
+        public List<Cars> GetActiveCars();
         public void RemoveCar(string licensePlate);
         public void EditCar(Cars car, string color, string brand);
         public void CarBlocksCar(Cars car1, Cars car2);

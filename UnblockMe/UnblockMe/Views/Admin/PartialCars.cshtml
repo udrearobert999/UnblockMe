@@ -1,0 +1,10 @@
+﻿@model List<Cars>
+
+@foreach (var car in Model)
+{
+
+    <button type="button" class="btn btn-primary" id="@car.LicensePlate">
+        @car.LicensePlate
+    </button>
+}
+

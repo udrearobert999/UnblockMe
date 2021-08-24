@@ -1,0 +1,206 @@
+﻿@model List<Users>
+
+
+@foreach (var user in Model)
+{
+
+    var userName = user.UserName.Substring(0, user.UserName.IndexOf("@"));
+    <button type="button" class="btn btn-primary" id="user-@(userName)" data-toggle="modal" data-target="#editUser">
+        <span class="buttonUserName">@userName</span>
+        <span class="userId" hidden>@user.Id</span>
+    </button>
+}
+
+
+<div class="modal fade" id="editUser" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+
+                    <p hidden>
+                        <input type="text" id="Id" required />
+                    </p>
+                    <p>
+                        <label for="fName">First Name: </label>
+                        <input type="text" id="fName" required />
+                    </p>
+                    <p>
+                        <label for="lName">Last Name: </label>
+                        <input type="text" id="lName" required />
+                    </p>
+                    <p>
+
+                        <label for="email">Email: </label>
+                        <input type="text" id="email" required />
+                    </p>
+                    <p>
+
+                        <label for="phone">Phone: </label>
+                        <input type="text" id="phone" required />
+                    </p>
+
+                </form>
+
+                <a id="banAction"
+                   data-html="true"
+                   data-toggle="popover">
+                    <img src="https://img.icons8.com/material-outlined/48/000000/lock--v1.png" />
+                </a>
+                <a id="unbanAction">
+
+                    <img src="https://img.icons8.com/material-outlined/48/000000/unlock.png" />
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="editUserForm" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="popover-content" hidden>
+   
+    <form id="submitBan">
+        <input type="text" id="banReason" placeholder="Reason.." />
+        <input type="text" id="banDuration" placeholder="Duration.." />
+        <p>
+            <button type="button" class="btn btn-secondary" id="dismissPop" onclick="$('#banAction').popover('hide');">Close</button>
+            <button type="submit" class="btn btn-primary"  >Ban</button>
+        </p>
+    </form>
+</div>
+
+<script>
+    $("#unbanAction").click(function () {
+
+        
+        var user_id = $("#Id").val();
+     
+        $.ajax({
+            url: "UnBanUser",
+            data: {
+                id: user_id
+            },
+            success: function (status) {
+                console.log(status);
+            },
+            error: function (error) {
+
+                console.log(error.responseText);
+            }
+
+        });
+    });
+    $(document).on('submit', '#submitBan', function (event) {
+        event.preventDefault();
+        var user_id = $("#Id").val();
+        $.ajax({
+            url: "BanUser",
+            data: {
+                id: user_id,
+                reason: $('#popover-content').val(),
+                duration: $('#banDuration').val()
+            },
+            success: function (status) {
+                console.log("SUCCES");
+                location.reload();
+            },
+            error: function (error) {
+
+                console.log(error.responseText);
+            }
+
+        });
+    });
+    $(document).ready(function () {
+      
+        $('[data-toggle="popover"]').popover({
+            placement: 'right',
+            html: true,
+            title: 'Choose ban duration and reason',
+            content: function () {
+                return $("#popover-content").html();
+            },
+            sanitize: false
+        });
+        $(document).on("click", ".popover .close", function () {
+            $(this).parents(".popover").popover('hide');
+        });
+    });
+    $("#submitBan").submit(function (event) {
+        event.preventDefault();
+        console.log("da");
+    });
+
+    @*$("#banAction").click(function () {
+        
+    })*@
+    $('button[id^="user"]').click(function () {
+
+        $("#exampleModalLabel").text("User - " + $(this).children(".buttonUserName").text());
+        var user_id = $(this).children(".userId").text();
+
+        var isBanned = $(this).children(".isBanned").text();
+        console.log(isBanned);
+     
+
+        $.ajax({
+            url: "GetUser",
+            data: {
+                id: user_id
+            },
+            success: function (data) {
+                $("#Id").val(data.id);
+                $("#fName").val(data.firstName);
+                $("#lName").val(data.lastName);
+                $("#email").val(data.email);
+                $("#phone").val(data.phoneNumber);
+            },
+            error: function (error) {
+
+                console.log(error.responseText);
+            }
+
+        });
+    });
+    $("#editUserForm").submit(function func(event) {
+
+        event.preventDefault();
+
+        var model = {
+            Id: $("#Id").val(),
+            FirstName: $("#fName").val(),
+            LastName: $("#lName").val(),
+            Email: $("#email").val(),
+            PhoneNumber: $("#phone").val()
+
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "updateUser",
+            data: model,
+            success: function (status) {
+
+                location.reload();
+
+
+            },
+            error: function (error) {
+
+                toastNotifyError(error.responseText, 1000);
+            }
+        })
+
+
+
+    });
+</script>
