@@ -90,7 +90,6 @@ namespace UnblockMe.Services
                 user.Banned = banned_user;
 
                 _dbContext.banned_users.Add(banned_user);
-                _userManager.UpdateSecurityStampAsync(user);
                 _dbContext.SaveChanges();
             }
 

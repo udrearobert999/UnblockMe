@@ -9,7 +9,6 @@ namespace UnblockMe.Controllers
 {
     public class ErrorController : Controller
     {
-       
         public IActionResult Banned(banned_users bUser)
         {
             return View(bUser);

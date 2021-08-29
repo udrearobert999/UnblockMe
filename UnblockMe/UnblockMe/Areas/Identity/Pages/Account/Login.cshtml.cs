@@ -93,7 +93,6 @@ namespace UnblockMe.Areas.Identity.Pages.Account
                         return RedirectToAction(nameof(ErrorController.Banned), "Error",user.Banned);
                     else
                         _userService.UnbanUser(user);
-
                 }
 
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);

@@ -47,16 +47,9 @@
                     </p>
 
                 </form>
+                <button class="btn btn-primary" id="banAction" >Ban</button>
+                <button class="btn btn-secondary" id="unbanAction">UnBan</button>
 
-                <a id="banAction"
-                   data-html="true"
-                   data-toggle="popover">
-                    <img src="https://img.icons8.com/material-outlined/48/000000/lock--v1.png" />
-                </a>
-                <a id="unbanAction">
-
-                    <img src="https://img.icons8.com/material-outlined/48/000000/unlock.png" />
-                </a>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -66,31 +59,18 @@
     </div>
 </div>
 
-<div id="popover-content" hidden>
-   
-    <form id="submitBan">
-        <input type="text" id="banReason" placeholder="Reason.." />
-        <input type="text" id="banDuration" placeholder="Duration.." />
-        <p>
-            <button type="button" class="btn btn-secondary" id="dismissPop" onclick="$('#banAction').popover('hide');">Close</button>
-            <button type="submit" class="btn btn-primary"  >Ban</button>
-        </p>
-    </form>
-</div>
 
 <script>
-    $("#unbanAction").click(function () {
 
-        
-        var user_id = $("#Id").val();
-     
+    document.querySelector("#banAction").addEventListener('click', () => {
+        let user_id = $("#Id").val();
         $.ajax({
-            url: "UnBanUser",
+            url: "BanUser",
             data: {
                 id: user_id
             },
             success: function (status) {
-                console.log(status);
+             
             },
             error: function (error) {
 
@@ -99,58 +79,11 @@
 
         });
     });
-    $(document).on('submit', '#submitBan', function (event) {
-        event.preventDefault();
-        var user_id = $("#Id").val();
-        $.ajax({
-            url: "BanUser",
-            data: {
-                id: user_id,
-                reason: $('#popover-content').val(),
-                duration: $('#banDuration').val()
-            },
-            success: function (status) {
-                console.log("SUCCES");
-                location.reload();
-            },
-            error: function (error) {
 
-                console.log(error.responseText);
-            }
-
-        });
-    });
-    $(document).ready(function () {
-      
-        $('[data-toggle="popover"]').popover({
-            placement: 'right',
-            html: true,
-            title: 'Choose ban duration and reason',
-            content: function () {
-                return $("#popover-content").html();
-            },
-            sanitize: false
-        });
-        $(document).on("click", ".popover .close", function () {
-            $(this).parents(".popover").popover('hide');
-        });
-    });
-    $("#submitBan").submit(function (event) {
-        event.preventDefault();
-        console.log("da");
-    });
-
-    @*$("#banAction").click(function () {
-        
-    })*@
     $('button[id^="user"]').click(function () {
 
         $("#exampleModalLabel").text("User - " + $(this).children(".buttonUserName").text());
         var user_id = $(this).children(".userId").text();
-
-        var isBanned = $(this).children(".isBanned").text();
-        console.log(isBanned);
-     
 
         $.ajax({
             url: "GetUser",

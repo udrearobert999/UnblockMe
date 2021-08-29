@@ -28,7 +28,7 @@ namespace UnblockMe.Controllers
             _logger = logger;
             _roleManager = roleManager;
         }
-
+        [Authorize(Policy = "IsNotBanned")]
         public IActionResult Index(string licensePlate)
         {
             if (licensePlate == null)

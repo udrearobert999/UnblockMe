@@ -1,5 +1,6 @@
 using AspNetCoreHero.ToastNotification;
 using MailKit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using UnblockMe.Models;
+using UnblockMe.Security;
 using UnblockMe.Services;
 
 namespace UnblockMe
@@ -53,6 +55,12 @@ namespace UnblockMe
                 config.IsDismissable = true;
                 config.Position = NotyfPosition.BottomRight;
             });
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy("IsNotBanned", policy => policy.Requirements.Add(new IsNotBannedRequirement()));
+            });
+            services.AddTransient<IAuthorizationHandler, IsNotBannedHandler>();
+
             services.AddTransient<ICarsService, CarsService>();
             services.AddTransient<IUserService, UserService>();
             services.AddHttpContextAccessor();
@@ -60,10 +68,7 @@ namespace UnblockMe
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IRatingService, RatingService>();
 
-            services.Configure<SecurityStampValidatorOptions>(options =>
-            {
-                options.ValidationInterval = TimeSpan.FromSeconds(10);
-            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
