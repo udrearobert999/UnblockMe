@@ -84,9 +84,20 @@ namespace UnblockMe.Controllers
         public IActionResult UnBanUser(string id)
         {
 
-            var user = _userService.GetUserById(id);
-            _userService.UnbanUser(user);
-            return Ok("User UnBanned");
+            try
+            {
+                var user = _userService.GetUserById(id);
+                _userService.UnbanUser(user);
+                return Ok("User UnBanned");
+            }
+            catch(Exception e)
+            {
+                if (e.Message.Contains("Value cannot be null"))
+                    return BadRequest("User is not banned!");
+                else
+                    return BadRequest("Something went wrong!");
+            }
+       
         }
        
     }

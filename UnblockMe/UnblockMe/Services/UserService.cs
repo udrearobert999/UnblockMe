@@ -98,8 +98,8 @@ namespace UnblockMe.Services
         }
         public void UnbanUser(Users user)
         {
-            if (user.Banned != null)
-                _dbContext.banned_users.Remove(user.Banned);
+            
+            _dbContext.banned_users.Remove(user.Banned);
             _dbContext.SaveChanges();
         }
 

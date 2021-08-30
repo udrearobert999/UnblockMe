@@ -21,8 +21,24 @@ range.addEventListener('input', () => {
 })
 document.querySelector("#unbanAction").addEventListener('click', () => {
 
+    var user_id = $("#Id").val();
+
+    $.ajax({
+        url: "UnBanUser",
+        data: {
+            id: user_id
+        },
+        success: function (status) {
+            toastNotifySuccess(status,1000);
+        },
+        error: function (error) {
+            toastNotifyError(error.responseText, 1000);
+        }
+
+    });
 
 });
+
 document.querySelector(".banButton").addEventListener('click', () => {
     let user_id = $("#Id").val();
     let reason = document.getElementById("reason");
