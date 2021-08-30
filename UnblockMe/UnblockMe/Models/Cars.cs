@@ -11,6 +11,7 @@ namespace UnblockMe.Models
     public partial class Cars
     {
 
+        
         [Required(ErrorMessage = "Title is required.")]
         public string LicensePlate { get; set; }
         public string Brand { get; set; }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,12 +40,24 @@ namespace UnblockMe
             services.AddDefaultIdentity<Users>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UnblockMeContext>();
-            services.AddControllersWithViews();
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy("IsNotBanned", policy => policy.Requirements.Add(new IsNotBannedRequirement()));
+               
+            });
+            services.AddTransient<IAuthorizationHandler, IsNotBannedHandler>();
+           
+            services.AddControllersWithViews(config=>
+            {
+                //config.Filters.Add(new AuthorizeFilter("IsNotBanned"));
+            });
+            
             services.AddRazorPages();
             services.Configure<IdentityOptions>(options =>
             {
                 
                 options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = true;
             });
            services.AddDbContext<UnblockMeContext>(options =>
                 options.UseSqlServer(
@@ -55,11 +68,6 @@ namespace UnblockMe
                 config.IsDismissable = true;
                 config.Position = NotyfPosition.BottomRight;
             });
-            services.AddAuthorization(o =>
-            {
-                o.AddPolicy("IsNotBanned", policy => policy.Requirements.Add(new IsNotBannedRequirement()));
-            });
-            services.AddTransient<IAuthorizationHandler, IsNotBannedHandler>();
 
             services.AddTransient<ICarsService, CarsService>();
             services.AddTransient<IUserService, UserService>();

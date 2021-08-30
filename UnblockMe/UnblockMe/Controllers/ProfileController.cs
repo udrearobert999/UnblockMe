@@ -1,17 +1,15 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using UnblockMe.Models;
 using UnblockMe.Services;
 
 namespace UnblockMe.Controllers
 {
+    [Authorize(Policy = "IsNotBanned")]
     public class ProfileController : Controller
     {
         private readonly ILogger<ProfileController> _logger;
@@ -83,7 +81,8 @@ namespace UnblockMe.Controllers
                 return BadRequest("Invalid action!");
             }
         }
-         
+
+        [AllowAnonymous]
         [Route("Profile/{id}/photo")]
         public IActionResult GetPhoto(string id)
         {

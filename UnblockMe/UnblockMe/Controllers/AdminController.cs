@@ -1,14 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UnblockMe.Models;
 using UnblockMe.Services;
 
 namespace UnblockMe.Controllers
 {
+    [Authorize(Policy = "IsNotBanned")]
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
@@ -64,11 +63,22 @@ namespace UnblockMe.Controllers
         
         public IActionResult BanUser(string id,string reason,string duration)
         {
-            reason = "banned";
-            var days = 1;
-            var user = _userService.GetUserById(id);
-            _userService.BanUser(user,reason,days);
-            return Ok("User Banned");
+            try
+            {
+                reason ??= "Unspecified reason but you probably did something!💀";
+                var days = 1;
+                var user = _userService.GetUserById(id);
+                _userService.BanUser(user, reason, days);
+                return Ok("User Banned");
+            }
+            catch(Exception e)
+            {
+                if (e.Message.Contains("same key"))
+                    return BadRequest("User already banned!");
+                else
+                    return BadRequest("Something went wrong!");
+            }
+            
         }
         
         public IActionResult UnBanUser(string id)

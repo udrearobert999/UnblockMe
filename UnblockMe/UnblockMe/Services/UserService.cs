@@ -86,11 +86,13 @@ namespace UnblockMe.Services
         {
             if (user != null)
             {
+              
                 var banned_user = new banned_users(user.Id, reason, DateTime.UtcNow.AddDays(days), user);
                 user.Banned = banned_user;
-
                 _dbContext.banned_users.Add(banned_user);
                 _dbContext.SaveChanges();
+                
+          
             }
 
         }

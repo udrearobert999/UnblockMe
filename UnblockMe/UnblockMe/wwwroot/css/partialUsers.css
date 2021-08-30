@@ -1,0 +1,49 @@
+﻿*{
+    margin:0px;
+}
+
+.banColapse {
+    
+    height:100%;
+    display: block;
+    
+    border-top: solid gray 1px;
+    border-bottom: solid gray 1px;
+}
+#duration {
+    display: inline-block;
+    margin-top: 10px;
+    width: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#reason {
+    display:inline-block;
+    margin-top: 10px;
+    width: 50%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.banActionButtons {
+    margin-top:20px;
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.banButton{
+    transition: 0.2s ease-out;
+    cursor:pointer;
+}
+.banInfoButton {
+    transition: 0.2s ease-out;
+    cursor: pointer;
+}
+.banButton:hover {
+    transform: scale(1.1);
+}
+.banInfoButton:hover {
+    transform: scale(1.1);
+}

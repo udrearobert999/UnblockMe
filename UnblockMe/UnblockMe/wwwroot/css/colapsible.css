@@ -1,0 +1,8 @@
+﻿
+.colapsible {
+    max-height: 0px;
+    overflow: hidden;
+    margin-top:10px;
+    transition: max-height 0.2s ease-out;
+}
+

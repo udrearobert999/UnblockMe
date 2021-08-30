@@ -1,19 +1,14 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using UnblockMe.Models;
 using UnblockMe.Services;
 
 namespace UnblockMe.Controllers
 {
+
+    [Authorize(Policy = "IsNotBanned")]
     public class HomeController : Controller
     {
         private readonly ICarsService _carsService;
@@ -28,7 +23,7 @@ namespace UnblockMe.Controllers
             _logger = logger;
             _roleManager = roleManager;
         }
-        [Authorize(Policy = "IsNotBanned")]
+    
         public IActionResult Index(string licensePlate)
         {
             if (licensePlate == null)
