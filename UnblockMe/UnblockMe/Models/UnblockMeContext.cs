@@ -25,6 +25,7 @@ namespace UnblockMe.Models
         public virtual DbSet<Cars> Cars { get; set; }
         public virtual DbSet<Ratings> Ratings { get; set; }
         public virtual DbSet<banned_users> banned_users { get; set; }
+        public virtual DbSet<BanActions> BanActions { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -38,6 +39,41 @@ namespace UnblockMe.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<BanActions>(e =>
+            {
+                e.Property(e => e.Id)
+                 .HasColumnName("Id")
+                 .HasMaxLength(450)
+                 .IsRequired();
+
+
+                e.HasKey(e => e.Id)
+                .HasName("PK__banned_u__3213E83FC6AB863C");
+
+
+                e.Property(e => e.BannedId)
+                .HasColumnName("banned_id")
+                .IsRequired();
+
+
+                e.Property(e => e.BannedBy)
+                .HasColumnName("banned_by")
+                .IsRequired();
+
+                e.Property(e => e.Reason)
+                .HasColumnName("reason")
+                .IsRequired()
+                .HasMaxLength(450);
+
+                e.Property(e => e.BanStart)
+               .HasColumnName("ban_start")
+               .IsRequired();
+
+
+                e.Property(e => e.BanEnd)
+               .HasColumnName("ban_end")
+               .IsRequired();
+            });
             modelBuilder.Entity<banned_users>(e =>
             {
 

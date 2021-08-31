@@ -75,7 +75,7 @@ namespace UnblockMe
             services.AddTransient<ISMSService, SMSService>();
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IRatingService, RatingService>();
-
+            services.AddTransient<IRoleService, RoleService>();
 
         }
 

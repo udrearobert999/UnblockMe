@@ -1,24 +1,65 @@
 ﻿
 
 var banColapseButton = document.querySelector("#banAction");
-var colapsibleBanContent = document.querySelector(".colapsible");
+var rolesColapseButton = document.querySelector("#ManageRoles");
+
+function validateColapsible(colapsible) {
+    let allColapsibleContent = document.querySelectorAll(".colapsible");
+    for (const element of allColapsibleContent)
+        if (element != colapsible)
+            element.style.maxHeight = '0px';
+
+}
+
+function colapse(colapsibleContent)
+{
+    if (colapsibleContent.style.maxHeight == '0px' || !colapsibleContent.style.maxHeight) {
+        colapsibleContent.style.maxHeight = colapsibleContent.scrollHeight + 10 + 'px';
+        colapsibleContent.style.height = colapsibleContent.style.maxHeight;
+        return true;
+    }
+
+    else {
+
+        colapsibleContent.style.maxHeight = '0px';
+        return false;
+
+    }
+}
 
 banColapseButton.addEventListener('click', () => {
 
-    if (colapsibleBanContent.style.maxHeight == '0px' || !colapsibleBanContent.style.maxHeight)
-    {
-        colapsibleBanContent.style.maxHeight = colapsibleBanContent.scrollHeight+10 + 'px';
-        colapsibleBanContent.style.height = colapsibleBanContent.style.maxHeight;
+    let colapsibleContent = document.querySelector(".colapsible.colapsibleBan");
+    validateColapsible(colapsibleContent);
+    colapse(colapsibleContent);
+  
+
+});
+rolesColapseButton.addEventListener('click', () => {
+
+    let colapsibleContent = document.querySelector(".colapsible.colapsibleManageRoles");
+    validateColapsible(colapsibleContent);
+
+    let isOpen = colapse(colapsibleContent);
+    if (isOpen) {
+        var user_id = $("#Id").val();
+        $.ajax({
+            url: "GetUserRoles",
+            dataType: 'html',
+            data: {
+                id:user_id
+            },
+            success: function (data) {
+                $('.ManageRolesContainer').html(data);
+            }
+        });
     }
 
-    else
-        colapsibleBanContent.style.maxHeight = '0px';
-   
 });
-var range = document.querySelector("#duration");
-range.addEventListener('input', () => {
+
+/*range.addEventListener('input', () => {
     console.log(range.value);
-})
+})*/
 document.querySelector("#unbanAction").addEventListener('click', () => {
 
     var user_id = $("#Id").val();
@@ -36,6 +77,22 @@ document.querySelector("#unbanAction").addEventListener('click', () => {
         }
 
     });
+
+});
+var downloadButton = document.querySelector("#downloadBanInfo");
+downloadButton.addEventListener('click', () => {
+    let user_id = $("#Id").val();
+    $.ajax({
+        url: 'DownloadBanInfoCSV',
+  
+        data: {
+            id: user_id,
+        },
+        success: function () {
+            window.location = 'DownloadBanInfoCSV?id=' + String($("#Id").val());
+        }
+    });
+
 
 });
 

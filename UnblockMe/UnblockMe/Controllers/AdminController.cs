@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Text;
 using UnblockMe.Models;
 using UnblockMe.Services;
 
@@ -13,11 +14,13 @@ namespace UnblockMe.Controllers
     {
         private readonly IUserService _userService;
         private readonly ICarsService _carsService;
+        private readonly IRoleService _roleService;
 
-        public AdminController(IUserService userService, ICarsService carsService)
+        public AdminController(IUserService userService, ICarsService carsService, IRoleService roleService)
         {
             _userService = userService;
             _carsService = carsService;
+            _roleService = roleService;
         }
 
         [Authorize(Roles="Admin")]
@@ -53,6 +56,13 @@ namespace UnblockMe.Controllers
         {
             var users = _userService.GetUsersByUserName(userName);
             return PartialView("PartialUsers",users);
+        }
+        public PartialViewResult GetUserRoles(string id)
+        {
+            var user = _userService.GetUserById(id);
+            var user_roles = _roleService.GetUserRoles(user);
+            var allRoles = _roleService.GetAvailableRoles();
+            return PartialView("ManageRoles",(allRoles,user_roles,id));
         }
         
         public PartialViewResult GetPartialCars(string licensePlate)
@@ -100,5 +110,47 @@ namespace UnblockMe.Controllers
        
         }
        
+        public IActionResult DownloadBanInfoCSV(string id)
+        {
+            var banInfo = _userService.GetUserBanInfo(id);
+            var stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("BannedBy,Reason,Ban Start,Ban End");
+            foreach (var banAction in banInfo)
+                stringBuilder.AppendLine($"{banAction.BannedBy},{banAction.Reason},"
+                    +$"{banAction.BanStart},{banAction.BanEnd}");
+
+            return File(Encoding.UTF8.GetBytes(stringBuilder.ToString()), "text/csv", "baninfo.csv");
+        }
+        public IActionResult AddUserToRole(string id, string role)
+        {
+            try
+            {
+                var user = _userService.GetUserById(id);
+                _roleService.AddUserToRole(user, role);
+
+                return Ok("Role assigned successfully");
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException.Message.Contains("PRIMARY KEY"))
+                    return BadRequest("User already has this role!");
+                else
+                    return BadRequest("Something went wrong!");
+            }
+        }
+        public IActionResult RemoveUserFromRole(string id, string role)
+        {
+            try
+            {
+                var user = _userService.GetUserById(id);
+                _roleService.RemoveUserFromRole(user, role);
+                return Ok("Role unassigned successfully");
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }

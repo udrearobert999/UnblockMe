@@ -18,13 +18,11 @@ namespace UnblockMe.Services
         private readonly UserManager<Users> _userManager;
         private readonly UnblockMeContext _dbContext;
         private readonly IHttpContextAccessor _accesor;
-        private readonly SignInManager<Users> _signInManager;
-        public UserService(UnblockMeContext dbContext, UserManager<Users> userManager, IHttpContextAccessor accesor, SignInManager<Users> signInManager)
+        public UserService(UnblockMeContext dbContext, UserManager<Users> userManager, IHttpContextAccessor accesor)
         {
             _dbContext = dbContext;
             _userManager = userManager;
             _accesor = accesor;
-            _signInManager = signInManager;
         }
         public List<Users> GetActiveUsers()
         {
@@ -89,7 +87,13 @@ namespace UnblockMe.Services
               
                 var banned_user = new banned_users(user.Id, reason, DateTime.UtcNow.AddDays(days), user);
                 user.Banned = banned_user;
+                var ban_action = new BanActions(banned_user);
+                ban_action.BanStart = DateTime.UtcNow;
+                ban_action.BannedBy = GetLoggedInUser().Id;
+
+
                 _dbContext.banned_users.Add(banned_user);
+                _dbContext.BanActions.Add(ban_action);
                 _dbContext.SaveChanges();
                 
           
@@ -118,12 +122,17 @@ namespace UnblockMe.Services
             return users.GetRange(0, Math.Min(5, users.Count()));
 
         }
+        public List<BanActions> GetUserBanInfo(string id)
+        {
+            return _dbContext.BanActions.Where(b => b.BannedId == id).ToList();
+        }
     }
 
    
 
     public interface IUserService
     {
+        public List<BanActions> GetUserBanInfo(string id);
         public List<Users> GetUsersByUserName(string userName);
         public Users GetUserByEmail(string email);
         public void UnbanUser(Users user);

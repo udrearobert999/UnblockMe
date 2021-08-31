@@ -873,3 +873,4 @@ C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netco
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Error\Banned.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Admin\PartialUsers.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Admin\PartialCars.cshtml.g.cs
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Admin\ManageRoles.cshtml.g.cs

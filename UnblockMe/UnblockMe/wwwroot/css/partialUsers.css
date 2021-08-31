@@ -2,13 +2,16 @@
     margin:0px;
 }
 
-.banColapse {
-    
-    height:100%;
+.banForm,
+.ManageRolesContainer{
+    height: 100%;
     display: block;
-    
     border-top: solid gray 1px;
     border-bottom: solid gray 1px;
+}
+#ManageRoles{
+    position:relative;
+    right:-40%;
 }
 #duration {
     display: inline-block;

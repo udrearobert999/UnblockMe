@@ -1,0 +1,16 @@
+﻿@model (List<string>, List<string>,string)
+
+<span id="Id" hidden>@Model.Item3</span>
+
+@foreach (var role in Model.Item1)
+    if (Model.Item2.Any(e => e == role))
+    {
+
+        <button class="btn btn-success role" id="@role">@role</button>
+    }
+    else
+    {
+        <button class="btn btn-primary role" id="@role">@role</button>
+    }
+
+<script src="~/js/manageroles.js"></script>

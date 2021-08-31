@@ -6,6 +6,7 @@ using UnblockMe.Services;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Newtonsoft.Json;
+using System;
 
 namespace UnblockMe.Controllers
 {
@@ -56,9 +57,6 @@ namespace UnblockMe.Controllers
                 return Ok("The car was added succesfully!");
             else
                 return BadRequest("Error!");
-            
-            
-
 
         }
 
@@ -78,10 +76,17 @@ namespace UnblockMe.Controllers
 
         public IActionResult EditCar(string licensePlate,string color,string brand)
         {
-               var car = _carsService.GetCarByLicensePlate(licensePlate);
+            try
+            {
+                var car = _carsService.GetCarByLicensePlate(licensePlate);
                 _carsService.EditCar(car, color, brand);
-            
-            return Ok("Car edited succesfully!");
+
+                return Ok("Car edited succesfully!");
+            }
+            catch(Exception e)
+            {
+                return BadRequest("Something went wrong!");
+            }
         }
 
         public IActionResult RemoveCar(string licensePlate)
@@ -105,9 +110,6 @@ namespace UnblockMe.Controllers
 
         }
 
-        public IActionResult DownloadExcel()
-        {
-            return Content("EXCEL");
-        }
+  
     }
 }
