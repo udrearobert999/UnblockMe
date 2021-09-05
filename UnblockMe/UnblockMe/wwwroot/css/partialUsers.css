@@ -2,17 +2,15 @@
     margin:0px;
 }
 
+.infoContainer,
 .banForm,
-.ManageRolesContainer{
+.ManageRolesContainer {
     height: 100%;
     display: block;
     border-top: solid gray 1px;
     border-bottom: solid gray 1px;
 }
-#ManageRoles{
-    position:relative;
-    right:-40%;
-}
+
 #duration {
     display: inline-block;
     margin-top: 10px;
@@ -49,4 +47,25 @@
 }
 .banInfoButton:hover {
     transform: scale(1.1);
+}
+
+.infoContainer {
+    display: flex;
+    justify-content: center;
+   
+   
+}
+.infoContainer p{
+    margin:0;
+    padding-top:10px;
+    padding-bottom:10px;
+}
+#downloadBanInfo,
+#downloadCarInfo {
+    cursor:pointer;
+    transition: all 0.1s ease-in;
+}
+#downloadBanInfo:hover,
+#downloadCarInfo:hover {
+    transform:scale(1.1);
 }

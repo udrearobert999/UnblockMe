@@ -26,7 +26,7 @@ namespace UnblockMe.Services
         }
         public List<Users> GetActiveUsers()
         {
-            return _dbContext.Users.ToList();
+            return _dbContext.Users.Include(u => u.Banned).ToList();
         }
         public Users GetLoggedInUser()
         {
@@ -117,6 +117,7 @@ namespace UnblockMe.Services
         public List<Users> GetUsersByUserName(string userName)
         {
             var users= _dbContext.Users.Include(u => u.Cars)
+                .Include(u=>u.Banned)
                 .Where(u => u.UserName.Contains(userName))
                 .ToList();
             return users.GetRange(0, Math.Min(5, users.Count()));

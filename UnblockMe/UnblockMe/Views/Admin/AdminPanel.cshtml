@@ -15,8 +15,14 @@
 
 
         <form class="searchUsers" id="searchUsers">
-            <input type="text" id="inputUsers" placeholder="Search user.." />
-            <button type="submit" id="submitSearchUser"> search</button>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search user..">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </form>
         <br />
 
@@ -27,8 +33,14 @@
     </div>
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
         <form class="searchCars" id="searchCars">
-            <input type="text" id="inputCars" placeholder="Search car.." />
-            <button type="submit" id="submitSearchCar"> search</button>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search car..">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
         </form>
         <br />
         <div class="partialCarsContainer" id="partialCarsContainer">

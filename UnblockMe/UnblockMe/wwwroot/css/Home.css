@@ -1,4 +1,9 @@
-﻿.licensePlateDiv {
+﻿
+body{
+    background-color:black;
+}
+
+.licensePlateDiv {
     width: 500px;
     height: 160px;
     border-radius: 40px;

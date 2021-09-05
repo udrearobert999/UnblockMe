@@ -3,3 +3,16 @@
     background-color: rgb(77,70,200);
  
 }
+body {
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+    padding-bottom: 60px;
+
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+}

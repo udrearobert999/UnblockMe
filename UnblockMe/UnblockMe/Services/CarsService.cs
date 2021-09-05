@@ -16,7 +16,7 @@ namespace UnblockMe.Services
             _userService = userService;
         }
 
-        public List<Cars> GetCarsByLicensePlate(string licensePlate)
+        public List<Cars> GetCarsByLicensePlate(string licensePlate, bool getLoggedUserCars=true)
         {
             var cars = _dbContext.Cars
                 .Include(car => car.Owner)
@@ -24,7 +24,7 @@ namespace UnblockMe.Services
             cars = cars.GetRange(0, Math.Min(3, cars.Count()));
            
 
-            if (_userService.GetLoggedInUser() != null)
+            if (_userService.GetLoggedInUser() != null && getLoggedUserCars)
                 cars.RemoveAll(car => car.Owner.Id == _userService.GetLoggedInUser().Id);
             return cars;
 
@@ -89,6 +89,6 @@ namespace UnblockMe.Services
         public void CarBlocksCar(Cars car1, Cars car2);
         public Cars GetCarByLicensePlate(string licensePlate);
         public bool AddCar(Cars car);
-        public List<Cars> GetCarsByLicensePlate(string licensePlate);
+        public List<Cars> GetCarsByLicensePlate(string licensePlate, bool getLoggedUserCars = true);
     }
 }

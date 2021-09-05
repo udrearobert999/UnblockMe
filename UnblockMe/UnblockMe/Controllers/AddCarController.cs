@@ -95,10 +95,15 @@ namespace UnblockMe.Controllers
             return Ok(licensePlate + " removed succesfully");
         }
 
-        public IActionResult DownloadCarInfo()
+        [Route("AddCar/DownloadCarInfo/{user_id}")]
+        public IActionResult DownloadCarInfo(string user_id=null)
         {
-            var logged_user = _userService.GetLoggedInUser();
-            var car_list = _userService.GetCarsListOfUser(logged_user);
+            Users curent_user;
+            if (user_id == null)
+                curent_user = _userService.GetLoggedInUser();
+            else
+                curent_user = _userService.GetUserById(user_id);
+            var car_list = _userService.GetCarsListOfUser(curent_user);
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("LicensePlate,Brand,Color,BlocksCar,BlockedBy");
             foreach(var element in car_list)

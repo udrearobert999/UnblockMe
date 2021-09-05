@@ -24,7 +24,7 @@ namespace UnblockMe.Controllers
         }
 
         [Authorize(Roles="Admin")]
-        public IActionResult EditDatabase()
+        public IActionResult AdminPanel()
         {
             var users = _userService.GetActiveUsers();
             var cars = _carsService.GetActiveCars();
@@ -67,7 +67,7 @@ namespace UnblockMe.Controllers
         
         public PartialViewResult GetPartialCars(string licensePlate)
         {
-            var cars = _carsService.GetCarsByLicensePlate(licensePlate);
+            var cars = _carsService.GetCarsByLicensePlate(licensePlate,false);
             return PartialView("PartialCars", cars);
         }
         
