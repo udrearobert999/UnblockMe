@@ -12,22 +12,22 @@ namespace UnblockMe.Controllers
 {
     [Authorize(Policy = "IsNotBanned")]
     [Authorize]
-    public class AddCarController : Controller
+    public class ManageCarsController : Controller
     {
 
-        private readonly ILogger<AddCarController> _logger;
+        private readonly ILogger<ManageCarsController> _logger;
         private readonly IUserService _userService;
         private readonly ICarsService _carsService;
-        private readonly INotyfService _notyf;
-        public AddCarController(ILogger<AddCarController> logger,
+ 
+        public ManageCarsController(ILogger<ManageCarsController> logger,
                                 IUserService userService,
-                                ICarsService carsService,
-                                INotyfService notyf)
+                                ICarsService carsService
+                               )
         {
             _logger = logger;
             _carsService = carsService;
             _userService = userService;
-            _notyf = notyf;
+         
         }
 
 
@@ -95,7 +95,8 @@ namespace UnblockMe.Controllers
             return Ok(licensePlate + " removed succesfully");
         }
 
-        [Route("AddCar/DownloadCarInfo/{user_id}")]
+        [Route("ManageCars/DownloadCarInfo")]
+        [Route("ManageCars/DownloadCarInfo/{user_id}")]
         public IActionResult DownloadCarInfo(string user_id=null)
         {
             Users curent_user;
@@ -112,6 +113,14 @@ namespace UnblockMe.Controllers
                     $",{element.Color},{element.BlocksCar},{element.IsBlockedByCar}");
             }
             return File(Encoding.UTF8.GetBytes(stringBuilder.ToString()), "text/csv", "cars.csv");
+
+        }
+        public IActionResult ParkCar(string licenseplate,double lat,double lng)
+        {
+           
+            var car = _carsService.GetCarByLicensePlate(licenseplate);
+            _carsService.ParkCar(car, lat, lng);
+            return Ok("Car parked succesfully!");
 
         }
 

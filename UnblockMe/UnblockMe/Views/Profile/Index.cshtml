@@ -70,7 +70,11 @@
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#BlockedYou">
                 I have blocked you!
             </button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unblockUser">
+                Unblock car
+            </button>
         </div>
+
 
         <div class="modal custom fade" id="UnblockMe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -90,7 +94,7 @@
                             <input type="radio" name="Contact" value="Email" id="Contact" />
                             <br />
                             <label for="myplates">My Cars:</label>
-                            <select name="myplates" id="myplates" required>
+                            <select name="myplates" id="myplates1" required>
                                 @foreach (var element in Model.Item2)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
@@ -99,7 +103,7 @@
 
                             </select>
                             <label for="yourplates">@(Model.Item3.FirstName)'s Cars</label>
-                            <select name="yourplates" id="yourplates" required>
+                            <select name="yourplates" id="yourplates1" required>
                                 @foreach (var element in Model.Item4)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
@@ -138,7 +142,7 @@
                             <input type="radio" name="Contact" value="Email" id="Contact" />
                             <br />
                             <label for="myplates">My Cars:</label>
-                            <select name="myplates" id="myplates" required>
+                            <select name="myplates" id="myplates2" required>
                                 @foreach (var element in Model.Item2)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
@@ -147,7 +151,7 @@
 
                             </select>
                             <label for="yourplates">@(Model.Item3.FirstName)'s Cars</label>
-                            <select name="yourplates" id="yourplates" required>
+                            <select name="yourplates" id="yourplates2" required>
                                 @foreach (var element in Model.Item4)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
@@ -166,6 +170,35 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="unblockUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Unblock user's cars</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <label for="yourplates">@(Model.Item3.FirstName)'s Cars</label>
+                        <select name="yourplates" id="yourplates3" required>
+                            @foreach (var element in Model.Item4)
+                            {
+                                <option value="@element.LicensePlate">@element.LicensePlate</option>
+                            }
+                        </select>
+                        <button class="btn btn-secondary" id="unblockButton">Unblock!</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
     }
 </div>
@@ -292,3 +325,32 @@
     </div>
 </div>
 <script src="~/js/profile.js"></script>
+<script>
+    $("#rating").submit(function rate(event) {
+    event.preventDefault();
+    var radioValue = 10 - parseInt($("input[name='Rating']:checked").val()) + 1;
+    var rateMessage = $("#ratemessage").val();
+
+    $.ajax({
+        url: "RateAction/@Model.Item3.Id",
+        data: {
+            rating: radioValue,
+            ratingMessage: rateMessage,
+
+        },
+        success: function (status) {
+            $("#BlockedYou").modal('hide');
+            location.reload();
+            toastNotifySuccess(status, 1000);
+
+        },
+        error: function (error) {
+
+            $("#BlockedYou").modal('hide');
+            toastNotifyError(error.responseText, 3000);
+        }
+
+    });
+});
+</script>
+

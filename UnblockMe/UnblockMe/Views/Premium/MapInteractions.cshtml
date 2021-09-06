@@ -1,0 +1,59 @@
+﻿<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin="" />
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+<link href="~/css/map.css" rel="stylesheet" />
+<div id="mapid" style="height:80vh"></div>
+
+<script>
+
+   
+
+    var mymap = L.map('mapid').setView([44.3126, 23.8005], 13);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11',
+        tileSize: 512,
+        cursor: true,
+        zoomOffset: -1,
+        accessToken: 'pk.eyJ1IjoidWRyZWFyb2JlcnQ5OTkiLCJhIjoiY2t0OGxsYjdyMHd5YTJwcGN4Y3VsbWw0eCJ9.bBI6D7tU_b7lwG9agavG4g'
+    }).addTo(mymap);
+    var markers = [];
+
+    @*1 = L.marker([44.3313943, 23.7496886]).addTo(mymap);
+    marker1.bindPopup("<b>Hello world!</b><br>I am a popup.");
+    var marker2 = L.marker([44.4313943, 23.8496886]).addTo(mymap);
+    marker2.bindPopup("<b>Hello world!</b><br>I am a popup.");
+*@
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $.ajax({
+            url: "GetBlockingInteraction",
+            success: function (data) {
+
+                for (const interaction of data) {
+
+                    let lat = interaction.blockedCarLat;
+                    let lng = interaction.blockedCarLng;
+                    let popUp = `<b>${interaction.blockedCarLicensePlate} is blocked by ${interaction.blockingCarLicensePlate}</b>`;
+                    var markerLocation = new L.LatLng(lat, lng);
+                    var marker = new L.Marker(markerLocation);
+                    mymap.addLayer(marker);
+
+                    marker.bindPopup(popUp);
+
+                   
+                }
+            },
+            error: function (error) {
+
+            }
+        });
+    });
+ 
+
+</script>

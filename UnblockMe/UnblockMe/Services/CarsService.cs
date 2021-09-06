@@ -52,6 +52,7 @@ namespace UnblockMe.Services
 
         public void CarBlocksCar(Cars car1, Cars car2)
         {
+
             car1.BlocksCar = car2.LicensePlate;
             car2.IsBlockedByCar = car1.LicensePlate;
             _dbContext.SaveChanges();
@@ -77,12 +78,28 @@ namespace UnblockMe.Services
         }
         public List<Cars> GetActiveCars()
         {
+            var cars = _dbContext.Cars; 
             return _dbContext.Cars.ToList();
+        }
+        public void ParkCar(Cars car, double lat, double lng)
+        {
+            car.lat = lat;
+            car.lng = lng;
+            _dbContext.SaveChanges();
+        }
+
+        public void UnblockCar(Cars BlockingCar, Cars CarToUnblock)
+        {
+            BlockingCar.BlocksCar = null;
+            CarToUnblock.IsBlockedByCar = null;
+            _dbContext.SaveChanges();
         }
     }
 
     public interface ICarsService
     {
+        public void UnblockCar(Cars BlockingCar, Cars CarToUnblock);
+        public void ParkCar(Cars car, double lat, double lng);
         public List<Cars> GetActiveCars();
         public void RemoveCar(string licensePlate);
         public void EditCar(Cars car, string color, string brand);

@@ -18,6 +18,8 @@ namespace UnblockMe.Models
         public string Color { get; set; }
         public string BlocksCar { get; set; }
         public string IsBlockedByCar { get; set; }
+        public double? lat { get; set; }
+        public double? lng { get; set; }
         public string OwnerId { get; set; }
         public virtual Users Owner { get; set; }
     }

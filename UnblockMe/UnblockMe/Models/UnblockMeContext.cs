@@ -119,6 +119,11 @@ namespace UnblockMe.Models
                     .IsRequired()
                     .HasColumnName("brand")
                     .HasMaxLength(20);
+                entity.Property(e => e.lat)
+                    .HasColumnName("lat");
+
+                entity.Property(e => e.lng)
+                    .HasColumnName("lng");
 
                 entity.Property(e => e.Color)
                     .IsRequired()

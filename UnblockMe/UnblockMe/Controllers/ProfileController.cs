@@ -12,18 +12,19 @@ namespace UnblockMe.Controllers
     [Authorize(Policy = "IsNotBanned")]
     public class ProfileController : Controller
     {
-        private readonly ILogger<ProfileController> _logger;
+      
         private readonly IUserService _userService;
         private readonly IRatingService _ratingService;
         private readonly ICarsService _carsService;
+        private readonly IMathService _mathService;
 
-        public ProfileController(ILogger<ProfileController> logger, IRatingService ratingService,IUserService userService,ICarsService carsService)
+        public ProfileController(IRatingService ratingService, IUserService userService, ICarsService carsService, IMathService mathService)
         {
-            _logger = logger;
+
             _userService = userService;
             _ratingService = ratingService;
             _carsService = carsService;
-
+            _mathService = mathService;
         }
 
         [Route("Profile/{id}")]
@@ -57,8 +58,21 @@ namespace UnblockMe.Controllers
             {
                 var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
                  var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
-                _carsService.CarBlocksCar(MyCar, YourCar);
-                return Ok("The user will be Notified");
+
+                var distance = _mathService.ClaculateDist(MyCar.lat.GetValueOrDefault(), YourCar.lat.GetValueOrDefault(), MyCar.lng.GetValueOrDefault(), YourCar.lng.GetValueOrDefault());
+                if (!MyCar.lat.HasValue || !MyCar.lng.HasValue)
+                    return BadRequest($"{MyCar.LicensePlate} is not parked!");
+                if (!YourCar.lat.HasValue || !YourCar.lng.HasValue)
+                    return BadRequest($"{YourCar.LicensePlate} is not parked!");
+
+
+                if (distance<=0.02)
+                {
+                    _carsService.CarBlocksCar(MyCar, YourCar);
+                    return Ok("The user will be Notified");
+                }
+                else
+                    return BadRequest("The cars are too far apart!");
             }
             catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("CK_Colision_Cars_Constraint")))
             {
@@ -107,6 +121,23 @@ namespace UnblockMe.Controllers
 
                 return Ok("Rate posted!");
             
+        }
+        public IActionResult UnblockCar(string yourcarlp)
+        {
+            var loggedUser = _userService.GetLoggedInUser();
+            var mycars = _userService.GetCarsListOfUser(loggedUser);
+            var yourCar = _carsService.GetCarByLicensePlate(yourcarlp);
+            var blockingCar = mycars.Find(c => c.LicensePlate == yourCar.IsBlockedByCar);
+            if (blockingCar == null)
+                return BadRequest($"{yourcarlp} isn't blocked by any of your cars!");
+            else
+            {
+
+                _carsService.UnblockCar(blockingCar, yourCar);
+                return Ok("Car unblocked succesfully!");
+            }
+
+         
         }
     }
 }
