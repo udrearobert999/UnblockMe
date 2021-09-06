@@ -80,12 +80,12 @@ namespace UnblockMe.Services
                 .Where(r => r.rated_id == user.Id)
                 .ToList();
         }
-        public void BanUser(Users user, string reason, int days)
+        public void BanUser(Users user, string reason, int duration)
         {
             if (user != null)
             {
               
-                var banned_user = new banned_users(user.Id, reason, DateTime.UtcNow.AddDays(days), user);
+                var banned_user = new banned_users(user.Id, reason, DateTime.UtcNow.AddDays(duration), user);
                 user.Banned = banned_user;
                 var ban_action = new BanActions(banned_user);
                 ban_action.BanStart = DateTime.UtcNow;

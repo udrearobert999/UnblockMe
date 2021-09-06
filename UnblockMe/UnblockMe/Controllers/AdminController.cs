@@ -75,10 +75,17 @@ namespace UnblockMe.Controllers
         {
             try
             {
-                reason ??= "Unspecified reason but you probably did something!💀";
-                var days = 1;
+                reason ??= "Unspecified reason but you probably did something!";
+                var durationParsed=Int32.Parse(duration);
                 var user = _userService.GetUserById(id);
-                _userService.BanUser(user, reason, days);
+                if (durationParsed == 2)
+                    durationParsed = 30;
+                else
+                    if (durationParsed == 3)
+                    durationParsed = 360;
+                
+
+                _userService.BanUser(user, reason, durationParsed);
                 return Ok("User Banned");
             }
             catch(Exception e)

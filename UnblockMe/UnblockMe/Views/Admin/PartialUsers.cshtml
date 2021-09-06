@@ -64,10 +64,11 @@
                 <div class="colapsible colapsibleDownloadInfo">
                     <div class="infoContainer">
                         <p>
-                            <a href="@Url.Action("DownloadCarInfo","AddCar")/">
+                            <label for="carInfo">Cars info: </label>
+                            <a href="@Url.Action("DownloadCarInfo","AddCar")/" id="carInfo">
                                 <img id="downloadCarInfo" src="https://img.icons8.com/ios-glyphs/60/000000/car--v1.png" />
                             </a>
-                           
+                            <label for="downloadBanInfo">Ban History: </label>
                             <img id="downloadBanInfo" src="https://img.icons8.com/ios-glyphs/60/000000/user--v1.png" />
                         </p>
                         
@@ -81,7 +82,7 @@
                         <div class="banInput">
 
                             <input required type="range" class="form-control-range" id="duration" value="1" min="1" max="3">
-
+                            <p id="durationLabel">Duration: One day</p>
                             <input required type="text" placeholder="Reason.." id="reason" />
                         </div>
 

@@ -6,7 +6,6 @@ var infoColapseButton = document.querySelector("#infoAction");
 var lastUserPressed = null;
 var allColapsibleContent = document.querySelectorAll(".colapsible");
 
-console.log(document.getElementById("downloadCarInfo").parentNode.href);
 
 
 
@@ -151,6 +150,29 @@ document.querySelector(".banButton").addEventListener('click', () => {
 
     });
 });
+var durationInput = document.querySelector("#duration");
+durationInput.addEventListener('change', () => {
+
+    let rangeVal = Number(durationInput.value);
+    let rangeLabel = document.querySelector("#durationLabel").textContent;
+    let pref = rangeLabel.substr(0, rangeLabel.indexOf(':')+1);
+    let suf = null;
+    switch (rangeVal)
+    {
+        case 1:
+            suf = "One day";
+            break;
+        case 2:
+            suf = "One month";
+            break;
+        case 3:
+            suf = "One year";
+            break;
+    }
+  
+    document.querySelector("#durationLabel").textContent = pref +' '+ suf;
+    
+});
 
 $('button[id^="user"]').click(function () {
 
@@ -180,7 +202,7 @@ $('button[id^="user"]').click(function () {
             let urlPref = downloadCarUrl.substr(0, downloadCarUrl.lastIndexOf('/')+1);
             document.getElementById("downloadCarInfo").parentNode.href = urlPref + user_id;
           
-            console.log(urlPref + user_id);
+            
             $("#Id").val(data.id);
             $("#fName").val(data.firstName);
             $("#lName").val(data.lastName);
@@ -189,7 +211,7 @@ $('button[id^="user"]').click(function () {
         },
         error: function (error) {
 
-            console.log(error.responseText);
+         
         }
 
     });
