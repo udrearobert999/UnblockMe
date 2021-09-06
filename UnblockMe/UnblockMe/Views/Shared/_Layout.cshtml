@@ -16,7 +16,7 @@
     <link href="~/css/layout.css" rel="stylesheet" />
    
 </head>
-<body>
+<body id="body">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-custom bg-custom border-bottom box-shadow mb-3" id="navBar">
             <div class="container" style="color:white;">
@@ -35,9 +35,12 @@
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
-                          
+
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="AddCar" asp-action="Index">Add Car</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Premium" asp-action="Index">Go Premium</a>
                             </li>
                         }
                         @if (User.IsInRole("Admin"))
@@ -46,6 +49,7 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="AdminPanel">AdminPanel</a>
                             </li>
                         }
+
                     </ul>
                 </div>
             </div>

@@ -1,0 +1,15 @@
+﻿#pills-tab
+{
+    justify-content:center;
+}
+#pills-home{
+    align-content:flex-start;
+    width:300px;
+}
+.pb-3
+{
+    display:flex;
+    justify-content:center;
+    flex-direction:column;
+    align-items:center;
+}
