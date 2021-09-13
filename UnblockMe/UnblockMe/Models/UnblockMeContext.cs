@@ -20,7 +20,7 @@ namespace UnblockMe.Models
         {
         }
 
-
+        public virtual DbSet<CityInfo> CityInfo { get; set; }
         public virtual DbSet<Users> AspNetUsers { get; set; }
         public virtual DbSet<Cars> Cars { get; set; }
         public virtual DbSet<Ratings> Ratings { get; set; }
@@ -38,6 +38,51 @@ namespace UnblockMe.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CityInfo>(e =>
+            {
+     
+                e.Property(e => e.Id)
+                .HasColumnName("id")
+                .IsRequired();
+
+                e.HasKey(e => e.Id)
+                .HasName("PK__CityInfo__3213E83F1ED26ACC");
+                
+                e.Property(e => e.Latitude)
+                .HasColumnName("latitude")
+                .IsRequired();
+                
+                e.Property(e => e.Longitude)
+                .HasColumnName("longitude")
+                .IsRequired();
+
+                e.Property(e => e.Population)
+               .HasColumnName("population")
+               .IsRequired();
+
+                e.Property(e => e.County)
+                .HasColumnName("county")
+                .IsRequired();
+
+                e.Property(e => e.Auto)
+                .HasColumnName("auto")
+                .IsRequired();
+
+                e.Property(e => e.Name)
+               .HasColumnName("name")
+               .IsRequired();
+                
+                e.Property(e => e.ParkedCarsNumber)
+                .HasColumnName("parkedCarsNumber")
+                .HasDefaultValue(0);
+
+                e.Property(e => e.BlockedCarsNumber)
+                .HasColumnName("blockedCarsNumber")
+                .HasDefaultValue(0);
+
+             
+
+            });
 
             modelBuilder.Entity<BanActions>(e =>
             {

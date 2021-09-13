@@ -4,7 +4,7 @@
     var pref = window.location.href.slice(0, window.location.href.indexOf("Admin"));
     document.querySelector('#licensePlate').value = $(this).text()
     $.ajax({
-        url: pref+"AddCar/GetCarByLicensePlate",
+        url: pref+"ManageCars/GetCarByLicensePlate",
         data: {
             licensePlate: $(this).text()
         },
@@ -22,7 +22,7 @@ $("#submitChanges").click(function submitfunc(event) {
     var pref = window.location.href.slice(0, window.location.href.indexOf("Admin"));
 
     $.ajax({
-        url: pref+"AddCar/EditCar",
+        url: pref +"ManageCars/EditCar",
         data: {
             licensePlate: $("#licensePlate").val(),
             brand: $("#brand").val(),

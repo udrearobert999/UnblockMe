@@ -876,3 +876,5 @@ C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netco
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Manage\GoPremium.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Premium\MapInteractions.cshtml.g.cs
 C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\ManageCars\Index.cshtml.g.cs
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Premium\CityInfo.cshtml.g.cs
+C:\Users\Robert\Desktop\UnblockMe_SummerCamp\UnblockMe\UnblockMe\obj\Debug\netcoreapp3.1\Razor\Views\Premium\CountySearch.cshtml.g.cs

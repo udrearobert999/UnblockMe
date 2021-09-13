@@ -1,47 +1,70 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using UnblockMe.Dtos;
+using UnblockMe.Models;
 using UnblockMe.Services;
 
 namespace UnblockMe.Controllers
 {
+    [Authorize(Roles="Admin,Premium")]
     public class PremiumController : Controller
     {
-        private readonly IUserService _userService;
         private readonly ICarsService _carsService;
-
-        public PremiumController(IUserService userService, ICarsService carsService)
+        private readonly IMapInfoProviderService _mapInfoProvider;
+        public PremiumController(ICarsService carsService, IMapInfoProviderService cityInfoProvider)
         {
-            _userService = userService;
             _carsService = carsService;
-        }
-        public class BlockingInteraction
-        {
-            public BlockingInteraction(string blockedCarLicensePlate, string blockingCarLicensePlate, double blockedCarLat, double blockedCarLng)
-            {
-                BlockedCarLicensePlate = blockedCarLicensePlate;
-                BlockingCarLicensePlate = blockingCarLicensePlate;
-                BlockedCarLat = blockedCarLat;
-                BlockedCarLng = blockedCarLng;
-            }
-
-            public BlockingInteraction()
-            {
-            }
-
-            public string BlockedCarLicensePlate { get; set; }
-            public string BlockingCarLicensePlate { get; set; }
-            public double BlockedCarLat { get; set; }
-            public double BlockedCarLng { get; set; }
+            _mapInfoProvider = cityInfoProvider;
         }
         public IActionResult MapInteractions()
         {
             return View();
         }
+        [Route("Premium/CountySearch/{countyName}")]
+        public IActionResult CountySearch(string countyName)
+        {
 
-        public JsonResult GetBlockingInteraction()
+            return View("CountySearch", countyName);
+        }
+
+        public IActionResult GetCountyRegions(string countyName)
+        {
+            var regions = _mapInfoProvider.GetCountyRegions(countyName);
+            return Json(regions);
+        }
+        
+        [HttpGet]
+        public IActionResult CityInfo([FromQuery]string cityName)
+        {
+            var city = _mapInfoProvider.GetCityInfo(cityName);
+            return View(city);
+        }
+        /*public void InitDatabase(string countriesInfo)
+        {
+            var items = JArray.Parse(countriesInfo);
+
+            int cnt = 0;
+            foreach (var element in items)
+            {
+                var toAdd = new CityInfo();
+                toAdd.Id = element.Value<int>("id");
+                toAdd.Name= element.Value<string>("nume");
+                toAdd.County = element.Value<string>("judet");
+                toAdd.Auto = element.Value<string>("auto");
+                toAdd.Population = element.Value<int>("populatie");
+                toAdd.Latitude = element.Value<double>("lat");
+                toAdd.Longitude= element.Value<double>("lng");
+                _dbContext.CityInfo.Add(toAdd);
+               
+                cnt++;
+            }
+            _dbContext.SaveChanges();
+
+
+        }*/
+        public IActionResult GetBlockingInteraction()
         {
             var allCars = _carsService.GetActiveCars();
             var blockingInteractions = new List<BlockingInteraction>();
@@ -54,8 +77,8 @@ namespace UnblockMe.Controllers
                         car.lng.Value);
                     blockingInteractions.Add(parsedCar);
                 }
-
-            return Json(blockingInteractions);
+            
+            return Ok(blockingInteractions);
         }
     }
 }

@@ -1,0 +1,12 @@
+﻿@model string
+
+
+<link href="~/css/searchcity.css" rel="stylesheet" />
+<p id="countyName" hidden>@Model</p>
+<form autocomplete="off" asp-action="CityInfo" asp-controller="Premium" method="get">
+    <div class="autocomplete" style="width:300px;">
+        <input id="myInput" type="text" name="cityName" class="textbox" placeholder="Search">
+    </div>
+    <input title="Search" value="Search" type="submit" class="button">
+</form>
+<script src="~/js/city_autocomplete_search.js"></script>

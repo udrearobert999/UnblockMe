@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\js\romania_data.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AjaxControlToolkit" Version="20.1.0" />
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="jQuery" Version="3.6.0" />

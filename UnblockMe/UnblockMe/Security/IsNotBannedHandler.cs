@@ -23,12 +23,12 @@ namespace UnblockMe.Security
             if (user_id == null)
                 context.Succeed(requirement);
             else
-            { 
+            {
                 var user = _userService.GetUserById(user_id);
                 if (user.Banned == null)
                     context.Succeed(requirement);
             }
-           
+
 
             return Task.CompletedTask;
         }

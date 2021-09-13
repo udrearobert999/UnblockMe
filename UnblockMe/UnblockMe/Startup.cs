@@ -77,6 +77,7 @@ namespace UnblockMe
             services.AddTransient<IRatingService, RatingService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IMathService, MathService>();
+            services.AddTransient<IMapInfoProviderService, MapInfoProviderService>();
 
         }
 

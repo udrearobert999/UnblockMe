@@ -26,6 +26,7 @@ namespace UnblockMe.Models
         public virtual ICollection<Cars> Cars { get; set; }
         public virtual ICollection<Ratings> RatesGot { get; set; }
         public virtual ICollection<Ratings> RatesGiven { get; set; }
+      
         public virtual banned_users Banned { get; set; }
       
     }
