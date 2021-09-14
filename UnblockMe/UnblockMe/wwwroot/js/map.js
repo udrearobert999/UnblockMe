@@ -26,6 +26,7 @@ function onEachFeature(feature, layer) {
     });
 }
 function clickEventFeature(e) {
+    console.log(e.target);
     let countyName = e.target.feature.properties.name;
     let infoReturner = document.getElementById('returnInfo');
     infoReturner.href += "/" + String(countyName);
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $.ajax({
         url: "GetBlockingInteraction",
         success: function (data) {
-
+            document.querySelector(".info").hidden = true;
             for (const interaction of data) {
 
                 let lat = interaction.blockedCarLat;
@@ -92,12 +93,15 @@ var geojson = L.geoJson(statesData, {
 document.querySelector("#showInfo").addEventListener('click', () => {
     document.querySelector("#showInfo").hidden = true;
     document.querySelector("#showBlockings").hidden = false;
+    document.querySelector(".info").hidden = false;
     interactions.remove();
     geojson.addTo(mymap);
 });
 document.querySelector("#showBlockings").addEventListener('click', () => {
     document.querySelector("#showInfo").hidden = false;
     document.querySelector("#showBlockings").hidden = true;
+    document.querySelector(".info").hidden = true;
+;
     interactions.addTo(mymap);
     geojson.remove();
 

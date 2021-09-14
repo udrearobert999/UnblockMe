@@ -120,11 +120,15 @@ namespace UnblockMe.Controllers
         public IActionResult DownloadBanInfoCSV(string id)
         {
             var banInfo = _userService.GetUserBanInfo(id);
+        
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("BannedBy,Reason,Ban Start,Ban End");
+            stringBuilder.AppendLine("Admin fullname,Admin email,Reason,Ban Start,Ban End");
             foreach (var banAction in banInfo)
-                stringBuilder.AppendLine($"{banAction.BannedBy},{banAction.Reason},"
-                    +$"{banAction.BanStart},{banAction.BanEnd}");
+            {
+                var user = _userService.GetUserById(banAction.BannedBy);
+                stringBuilder.AppendLine($"{user.FirstName + ' ' + user.LastName}, {user.Email},{banAction.Reason},"
+                    + $"{banAction.BanStart},{banAction.BanEnd}");
+            }
 
             return File(Encoding.UTF8.GetBytes(stringBuilder.ToString()), "text/csv", "baninfo.csv");
         }
