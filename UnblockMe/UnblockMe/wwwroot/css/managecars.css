@@ -4,3 +4,21 @@
    left:50%;
    transform:translate(-80%);
 }
+.gridwrapper {
+    height: 70vh;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+.d-inline-block {
+    display: grid !important;
+    justify-content: center;
+    grid-template-columns: 50% 50%;
+}
+    .d-inline-block > p {
+        font-weight: bold;
+        align-self:center;
+    }
+.iconButton{
+    align-self:center;
+    justify-self:end;
+}
