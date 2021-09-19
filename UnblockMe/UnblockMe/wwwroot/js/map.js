@@ -1,6 +1,26 @@
 ﻿var info = L.control();
+function getColor(d) {
+    return d > 650000 ? '#800026' :
+        d > 500001 ? '#BD0026' :
+            d > 350001 ? '#E31A1C' :
+                d > 250001 ? '#FC4E2A' :
+                    d > 100001 ? '#FD8D3C' :
+                        d > 50001 ? '#FEB24C' :
+                            '#FFEDA0';
+}
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.pop2011),
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.7
+    };
+}
 function highlightFeature(e) {
     var layer = e.target;
+    //console.log(e.target);
     layer.setStyle({
         weight: 5,
         color: '#666',
@@ -26,7 +46,7 @@ function onEachFeature(feature, layer) {
     });
 }
 function clickEventFeature(e) {
-    console.log(e.target);
+ 
     let countyName = e.target.feature.properties.name;
     let infoReturner = document.getElementById('returnInfo');
     infoReturner.href += "/" + String(countyName);
@@ -44,6 +64,8 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1,
     accessToken: 'pk.eyJ1IjoidWRyZWFyb2JlcnQ5OTkiLCJhIjoiY2t0OGxsYjdyMHd5YTJwcGN4Y3VsbWw0eCJ9.bBI6D7tU_b7lwG9agavG4g'
 }).addTo(mymap);
+
+
 
 info.onAdd = function (map) {
     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
@@ -87,14 +109,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 
 var geojson = L.geoJson(statesData, {
-    onEachFeature: onEachFeature
+    onEachFeature: onEachFeature,
+    style: style
 });
 
 document.querySelector("#showInfo").addEventListener('click', () => {
     document.querySelector("#showInfo").hidden = true;
     document.querySelector("#showBlockings").hidden = false;
     document.querySelector(".info").hidden = false;
-    interactions.remove();
+    interactions?.remove();
     geojson.addTo(mymap);
 });
 document.querySelector("#showBlockings").addEventListener('click', () => {
@@ -102,8 +125,8 @@ document.querySelector("#showBlockings").addEventListener('click', () => {
     document.querySelector("#showBlockings").hidden = true;
     document.querySelector(".info").hidden = true;
 ;
-    interactions.addTo(mymap);
-    geojson.remove();
+    interactions?.addTo(mymap);
+    geojson?.remove();
 
 });
 

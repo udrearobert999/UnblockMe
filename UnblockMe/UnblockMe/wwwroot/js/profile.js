@@ -10,11 +10,11 @@ document.querySelector("#unblockButton").addEventListener('click', () => {
         success: function (status) {
         
             toastNotifySuccess(status, 1000);
+            $("#BlockedYou").modal('hide');
 
         },
         error: function (error) {
 
-            $("#BlockedYou").modal('hide');
             toastNotifyError(error.responseText, 3000);
         }
 
@@ -38,7 +38,6 @@ $("#form1").submit(function blockedyou(event) {
         },
         error: function (error) {
 
-            $("#BlockedYou").modal('hide');
             toastNotifyError(error.responseText, 3000);
         }
 
@@ -65,7 +64,6 @@ $("#form2").submit(function unblockme(event) {
         },
         error: function (error) {
 
-            $("#UnblockMe").modal('hide');
             toastNotifyError(error.responseText, 3000);
         }
     });

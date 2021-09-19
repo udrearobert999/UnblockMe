@@ -62,7 +62,10 @@ namespace UnblockMe.Controllers
 
         public IActionResult GetCarByLicensePlate(string licenseplate)
         {
+            if (licenseplate is null )
+                return BadRequest("User has no cars!");
             var car = _carsService.GetCarByLicensePlate(licenseplate);
+ 
             var res = new
             {
                 LicensePlate = car.LicensePlate,
@@ -120,6 +123,7 @@ namespace UnblockMe.Controllers
            
             var car = _carsService.GetCarByLicensePlate(licenseplate);
             _carsService.ParkCar(car, lat, lng);
+            _carsService.FindAndAssignCityToCar(car);
             return Ok("Car parked succesfully!");
 
         }

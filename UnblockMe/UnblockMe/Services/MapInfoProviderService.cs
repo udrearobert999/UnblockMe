@@ -10,14 +10,13 @@ namespace UnblockMe.Services
     {
 
         private readonly UnblockMeContext _dbContext;
-
         public MapInfoProviderService(UnblockMeContext dbContext)
         {
             _dbContext = dbContext;
         }
         public string[] GetCountyRegions(string county)
         {
-            var cities = _dbContext.CityInfo.Where(c=>c.County==county).Select(c=>c.Name).ToArray();
+            var cities = _dbContext.CityInfo.Where(c => c.County == county).Select(c => c.Name).ToArray();
             return cities;
         }
 
@@ -26,12 +25,18 @@ namespace UnblockMe.Services
             var city = _dbContext.CityInfo.Where(c => c.Name == cityName).ToList().First();
             return city;
         }
-    }
+        public List<CityInfo> GetActiveCities()
+        {
+            return _dbContext.CityInfo.ToList();
+        }
 
+    }
     public interface IMapInfoProviderService
     {
+
+        public List<CityInfo> GetActiveCities();
         string[] GetCountyRegions(string county);
         CityInfo GetCityInfo(string cityName);
-      
+
     }
 }

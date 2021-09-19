@@ -22,5 +22,6 @@ namespace UnblockMe.Models
         public double? lng { get; set; }
         public string OwnerId { get; set; }
         public virtual Users Owner { get; set; }
+        public int CityId { get; set; }
     }
 }

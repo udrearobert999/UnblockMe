@@ -151,7 +151,11 @@ namespace UnblockMe.Models
             {
                 entity.HasKey(e => e.LicensePlate)
                      .HasName("PK__Cars__F72CD56F0D7E960E");
-
+                
+                entity.Property(e => e.CityId)
+                .HasColumnName("CityId")
+                .HasMaxLength(100);
+                
                 entity.Property(e => e.LicensePlate)
                     .HasColumnName("license_plate")
                     .HasMaxLength(20);

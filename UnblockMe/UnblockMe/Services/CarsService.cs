@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnblockMe.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Caching.Memory;
+using System.Diagnostics.CodeAnalysis;
 
 namespace UnblockMe.Services
 {
@@ -10,19 +13,24 @@ namespace UnblockMe.Services
     {
         private readonly UnblockMeContext _dbContext;
         private readonly IUserService _userService;
-        public CarsService(UnblockMeContext dbContext, IUserService userService)
+        private readonly IMapInfoProviderService _cityInfoProvider;
+        private readonly IMathService _mathService;
+        public CarsService(UnblockMeContext dbContext, IUserService userService, IMapInfoProviderService cityInfoProvider, IMathService mathService)
         {
             _dbContext = dbContext;
             _userService = userService;
+            _cityInfoProvider = cityInfoProvider;
+            _mathService = mathService;
         }
 
-        public List<Cars> GetCarsByLicensePlate(string licensePlate, bool getLoggedUserCars=true)
+        public List<Cars> GetCarsByLicensePlate(string licensePlate, bool getLoggedUserCars = true)
         {
             var cars = _dbContext.Cars
                 .Include(car => car.Owner)
-                .Where(car => car.LicensePlate.Contains(licensePlate)).ToList();
+                .Where(car => car.LicensePlate.Contains(licensePlate))
+                .ToList();
             cars = cars.GetRange(0, Math.Min(3, cars.Count()));
-           
+
 
             if (_userService.GetLoggedInUser() != null && getLoggedUserCars)
                 cars.RemoveAll(car => car.Owner.Id == _userService.GetLoggedInUser().Id);
@@ -37,7 +45,7 @@ namespace UnblockMe.Services
         {
             try
             {
-               
+
                 _dbContext.Cars.Add(car);
                 _dbContext.SaveChanges();
                 return true;
@@ -58,9 +66,9 @@ namespace UnblockMe.Services
             _dbContext.SaveChanges();
 
         }
-        public void EditCar(Cars car,string color,string brand)
+        public void EditCar(Cars car, string color, string brand)
         {
-   
+
             if (car.Color != color)
                 car.Color = color;
             if (car.Brand != brand)
@@ -78,7 +86,7 @@ namespace UnblockMe.Services
         }
         public List<Cars> GetActiveCars()
         {
-            var cars = _dbContext.Cars; 
+            var cars = _dbContext.Cars;
             return _dbContext.Cars.ToList();
         }
         public void ParkCar(Cars car, double lat, double lng)
@@ -94,10 +102,37 @@ namespace UnblockMe.Services
             CarToUnblock.IsBlockedByCar = null;
             _dbContext.SaveChanges();
         }
+        public void FindAndAssignCityToCar(Cars car)
+        {
+            var cityList = _cityInfoProvider.GetActiveCities();
+            var firstCity = cityList.First();
+            double minDist = _mathService.ClaculateDist(car.lat.GetValueOrDefault(),
+                                                      firstCity.Latitude,
+                                                      car.lng.GetValueOrDefault(),
+                                                      firstCity.Longitude);
+            CityInfo minCity = firstCity;
+            foreach(var city in cityList)
+            {
+                var dist = _mathService.ClaculateDist(car.lat.GetValueOrDefault(),
+                                                      city.Latitude,
+                                                      car.lng.GetValueOrDefault(),
+                                                      city.Longitude);
+                if(dist<minDist)
+                {
+                    minDist = dist;
+                    minCity = city;
+                }
+            }
+            car.CityId = minCity.Id;
+            _dbContext.SaveChanges();
+        }
     }
+
+
 
     public interface ICarsService
     {
+        public void FindAndAssignCityToCar(Cars car);
         public void UnblockCar(Cars BlockingCar, Cars CarToUnblock);
         public void ParkCar(Cars car, double lat, double lng);
         public List<Cars> GetActiveCars();
@@ -107,5 +142,6 @@ namespace UnblockMe.Services
         public Cars GetCarByLicensePlate(string licensePlate);
         public bool AddCar(Cars car);
         public List<Cars> GetCarsByLicensePlate(string licensePlate, bool getLoggedUserCars = true);
+     
     }
 }

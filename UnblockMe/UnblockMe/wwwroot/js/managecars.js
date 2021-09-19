@@ -9,9 +9,10 @@ if(parkButton)
                   url: "ManageCars/ParkCar",
                   data: {
                       licensePlate: $("#selectParkCar").val(),
-                      lat: p.coords.latitude,
-                      lng: p.coords.longitude
-
+                      //lat: p.coords.latitude,
+                      //lng: p.coords.longitude
+                      lat: 44.3301785,
+                      lng: 23.7948807
                   },
                   success: function (status) {
 
