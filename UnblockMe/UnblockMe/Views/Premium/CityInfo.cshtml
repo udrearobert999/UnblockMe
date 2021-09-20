@@ -1,10 +1,70 @@
-﻿@model CityInfo 
-THIS IS AN INFO VIEW
-asdads
-dasads
-asd
-ads
-das
-das
-das
-ads
+﻿@model CityInfo
+@{ 
+    var d = Model.BlockedCarsNumber;
+    var i = Model.ParkedCarsNumber;
+    double chance = (double)d / i * 100;
+}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link href="~/css/cityinfo.css" rel="stylesheet" />
+
+<div class="title">
+    <span>Craiova</span>
+    <br />
+    <br />
+</div>
+<div class="chartContainer">
+    <canvas id="myChart"></canvas>
+    
+</div>
+<div class="info">
+ 
+    <p>Number of parked cars : @Model.ParkedCarsNumber</p>
+    <p>Number of blocked cars : @Model.BlockedCarsNumber</p>
+    <p>Population: @Model.Population</p>
+    <p>Blocking chance: @String.Format("{0:0.00}", chance)%</p>
+</div>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Parkings / Blockings'],
+            datasets: [{
+                label: '# Parked Cars',
+                data: [@Model.ParkedCarsNumber],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+              
+                ],
+                borderWidth: 1
+            },
+                {
+                    label: '# Blocked Cars',
+                    data: [@Model.BlockedCarsNumber],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)',
+
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+    
+</script>

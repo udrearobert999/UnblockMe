@@ -6,8 +6,27 @@
         integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
         crossorigin=""></script>
 <link href="~/css/map.css" rel="stylesheet" />
-<button class="btn btn-primary" id="showInfo" >View counties info</button>
-<button class="btn btn-primary" id="showBlockings" hidden>View blocking interactions</button>
+<link href="~/css/radio.css" rel="stylesheet" />
+<input class="radio-inline__input" type="radio" name="accessible-radio" value="item-1" id="showCars" checked="checked" />
+<label class="radio-inline__label" for="showCars">
+    Show parked cars
+</label>
+
+
+@if (User.IsInRole("Premium") || User.IsInRole("Admin"))
+{
+
+    <input class="radio-inline__input" type="radio" name="accessible-radio" value="item-2" id="showInfo" />
+    <label class="radio-inline__label" for="showInfo">
+        Show counties
+    </label>
+    <input class="radio-inline__input" type="radio" name="accessible-radio" value="item-3" id="showBlockings" />
+    <label class="radio-inline__label" for="showBlockings">
+        Show blockings
+    </label>
+}
+
+
 <a asp-action="CountySearch" asp-controller="Premium" id="returnInfo" hidden></a>
 <div id="mapid" style="height:80vh"></div>
 <script type="text/javascript" src="~/js/romania_data.js"></script>

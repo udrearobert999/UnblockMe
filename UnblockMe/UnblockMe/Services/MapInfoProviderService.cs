@@ -19,7 +19,10 @@ namespace UnblockMe.Services
             var cities = _dbContext.CityInfo.Where(c => c.County == county).Select(c => c.Name).ToArray();
             return cities;
         }
-
+        public CityInfo GetCityById(int id)
+        {
+            return _dbContext.CityInfo.Find(id);
+        }
         public CityInfo GetCityInfo(string cityName)
         {
             var city = _dbContext.CityInfo.Where(c => c.Name == cityName).ToList().First();
@@ -33,7 +36,7 @@ namespace UnblockMe.Services
     }
     public interface IMapInfoProviderService
     {
-
+        public CityInfo GetCityById(int id);
         public List<CityInfo> GetActiveCities();
         string[] GetCountyRegions(string county);
         CityInfo GetCityInfo(string cityName);

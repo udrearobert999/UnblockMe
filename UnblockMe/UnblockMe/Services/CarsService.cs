@@ -60,9 +60,11 @@ namespace UnblockMe.Services
 
         public void CarBlocksCar(Cars car1, Cars car2)
         {
-
+            bool ok = (car2.IsBlockedByCar == null);
             car1.BlocksCar = car2.LicensePlate;
             car2.IsBlockedByCar = car1.LicensePlate;
+            if (ok)
+                _cityInfoProvider.GetCityById(car2.CityId).BlockedCarsNumber++;
             _dbContext.SaveChanges();
 
         }
@@ -100,22 +102,25 @@ namespace UnblockMe.Services
         {
             BlockingCar.BlocksCar = null;
             CarToUnblock.IsBlockedByCar = null;
+            _cityInfoProvider.GetCityById(CarToUnblock.CityId).BlockedCarsNumber--;
             _dbContext.SaveChanges();
         }
         public void FindAndAssignCityToCar(Cars car)
         {
             var cityList = _cityInfoProvider.GetActiveCities();
             var firstCity = cityList.First();
-            double minDist = _mathService.ClaculateDist(car.lat.GetValueOrDefault(),
+            var carLat = car.lat.GetValueOrDefault();
+            var carLong = car.lng.GetValueOrDefault();
+            double minDist = _mathService.ClaculateDist(carLat,
                                                       firstCity.Latitude,
-                                                      car.lng.GetValueOrDefault(),
+                                                      carLong,
                                                       firstCity.Longitude);
             CityInfo minCity = firstCity;
             foreach(var city in cityList)
             {
-                var dist = _mathService.ClaculateDist(car.lat.GetValueOrDefault(),
+                var dist = _mathService.ClaculateDist(carLat,
                                                       city.Latitude,
-                                                      car.lng.GetValueOrDefault(),
+                                                      carLong,
                                                       city.Longitude);
                 if(dist<minDist)
                 {
@@ -123,8 +128,12 @@ namespace UnblockMe.Services
                     minCity = city;
                 }
             }
-            car.CityId = minCity.Id;
-            _dbContext.SaveChanges();
+            if (car.CityId!=minCity.Id)
+            {
+                car.CityId = minCity.Id;
+                minCity.ParkedCarsNumber++;
+                _dbContext.SaveChanges();
+            }
         }
     }
 

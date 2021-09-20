@@ -8,7 +8,6 @@ using UnblockMe.Services;
 
 namespace UnblockMe.Controllers
 {
-    [Authorize(Roles="Admin,Premium")]
     public class PremiumController : Controller
     {
         private readonly ICarsService _carsService;
@@ -29,6 +28,7 @@ namespace UnblockMe.Controllers
             return View("CountySearch", countyName);
         }
 
+        [Authorize(Roles="Admin,Premium")]
         public IActionResult GetCountyRegions(string countyName)
         {
             var regions = _mapInfoProvider.GetCountyRegions(countyName);
@@ -36,34 +36,13 @@ namespace UnblockMe.Controllers
         }
         
         [HttpGet]
+        [Authorize(Roles = "Admin,Premium")]
         public IActionResult CityInfo([FromQuery]string cityName)
         {
             var city = _mapInfoProvider.GetCityInfo(cityName);
             return View(city);
         }
-        /*public void InitDatabase(string countriesInfo)
-        {
-            var items = JArray.Parse(countriesInfo);
-
-            int cnt = 0;
-            foreach (var element in items)
-            {
-                var toAdd = new CityInfo();
-                toAdd.Id = element.Value<int>("id");
-                toAdd.Name= element.Value<string>("nume");
-                toAdd.County = element.Value<string>("judet");
-                toAdd.Auto = element.Value<string>("auto");
-                toAdd.Population = element.Value<int>("populatie");
-                toAdd.Latitude = element.Value<double>("lat");
-                toAdd.Longitude= element.Value<double>("lng");
-                _dbContext.CityInfo.Add(toAdd);
-               
-                cnt++;
-            }
-            _dbContext.SaveChanges();
-
-
-        }*/
+        [Authorize(Roles = "Admin,Premium")]
         public IActionResult GetBlockingInteraction()
         {
             var allCars = _carsService.GetActiveCars();
@@ -79,6 +58,11 @@ namespace UnblockMe.Controllers
                 }
             
             return Ok(blockingInteractions);
+        }
+        public IActionResult GetCarJson()
+        {
+            var allCars = _carsService.GetActiveCars();
+            return Json(allCars);
         }
     }
 }

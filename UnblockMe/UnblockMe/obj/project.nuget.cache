@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "uoCKwGFOk9QiaQXEbZsYtbU5G777O5Kd46zDH+qjJdX9V+UU1okbMGoarghEo03rrjb5JPRDUpjLTyTvVhZg5w==",
+  "dgSpecHash": "VC5ANtxuNeXbjYATYcDa9cmZD3FvK6xichlmlVyH7Qi7Cv9OfUdfSC3LkbCSp1f6yZ/PTycuAimqoGQ9ODmpTw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Robert\\Desktop\\UnblockMe_SummerCamp\\UnblockMe\\UnblockMe\\UnblockMe.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Robert\\.nuget\\packages\\ajaxcontroltoolkit\\20.1.0\\ajaxcontroltoolkit.20.1.0.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\aspnetcorehero.toastnotification\\1.1.0\\aspnetcorehero.toastnotification.1.1.0.nupkg.sha512",
+    "C:\\Users\\Robert\\.nuget\\packages\\chart.js\\2.9.3\\chart.js.2.9.3.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\mailkit\\2.13.0\\mailkit.2.13.0.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\microsoft.aspnetcore.authorization\\1.0.3\\microsoft.aspnetcore.authorization.1.0.3.nupkg.sha512",
@@ -113,6 +114,7 @@
     "C:\\Users\\Robert\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\sendgrid\\9.24.0\\sendgrid.9.24.0.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\starkbank-ecdsa\\1.3.1\\starkbank-ecdsa.1.3.1.nupkg.sha512",
+    "C:\\Users\\Robert\\.nuget\\packages\\sweetalert\\1.0.0\\sweetalert.1.0.0.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\system.appcontext\\4.3.0\\system.appcontext.4.3.0.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Robert\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",

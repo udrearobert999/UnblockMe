@@ -18,16 +18,16 @@ namespace UnblockMe.Controllers
         private readonly ILogger<ManageCarsController> _logger;
         private readonly IUserService _userService;
         private readonly ICarsService _carsService;
- 
+        private readonly IBlockingInfoService _blockingInfoService;
         public ManageCarsController(ILogger<ManageCarsController> logger,
-                                IUserService userService,
-                                ICarsService carsService
-                               )
+                                    IUserService userService,
+                                    ICarsService carsService,
+                                    IBlockingInfoService blockingInfoService)
         {
             _logger = logger;
             _carsService = carsService;
             _userService = userService;
-         
+            _blockingInfoService = blockingInfoService;
         }
 
 
@@ -127,7 +127,11 @@ namespace UnblockMe.Controllers
             return Ok("Car parked succesfully!");
 
         }
+        public double GetBlockingChanceOfSpot(double lat, double lng)
+        {
+            return _blockingInfoService.GetBlockingChanceOfSpot(lat, lng, 1);
+        }
 
-  
+
     }
 }

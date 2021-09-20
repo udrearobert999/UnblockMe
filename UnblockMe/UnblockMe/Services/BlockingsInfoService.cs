@@ -15,7 +15,7 @@ namespace UnblockMe.Services
             _mathService = mathService;
         }
 
-        public double GetBlockingProbabilityOfSpot(double lat, double lng, double radius)
+        public double GetBlockingChanceOfSpot(double lat, double lng, double radius)
         {
             var cars = _carsService.GetActiveCars();
             int parkedCarsCnt = 0;
@@ -27,16 +27,27 @@ namespace UnblockMe.Services
                     blockedCarsCnt++;
                 if (car.lat != null && car.lng != null)
                     parkedCarsCnt++;
+                if (_mathService.ClaculateDist(
+                    lat,
+                    car.lat.GetValueOrDefault(),
+                    lng,
+                    car.lng.GetValueOrDefault()) <= 1)
+                {
+                    if (car.IsBlockedByCar != null)
+                        blockedCarsCnt++;
+                    if (car.lat != null && car.lng != null)
+                        parkedCarsCnt++;
 
+                }
             }
             if (parkedCarsCnt == 0)
-                return 1;
+                return 0;
             return blockedCarsCnt / (double)parkedCarsCnt;
         }
     }
     public interface IBlockingInfoService
     {
-        public double GetBlockingProbabilityOfSpot(double lat, double lng, double radius);
+        public double GetBlockingChanceOfSpot(double lat, double lng, double radius);
     }
 }
 

@@ -1,34 +1,65 @@
 ﻿var parkButton = document.querySelector("#parkButton");
-if(parkButton)
+
+function parkSelectedCar() {
+    $.ajax({
+        url: "ManageCars/ParkCar",
+        data: {
+            licensePlate: $("#selectParkCar").val(),
+            //lat: p.coords.latitude,
+            //lng: p.coords.longitude
+            lat: 44.3301785,
+            lng: 23.7948807
+        },
+        success: function (status) {
+            toastNotifySuccess(status)
+        },
+        error: function (error) {
+
+            toastNotifyError(error.responseText);
+        }
+    });
+}
+
+if (parkButton)
     parkButton.addEventListener('click', () => {
-      if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition((p) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((p) => {
+                $.ajax({
+                    url: "ManageCars/GetBlockingChanceOfSpot",
+                    data: {
+                        //licensePlate: $("#selectParkCar").val(),
+                        //lat: p.coords.latitude,
+                        //lng: p.coords.longitude
+                        lat: 44.3301785,
+                        lng: 23.7948807
+                    },
+                    success: function (data) {
+                        var chance = (data * 100).toFixed(2);
+                        if (chance > 30)
+                            swal({
+                                title: "Are you sure you want to park here?",
+                                text: `You have ${chance} % chance to be blocked`,
+                                icon: "warning",
+                                buttons: true,
+                                dangerMode: true,
+                            }).then((val) => {
+                                if (val)
+                                    parkSelectedCar();
+                            });
+                        else 
+                            parkSelectedCar()
 
-              console.log(p.coords.latitude, p.coords.longitude);
-              $.ajax({
-                  url: "ManageCars/ParkCar",
-                  data: {
-                      licensePlate: $("#selectParkCar").val(),
-                      //lat: p.coords.latitude,
-                      //lng: p.coords.longitude
-                      lat: 44.3301785,
-                      lng: 23.7948807
-                  },
-                  success: function (status) {
-
-                      toastNotifySuccess(status, 1000);
-
-                  },
-                  error: function (error) {
+                    },
+                    error: function (error) {
 
 
-                  }
-              });
-          });
-      } 
-        
-    
-});
+                    }
+                });
+            });
+        }
+
+
+    });
 
 $("#editCarForm").submit(function submitfunc(event) {
     event.preventDefault();
@@ -54,14 +85,14 @@ $("#editCarForm").submit(function submitfunc(event) {
 });
 $("#selectEditCar").change(function EditCar(event) {
 
-    console.log($(this).val());
+
     $.ajax({
         url: "ManageCars/GetCarByLicensePlate",
         data: {
             licensePlate: $(this).val()
         },
         success: function (data) {
-            console.log(data);
+
             $("#brand").val(data.brand);
             $("#licenseplate").val(data.licensePlate);
             $("#color").val(data.color);

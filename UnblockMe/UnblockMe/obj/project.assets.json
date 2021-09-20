@@ -34,6 +34,9 @@
           "buildMultiTargeting/AspNetCoreHero.ToastNotification.props": {}
         }
       },
+      "Chart.js/2.9.3": {
+        "type": "package"
+      },
       "jQuery/3.6.0": {
         "type": "package"
       },
@@ -1621,6 +1624,9 @@
         "runtime": {
           "lib/netstandard2.1/StarkbankEcdsa.dll": {}
         }
+      },
+      "SweetAlert/1.0.0": {
+        "type": "package"
       },
       "System.AppContext/4.3.0": {
         "type": "package",
@@ -3267,6 +3273,21 @@
         "staticwebassets/notyf.min.js",
         "staticwebassets/toastify.css",
         "staticwebassets/toastify.js"
+      ]
+    },
+    "Chart.js/2.9.3": {
+      "sha512": "SY8PuXOJANgsEGMtuXPb/gxazfXdySUuFwTPbQUbw/YKiltR6FJ3mXrLFpr6N2MSCS7oUtfOhTotxLifyJcQNA==",
+      "type": "package",
+      "path": "chart.js/2.9.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "chart.js.2.9.3.nupkg.sha512",
+        "chart.js.nuspec",
+        "content/Content/Chart.css",
+        "content/Content/Chart.min.css",
+        "content/Scripts/Chart.js",
+        "content/Scripts/Chart.min.js"
       ]
     },
     "jQuery/3.6.0": {
@@ -5648,6 +5669,28 @@
         "lib/netstandard2.1/StarkbankEcdsa.dll",
         "starkbank-ecdsa.1.3.1.nupkg.sha512",
         "starkbank-ecdsa.nuspec"
+      ]
+    },
+    "SweetAlert/1.0.0": {
+      "sha512": "eaHJph59CQhNUf5h6k02LaWM31az2t8JBHcJuVXW2dZ+QU2TDkHCxOUSNdAVIgfj+ivQsBTp6laWt8H0nKAydQ==",
+      "type": "package",
+      "path": "sweetalert/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Content/bootstrap/mixins.less",
+        "content/Content/bootstrap/variables.less",
+        "content/Content/sweetalert/bootstrap-sweetalert.png",
+        "content/Content/sweetalert/docs.css",
+        "content/Content/sweetalert/sweet-alert-animations.less",
+        "content/Content/sweetalert/sweet-alert-combine.less",
+        "content/Content/sweetalert/sweet-alert.css",
+        "content/Content/sweetalert/sweet-alert.less",
+        "content/Content/sweetalert/thumbs-up.jpg",
+        "content/Controllers/SweetController.cs",
+        "content/Views/Sweet/Alert.cshtml",
+        "sweetalert.1.0.0.nupkg.sha512",
+        "sweetalert.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -10178,6 +10221,7 @@
     ".NETCoreApp,Version=v3.1": [
       "AjaxControlToolkit >= 20.1.0",
       "AspNetCoreHero.ToastNotification >= 1.1.0",
+      "Chart.js >= 2.9.3",
       "MailKit >= 2.13.0",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 3.1.15",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 3.1.15",
@@ -10188,6 +10232,7 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5",
       "Microsoft.jQuery.Unobtrusive.Ajax >= 3.2.6",
       "SendGrid >= 9.24.0",
+      "SweetAlert >= 1.0.0",
       "Twilio >= 5.63.0",
       "Twilio.AspNet.Core >= 5.37.2",
       "jQuery >= 3.6.0"
@@ -10248,6 +10293,10 @@
             "target": "Package",
             "version": "[1.1.0, )"
           },
+          "Chart.js": {
+            "target": "Package",
+            "version": "[2.9.3, )"
+          },
           "MailKit": {
             "target": "Package",
             "version": "[2.13.0, )"
@@ -10287,6 +10336,10 @@
           "SendGrid": {
             "target": "Package",
             "version": "[9.24.0, )"
+          },
+          "SweetAlert": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           },
           "Twilio": {
             "target": "Package",

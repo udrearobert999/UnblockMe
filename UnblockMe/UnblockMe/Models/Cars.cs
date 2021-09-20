@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 // Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
 // If you have enabled NRTs for your project, then un-comment the following line:
@@ -21,7 +22,9 @@ namespace UnblockMe.Models
         public double? lat { get; set; }
         public double? lng { get; set; }
         public string OwnerId { get; set; }
+        [JsonIgnore]
         public virtual Users Owner { get; set; }
+        [JsonIgnore]
         public int CityId { get; set; }
     }
 }

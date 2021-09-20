@@ -1,0 +1,21 @@
+﻿main {
+    height: 80vh;
+    width: 82vw;
+}
+
+.chartContainer {
+    position: relative; 
+    height:80%; 
+    width:80vw;
+}
+.info {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+p{
+    padding-left:50px;
+}
+.title {
+    display: flex;
+    justify-content: center;
+}

@@ -17,14 +17,16 @@ namespace UnblockMe.Controllers
         private readonly IRatingService _ratingService;
         private readonly ICarsService _carsService;
         private readonly IMathService _mathService;
+        private readonly IMapInfoProviderService _mapInfoService;
 
-        public ProfileController(IRatingService ratingService, IUserService userService, ICarsService carsService, IMathService mathService)
+        public ProfileController(IRatingService ratingService, IUserService userService, ICarsService carsService, IMathService mathService, IMapInfoProviderService mapInfoService)
         {
 
             _userService = userService;
             _ratingService = ratingService;
             _carsService = carsService;
             _mathService = mathService;
+            _mapInfoService = mapInfoService;
         }
 
         [Route("Profile/{id}")]
@@ -58,17 +60,17 @@ namespace UnblockMe.Controllers
             {
                 var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
                  var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
-
-                var distance = _mathService.ClaculateDist(MyCar.lat.GetValueOrDefault(), YourCar.lat.GetValueOrDefault(), MyCar.lng.GetValueOrDefault(), YourCar.lng.GetValueOrDefault());
-                if (!MyCar.lat.HasValue || !MyCar.lng.HasValue)
-                    return BadRequest($"{MyCar.LicensePlate} is not parked!");
                 if (!YourCar.lat.HasValue || !YourCar.lng.HasValue)
                     return BadRequest($"{YourCar.LicensePlate} is not parked!");
 
+                if (!MyCar.lat.HasValue || !MyCar.lng.HasValue)
+                    return BadRequest($"{MyCar.LicensePlate} is not parked!");
+
+                var distance = _mathService.ClaculateDist(MyCar.lat.GetValueOrDefault(), YourCar.lat.GetValueOrDefault(), MyCar.lng.GetValueOrDefault(), YourCar.lng.GetValueOrDefault());
 
                 if (distance<=0.02)
                 {
-                    _carsService.CarBlocksCar(MyCar, YourCar);
+                    _carsService.CarBlocksCar(MyCar, YourCar); 
                     return Ok("The user will be Notified");
                 }
                 else

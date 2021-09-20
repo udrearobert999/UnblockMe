@@ -46,12 +46,12 @@ function onEachFeature(feature, layer) {
     });
 }
 function clickEventFeature(e) {
- 
+
     let countyName = e.target.feature.properties.name;
     let infoReturner = document.getElementById('returnInfo');
     infoReturner.href += "/" + String(countyName);
     infoReturner.click();
-       
+
 }
 
 var mymap = L.map('mapid').setView([44.3126, 23.8005], 9);
@@ -79,28 +79,53 @@ info.update = function (props) {
 };
 
 info.addTo(mymap);
-    
+
 var markers = [];
+var carsArr = []
+var carMarkers;
 var interactions;
 document.addEventListener("DOMContentLoaded", function (event) {
+    if (document.querySelector('#showBlockings')) {
+        $.ajax({
+            url: "GetBlockingInteraction",
+            success: function (data) {
+                document.querySelector(".info").hidden = true;
+                for (const interaction of data) {
+
+                    let lat = interaction.blockedCarLat;
+                    let lng = interaction.blockedCarLng;
+                    let popUp = `<b>${interaction.blockedCarLicensePlate} is blocked by ${interaction.blockingCarLicensePlate}</b>`;
+                    let markerLocation = new L.LatLng(lat, lng);
+                    let marker = new L.Marker(markerLocation);
+                    marker.bindPopup(popUp);
+                    markers.push(marker);
+                    interactions = L.layerGroup(markers);
+
+                }
+
+
+            },
+            error: function (error) {
+
+            }
+        });
+    }
+
     $.ajax({
-        url: "GetBlockingInteraction",
+        url: "GetCarJson",
         success: function (data) {
             document.querySelector(".info").hidden = true;
-            for (const interaction of data) {
-
-                let lat = interaction.blockedCarLat;
-                let lng = interaction.blockedCarLng;
-                let popUp = `<b>${interaction.blockedCarLicensePlate} is blocked by ${interaction.blockingCarLicensePlate}</b>`;
-                var markerLocation = new L.LatLng(lat, lng);
-                var marker = new L.Marker(markerLocation);
+            for (const car of data) {
+                let lat = car.lat;
+                let lng = car.lng;
+                let popUp = `<b>${car.licensePlate}</b>`;
+                let markerLocation = new L.LatLng(lat, lng);
+                let marker = new L.Marker(markerLocation);
                 marker.bindPopup(popUp);
-                markers.push(marker);
-                interactions = L.layerGroup(markers);
-                interactions.addTo(mymap);
+                carsArr.push(marker);
+                carMarkers = L.layerGroup(carsArr);
+                carMarkers.addTo(mymap);
             }
-
-
         },
         error: function (error) {
 
@@ -113,24 +138,25 @@ var geojson = L.geoJson(statesData, {
     style: style
 });
 
-document.querySelector("#showInfo").addEventListener('click', () => {
-    document.querySelector("#showInfo").hidden = true;
-    document.querySelector("#showBlockings").hidden = false;
+document.querySelector("#showInfo")?.addEventListener('click', () => {
     document.querySelector(".info").hidden = false;
     interactions?.remove();
     geojson.addTo(mymap);
+    carMarkers.remove();
 });
-document.querySelector("#showBlockings").addEventListener('click', () => {
-    document.querySelector("#showInfo").hidden = false;
-    document.querySelector("#showBlockings").hidden = true;
+document.querySelector("#showBlockings")?.addEventListener('click', () => {
     document.querySelector(".info").hidden = true;
-;
     interactions?.addTo(mymap);
     geojson?.remove();
+    carMarkers?.remove();
 
 });
-
-
+document.querySelector("#showCars")?.addEventListener('click', () => {
+    document.querySelector(".info").hidden = true;
+    interactions?.remove(mymap);
+    geojson?.remove();
+    carMarkers?.addTo(mymap);
+});
 
 
 

@@ -37,7 +37,7 @@
                         {
 
                             <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="ManageCars" asp-action="Index">Add Car</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="ManageCars" asp-action="Index">Manage Cars</a>
                             </li>
 
                         }
@@ -47,12 +47,11 @@
                                 <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="AdminPanel">AdminPanel</a>
                             </li>
                         }
-                        @if (User.IsInRole("Premium") || User.IsInRole("Admin"))
-                        {
+                       
                             <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Premium" asp-action="MapInteractions">Map</a>
                             </li>
-                        }
+                        
 
                     </ul>
                 </div>
