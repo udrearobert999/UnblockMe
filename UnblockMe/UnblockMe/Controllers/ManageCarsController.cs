@@ -122,6 +122,9 @@ namespace UnblockMe.Controllers
         {
            
             var car = _carsService.GetCarByLicensePlate(licenseplate);
+            if (car.IsBlockedByCar != null)
+                return BadRequest("This car is blocked!");
+
             _carsService.ParkCar(car, lat, lng);
             _carsService.FindAndAssignCityToCar(car);
             return Ok("Car parked succesfully!");

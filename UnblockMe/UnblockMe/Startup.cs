@@ -79,6 +79,7 @@ namespace UnblockMe
             services.AddTransient<IMathService, MathService>();
             services.AddTransient<IMapInfoProviderService, MapInfoProviderService>();
             services.AddTransient<IBlockingInfoService, BlockingsInfoService>();
+            services.AddTransient<ICircularBlockingVerifier, CircularBlockingVerifierService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

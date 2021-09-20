@@ -279,7 +279,7 @@
                         </div>
                         <div class="rightOfImage">
                             <div class="profileInfo">
-                                <p>@element.Rater.FirstName @element.Rater.LastName</p>
+                                <p>@element.Rater.Email.Substring(0, @element.Rater.Email.IndexOf('@'))</p>
                                 <form class="rating shrinked">
                                     <div class="inputsContainer noHover">
                                         @for (int i = 1; i <= 10; i++)

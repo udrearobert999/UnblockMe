@@ -17,16 +17,15 @@ namespace UnblockMe.Controllers
         private readonly IRatingService _ratingService;
         private readonly ICarsService _carsService;
         private readonly IMathService _mathService;
-        private readonly IMapInfoProviderService _mapInfoService;
-
-        public ProfileController(IRatingService ratingService, IUserService userService, ICarsService carsService, IMathService mathService, IMapInfoProviderService mapInfoService)
+        private readonly ICircularBlockingVerifier _circularBlockingVerifier;
+        public ProfileController(IRatingService ratingService, IUserService userService, ICarsService carsService, IMathService mathService, IMapInfoProviderService mapInfoService, ICircularBlockingVerifier circularBlockingVerifier)
         {
 
             _userService = userService;
             _ratingService = ratingService;
             _carsService = carsService;
             _mathService = mathService;
-            _mapInfoService = mapInfoService;
+            _circularBlockingVerifier = circularBlockingVerifier;
         }
 
         [Route("Profile/{id}")]
@@ -58,8 +57,14 @@ namespace UnblockMe.Controllers
         {
             try
             {
-                var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
+                 var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
                  var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
+                 bool isCycle = _circularBlockingVerifier.VerifyBlocking(new Tuple<string, string>(MyPlate, YourPlate));
+                if (isCycle)
+                    return BadRequest("Invalid Action! Are you sure you blocked this car?");
+               
+
+
                 if (!YourCar.lat.HasValue || !YourCar.lng.HasValue)
                     return BadRequest($"{YourCar.LicensePlate} is not parked!");
 
@@ -78,7 +83,7 @@ namespace UnblockMe.Controllers
             }
             catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("CK_Colision_Cars_Constraint")))
             {
-                return BadRequest("Invalid action!");
+                return BadRequest("Invalid Action! Are you sure you blocked this car?");
             }
 
         }
@@ -89,12 +94,29 @@ namespace UnblockMe.Controllers
             {
                 var MyCar = _carsService.GetCarByLicensePlate(MyPlate);
                 var YourCar = _carsService.GetCarByLicensePlate(YourPlate);
-                _carsService.CarBlocksCar(YourCar, MyCar);
-                return Ok("The user will be Notified");
+                bool isCycle = _circularBlockingVerifier.VerifyBlocking(new Tuple<string, string>(YourPlate,MyPlate));
+                if (isCycle)
+                    return BadRequest("Invalid Action! Are you sure you got blocked by this car?");
+
+
+                if (!YourCar.lat.HasValue || !YourCar.lng.HasValue)
+                    return BadRequest($"{YourCar.LicensePlate} is not parked!");
+
+                if (!MyCar.lat.HasValue || !MyCar.lng.HasValue)
+                    return BadRequest($"{MyCar.LicensePlate} is not parked!");
+                var distance = _mathService.ClaculateDist(MyCar.lat.GetValueOrDefault(), YourCar.lat.GetValueOrDefault(), MyCar.lng.GetValueOrDefault(), YourCar.lng.GetValueOrDefault());
+
+                if (distance <= 0.02)
+                {
+                    _carsService.CarBlocksCar(YourCar, MyCar);
+                    return Ok("The user will be Notified");
+                }
+                else
+                    return BadRequest("The cars are too far apart!");
             }
             catch (Exception e) when ((bool)(e.InnerException?.ToString().Contains("CK_Colision_Cars_Constraint")))
             {
-                return BadRequest("Invalid action!");
+                return BadRequest("Invalid Action! Are you sure you got blocked by this car ? ");
             }
         }
 
