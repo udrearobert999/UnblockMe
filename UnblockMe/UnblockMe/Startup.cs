@@ -72,8 +72,6 @@ namespace UnblockMe
             services.AddTransient<ICarsService, CarsService>();
             services.AddTransient<IUserService, UserService>();
             services.AddHttpContextAccessor();
-            services.AddTransient<ISMSService, SMSService>();
-            services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IRatingService, RatingService>();
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IMathService, MathService>();

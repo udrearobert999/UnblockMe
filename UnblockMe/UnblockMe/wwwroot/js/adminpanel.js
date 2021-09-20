@@ -1,4 +1,4 @@
-﻿$("#submitSearchCar").click(function (event) {
+﻿$("#searchCars").submit(function (event) {
     event.preventDefault();
     event.stopImmediatePropagation();
 
@@ -13,7 +13,7 @@
         }
     });
 });
-$("#submitSearchUser").click(function (event) {
+$("#searchUsers").submit(function (event) {
     event.preventDefault();
     event.stopImmediatePropagation();
 
