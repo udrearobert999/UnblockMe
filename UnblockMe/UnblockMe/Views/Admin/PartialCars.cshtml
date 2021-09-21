@@ -1,5 +1,9 @@
 ﻿@model List<Cars>
 
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+
 @foreach (var car in Model)
 {
 
@@ -17,13 +21,16 @@
                 </button>
             </div>
             <div class="modal-body">
-
                 <input hidden type="text" id="licensePlate" />
-                <label for="brand">Brand</label>
-                <input type="text" id="brand" name="brand" />
+                <div class="form-outline">
+                    <input type="text" id="brand" class="form-control active" />
+                    <label class="form-label" for="brand">Brand</label>
+                </div>
                 <br />
-                <label for="color">Color</label>
-                <input type="text" id="color" name="color" />
+                <div class="form-outline">
+                    <input type="text" id="color" class="form-control active" />
+                    <label class="form-label" for="color">Color</label>
+                </div>
                 <br />
             </div>
             <div class="modal-footer">

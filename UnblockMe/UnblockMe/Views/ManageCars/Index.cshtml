@@ -61,18 +61,23 @@
             <div class="modal-body">
                 <form id="addCarForm">
                     <p>
-                        <label for="addlicensePlate">License Plate: </label>
-                        <input type="text" id="addlicensePlate" required />
+                        <div class="form-outline">
+                            <input type="text" id="addlicensePlate" class="form-control" required/>
+                            <label class="form-label" for="addlicensePlate">License Plate</label>
+                        </div>
                     </p>
                     <p>
-
-                        <label for="addBrand">Brand: </label>
-                        <input type="text" id="addBrand" required />
+                        <div class="form-outline">
+                            <input type="text" id="addBrand" class="form-control" required/>
+                            <label class="form-label" for="addBrand">Brand</label>
+                        </div>
                     </p>
                     <p>
-
-                        <label for="addColor">Color: </label>
-                        <input type="text" id="addColor" required />
+                        <div class="form-outline">
+                            <input type="text" id="addColor" class="form-control" required />
+                            <label class="form-label" for="addColor">Color</label>
+                        </div>
+                      
                     </p>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary gray" data-dismiss="modal">Close</button>
@@ -101,31 +106,35 @@
             <div class="modal-body">
                 @if (Model.Count() > 0)
                 {
-                    <form id="editCarForm" method="post">
-                        <select id="selectEditCar">
+                <form id="editCarForm" method="post">
+                    <select id="selectEditCar" class="form-control select-input placeholder-active active">
 
-                            @{ int i = 1;}
-                            @foreach (var element in Model)
-                            {
+                        @{ int i = 1;}
+                        @foreach (var element in Model)
+                        {
 
-                                <option value="@element.LicensePlate" id="select@(i)">@element.LicensePlate</option>
-                                i++;
-                            }
-                        </select>
-                        <br /><br />
-                        <input hidden type="text" id="licensePlate" />
-                        <label for="brand">Brand</label>
-                        <input type="text" id="brand" name="brand" />
-                        <br />
-                        <label for="color">Color</label>
-                        <input type="text" id="color" name="color" />
-                        <br />
-                        <button type="button" class="btn btn-secondary gray" id="deletButton">Remove</button>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary gray" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </form>
+                            <option value="@element.LicensePlate" id="select@(i)">@element.LicensePlate</option>
+                            i++;
+                        }
+                    </select>
+                    <br /><br />
+                    <input hidden type="text" id="licensePlate" />
+                    <div class="form-outline">
+                        <input type="text" id="brand" class="form-control active" required />
+                        <label class="form-label active" for="brand">Brand</label>
+                    </div>
+                    <br />
+                    <div class="form-outline">
+                        <input type="text" id="color" class="form-control active" required />
+                        <label class="form-label active" for="color">Color</label>
+                    </div>
+                    <br />
+                    <button type="button" class="btn btn-secondary gray" id="deletButton">Remove</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary gray" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
                 }
                 else
                 {
@@ -152,9 +161,9 @@
 
                 @if (Model.Count() > 0)
                 {
-                    <label for="selectEditCar">Choose car:</label>
+                    
                     <div id="parkCarContainer">
-                        <select id="selectParkCar">
+                        <select id="selectParkCar" class="form-control select-input placeholder-active active">
 
                             @{ int i = 1;}
                             @foreach (var element in Model)

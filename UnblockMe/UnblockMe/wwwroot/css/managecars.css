@@ -1,8 +1,6 @@
-﻿#parkCarContainer {
-   display:inline-block;
-   position:relative;
-   left:50%;
-   transform:translate(-80%);
+﻿#selectParkCar {
+    display: inline-block;
+    width: 80%;
 }
 .gridwrapper {
     height: 70vh;

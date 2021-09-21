@@ -21,6 +21,6 @@ body {
 .gray{
     background:gray;
 }
-.purple {
-    background: rgb(77,70,200);
-}
+    .gray:hover {
+        background: gray;
+    }
