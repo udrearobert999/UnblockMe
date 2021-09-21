@@ -50,3 +50,22 @@ input[type=submit] {
   background-color: DodgerBlue !important; 
   color: #ffffff; 
 }
+main {
+    height:60vh;
+}
+.formLayout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 40px;
+    box-shadow: 0px 0px 10px 2px gray;
+    flex-direction: column;
+    border-style: solid;
+    border-width:2px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 50%;
+    height: 40%;
+}

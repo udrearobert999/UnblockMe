@@ -1,12 +1,28 @@
 ﻿
+function init() {
+    let user_id = $("#Id").val();
+    $.ajax({
+        url: "GetUserRoles",
+        dataType: 'html',
+        data: {
+            id: user_id
+        },
+        success: function (data) {
+            $('.ManageRolesContainer').html(data);
+        }
+    });
+}
+
 var banColapseButton = document.querySelector("#banAction");
 var rolesColapseButton = document.querySelector("#ManageRoles");
 var infoColapseButton = document.querySelector("#infoAction");
-var lastUserPressed = null;
 var allColapsibleContent = document.querySelectorAll(".colapsible");
+var lastUserPressed = null;
 
 
-
+$('#editUser').on('shown.bs.modal', function (e) {
+    init();
+})
 
 function validateColapsible(colapsible) {
    
