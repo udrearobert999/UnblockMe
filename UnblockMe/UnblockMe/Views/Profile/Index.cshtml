@@ -91,7 +91,7 @@
                             <input type="radio" name="Contact" value="Email" id="Contact" />
                             <br />
                             <label for="myplates">My Cars:</label>
-                            <select name="myplates" id="myplates1" required>
+                            <select name="myplates" id="myplates1" class="form-control select-input placeholder-active active" required>
                                 @foreach (var element in Model.Item2)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
@@ -100,7 +100,7 @@
 
                             </select>
                             <label for="yourplates">@(Model.Item3.FirstName)'s Cars</label>
-                            <select name="yourplates" id="yourplates1" required>
+                            <select name="yourplates" id="yourplates1" class="form-control select-input placeholder-active active" required>
                                 @foreach (var element in Model.Item4)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
@@ -139,7 +139,7 @@
                             <input type="radio" name="Contact" value="Email" id="Contact" />
                             <br />
                             <label for="myplates">My Cars:</label>
-                            <select name="myplates" id="myplates2" required>
+                            <select name="myplates" id="myplates2" class="form-control select-input placeholder-active active" required>
                                 @foreach (var element in Model.Item2)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
@@ -148,7 +148,7 @@
 
                             </select>
                             <label for="yourplates">@(Model.Item3.FirstName)'s Cars</label>
-                            <select name="yourplates" id="yourplates2" required>
+                            <select name="yourplates" id="yourplates2" class="form-control select-input placeholder-active active" required>
                                 @foreach (var element in Model.Item4)
                                 {
                                     <option value="@element.LicensePlate">@element.LicensePlate</option>
@@ -179,7 +179,8 @@
                     <div class="modal-body">
                         
                         <label for="yourplates">@(Model.Item3.FirstName)'s Cars</label>
-                        <select name="yourplates" id="yourplates3" required>
+                        <br />
+                        <select name="yourplates" id="yourplates3" class="form-control select-input placeholder-active active" required>
                             @foreach (var element in Model.Item4)
                             {
                                 <option value="@element.LicensePlate">@element.LicensePlate</option>
