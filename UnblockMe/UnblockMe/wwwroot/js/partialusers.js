@@ -1,5 +1,4 @@
 ﻿
-
 var banColapseButton = document.querySelector("#banAction");
 var rolesColapseButton = document.querySelector("#ManageRoles");
 var infoColapseButton = document.querySelector("#infoAction");
@@ -14,7 +13,7 @@ function validateColapsible(colapsible) {
     for (const element of allColapsibleContent)
         if (element != colapsible)
             element.style.maxHeight = '0px';
-
+   
 }
 
 function colapse(colapsibleContent)
@@ -90,7 +89,18 @@ document.querySelector("#unbanAction").addEventListener('click', () => {
             id: user_id
         },
         success: function (status) {
-            toastNotifySuccess(status, 1000);
+            Toastify({
+                text: status,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(79,155,48)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
 
             document.querySelector("#unbanAction").hidden = true;
             document.querySelector("#banAction").hidden = false;
@@ -99,7 +109,18 @@ document.querySelector("#unbanAction").addEventListener('click', () => {
 
         },
         error: function (error) {
-            toastNotifyError(error.responseText, 1000);
+            Toastify({
+                text: error.responseText,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(194,10,4)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         }
 
     });
@@ -136,7 +157,18 @@ document.querySelector(".banButton").addEventListener('click', () => {
             duration: duration
         },
         success: function (status) {
-            toastNotifySuccess(status, 1000);
+            Toastify({
+                text: status,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(79,155,48)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
             colapse(document.querySelector(".colapsible.colapsibleBan"));
             document.querySelector("#banAction").hidden = true;
             document.querySelector("#unbanAction").hidden = false;
@@ -145,7 +177,18 @@ document.querySelector(".banButton").addEventListener('click', () => {
         },
         error: function (error) {
 
-            toastNotifyError(error.responseText, 1000);
+            Toastify({
+                text: error.responseText,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(194,10,4)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         }
 
     });
@@ -241,7 +284,18 @@ $("#editUserForm").submit(function func(event) {
         },
         error: function (error) {
 
-            toastNotifyError(error.responseText, 1000);
+            Toastify({
+                text: error.responseText,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(194,10,4)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         }
     })
 

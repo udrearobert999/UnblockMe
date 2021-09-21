@@ -16,3 +16,11 @@ body {
     bottom: 0;
     height: 60px;
 }
+
+
+.gray{
+    background:gray;
+}
+.purple {
+    background: rgb(77,70,200);
+}

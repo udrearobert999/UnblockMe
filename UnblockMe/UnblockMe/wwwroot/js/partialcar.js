@@ -30,10 +30,32 @@ $("#submitChanges").click(function submitfunc(event) {
 
         },
         success: function (status) {
-            toastNotifySuccess(status, 1000);
+            Toastify({
+                text: status,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(79,155,48)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         },
         error: function (error) {
-            toastNotifyError(error.responseText, 1000);
+            Toastify({
+                text: error.responseText,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(194,10,4)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         }
 
     });

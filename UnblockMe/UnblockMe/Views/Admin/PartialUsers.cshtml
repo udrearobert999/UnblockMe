@@ -2,6 +2,9 @@
 
 <link href="~/css/colapsible.css" rel="stylesheet" />
 <link href="~/css/partialUsers.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+
 @foreach (var user in Model)
 {
 
@@ -98,10 +101,11 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary gray" data-dismiss="modal">Close</button>
                 <button type="submit" form="editUserForm" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="~/js/partialusers.js"></script>

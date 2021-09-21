@@ -122,11 +122,11 @@ namespace UnblockMe.Controllers
             var banInfo = _userService.GetUserBanInfo(id);
         
             var stringBuilder = new StringBuilder();
-            stringBuilder.AppendLine("Admin fullname,Admin email,Reason,Ban Start,Ban End");
+            stringBuilder.AppendLine("Banned By,Reason,Ban Start,Ban End");
             foreach (var banAction in banInfo)
             {
                 var user = _userService.GetUserById(banAction.BannedBy);
-                stringBuilder.AppendLine($"{user.FirstName + ' ' + user.LastName}, {user.Email},{banAction.Reason},"
+                stringBuilder.AppendLine($"{user.FirstName + ' ' + user.LastName},{banAction.Reason},"
                     + $"{banAction.BanStart},{banAction.BanEnd}");
             }
 

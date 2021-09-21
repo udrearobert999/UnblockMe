@@ -9,13 +9,35 @@ document.querySelector("#unblockButton").addEventListener('click', () => {
         },
         success: function (status) {
         
-            toastNotifySuccess(status, 1000);
+            Toastify({
+                text: status,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(79,155,48)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
             $("#BlockedYou").modal('hide');
 
         },
         error: function (error) {
 
-            toastNotifyError(error.responseText, 3000);
+            Toastify({
+                text: error.responseText,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(194,10,4)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         }
 
     });
@@ -33,12 +55,34 @@ $("#form1").submit(function blockedyou(event) {
         },
         success: function (status) {
             $("#BlockedYou").modal('hide');
-            toastNotifySuccess(status, 1000);
+            Toastify({
+                text: status,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(79,155,48)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
 
         },
         error: function (error) {
 
-            toastNotifyError(error.responseText, 3000);
+            Toastify({
+                text: error.responseText,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(194,10,4)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         }
 
     });
@@ -59,12 +103,34 @@ $("#form2").submit(function unblockme(event) {
 
             console.log(status);
             $("#UnblockMe").modal('hide');
-            toastNotifySuccess(status, 1000);
+            Toastify({
+                text: status,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(79,155,48)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
 
         },
         error: function (error) {
 
-            toastNotifyError(error.responseText, 3000);
+            Toastify({
+                text: error.responseText,
+                duration: 2000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "bottom", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                backgroundColor: "rgb(194,10,4)",
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                onClick: function () { } // Callback after click
+            }).showToast();
         }
     });
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Robert\\Desktop\\New folder\\UnblockMe\\UnblockMe\\UnblockMe.csproj": {}
+    "C:\\Users\\Robert\\Desktop\\UnblockMe\\UnblockMe\\UnblockMe\\UnblockMe.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Robert\\Desktop\\New folder\\UnblockMe\\UnblockMe\\UnblockMe.csproj": {
+    "C:\\Users\\Robert\\Desktop\\UnblockMe\\UnblockMe\\UnblockMe\\UnblockMe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Robert\\Desktop\\New folder\\UnblockMe\\UnblockMe\\UnblockMe.csproj",
+        "projectUniqueName": "C:\\Users\\Robert\\Desktop\\UnblockMe\\UnblockMe\\UnblockMe\\UnblockMe.csproj",
         "projectName": "UnblockMe",
-        "projectPath": "C:\\Users\\Robert\\Desktop\\New folder\\UnblockMe\\UnblockMe\\UnblockMe.csproj",
+        "projectPath": "C:\\Users\\Robert\\Desktop\\UnblockMe\\UnblockMe\\UnblockMe\\UnblockMe.csproj",
         "packagesPath": "C:\\Users\\Robert\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Robert\\Desktop\\New folder\\UnblockMe\\UnblockMe\\obj\\",
+        "outputPath": "C:\\Users\\Robert\\Desktop\\UnblockMe\\UnblockMe\\UnblockMe\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
