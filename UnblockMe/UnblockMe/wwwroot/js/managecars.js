@@ -118,7 +118,6 @@ $("#editCarForm").submit(function submitfunc(event) {
 });
 $("#selectEditCar").change(function EditCar(event) {
 
-
     $.ajax({
         url: "ManageCars/GetCarByLicensePlate",
         data: {
@@ -129,12 +128,10 @@ $("#selectEditCar").change(function EditCar(event) {
             $("#brand").val(data.brand);
             $("#licenseplate").val(data.licensePlate);
             $("#color").val(data.color);
-
-
         }
-
     });
 });
+
 $("#editButton").click(function func(event) {
     $.ajax({
         url: "ManageCars/GetCarByLicensePlate",
